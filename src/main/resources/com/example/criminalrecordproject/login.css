@@ -1,0 +1,26 @@
+
+
+.fbi-logo{
+
+
+}
+
+.left_column{
+    -fx-background-color: linear-gradient(to right, #0b1b23 , #2079a4);
+}
+
+.right_column{
+    -fx-background-color: linear-gradient(to left, #0b1b23, #2079a4);
+}
+
+.login-button{
+    -fx-background-color: pink;
+}
+
+.singup-button{
+
+}
+
+.input-boxes{
+
+}
