@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,11 +15,6 @@
          <children>
             <AnchorPane layoutX="300.0" prefHeight="600.0" prefWidth="504.0" styleClass="right_column" stylesheets="@login.css">
                <children>
-                  <Text fill="#f8f8f8" layoutX="34.0" layoutY="531.0" strokeType="OUTSIDE" strokeWidth="0.0" text="I have no account :" wrappingWidth="122.66796875">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
                   <PasswordField fx:id="password_box" layoutX="108.0" layoutY="338.0" prefHeight="42.0" prefWidth="284.0" promptText="Password">
                      <font>
                         <Font size="20.0" />
@@ -41,7 +35,6 @@
                         <Font name="Arial Black" size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="signup_button" layoutX="168.0" layoutY="513.0" mnemonicParsing="false" styleClass="singup-button" stylesheets="@login.css" text="Sign up" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="600.0" prefWidth="305.0" styleClass="left_column" stylesheets="@login.css">

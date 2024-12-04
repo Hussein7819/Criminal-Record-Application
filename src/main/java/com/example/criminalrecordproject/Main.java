@@ -9,9 +9,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-public class Main extends Application {
+public class Main //extends Application {
+{
 
-    @Override
+   /* @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("sample.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -20,8 +21,13 @@ public class Main extends Application {
         stage.show();
     }
 
+    */
     public static void main(String[] args) {
 
-        launch();
+     /*launch();
+      */
     }
+
+
+
 }
