@@ -7,6 +7,14 @@ abstract public class Person
     protected String phonenumber;
     protected int age;
 
+    public Person(String name, int ID, String phonenumber, int age) {
+        this.name = name;
+        this.ID = ID;
+        this.phonenumber = phonenumber;
+        this.age = age;
+    }
+
+    public Person() {}
 
     abstract protected void adddetails();
 
@@ -26,14 +34,6 @@ abstract public class Person
     {
         this.phonenumber=phonenumber;
     }
-
-
-
-
-
-
-
-
 
 
 }

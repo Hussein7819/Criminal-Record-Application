@@ -1,18 +1,31 @@
 package com.example.criminalrecordproject.Model;
 
-public class Officer extends Person{
+public class Officer extends Person {
+    private String officerID;
+    private String name;
+    private int Salary;
 
-    private String salary;
-
-    public Officer(String name, int age, String phonenumber)
+    public Officer(String officerID, String name)
     {
-        super(name, age);
-        this.phonenumber=phonenumber;
+        this.officerID = officerID;
+        this.name = name;
+    }
+
+    public String getOfficerID()
+    {
+        return officerID;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public int getSalary()
+    {
+        return Salary;
     }
 
     @Override
-    protected void adddetails()
-    {
-
-    }
+    protected void adddetails() {}
 }
