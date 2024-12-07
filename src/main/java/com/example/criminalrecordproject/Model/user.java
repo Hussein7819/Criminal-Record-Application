@@ -160,5 +160,6 @@ public class user {
             departmentIndex++;
         }
     }
+
 }
 

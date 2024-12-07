@@ -1,5 +1,7 @@
 package com.example.criminalrecordproject.Model;
 
+import java.util.Scanner;
+
 abstract public class Person
 {
     protected String name;
@@ -16,7 +18,7 @@ abstract public class Person
 
     public Person() {}
 
-    abstract protected void adddetails();
+    protected void adddetails(){};
 
     public Person(String name,int age)
     {
