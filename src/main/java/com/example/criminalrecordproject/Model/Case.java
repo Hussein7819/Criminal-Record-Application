@@ -55,7 +55,10 @@ public class Case
     {
         assignedOfficers.add(officer);
     }
-
+    public ArrayList<Officer> getOfficer()
+    {
+        return assignedOfficers;
+    }
     public void addCriminal(Criminal criminal)
     {
         criminals.add(criminal);
