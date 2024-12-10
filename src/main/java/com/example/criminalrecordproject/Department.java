@@ -2,6 +2,7 @@ package com.example.criminalrecordproject;
 
 import com.example.criminalrecordproject.Model.Case;
 import com.example.criminalrecordproject.Model.Officer;
+import com.example.criminalrecordproject.Model.user;
 
 import java.util.ArrayList;
 
@@ -50,5 +51,14 @@ public class Department
     public ArrayList<Case> getCases()
     {
         return cases;
+    }
+    public void addOfficer(Officer officer)
+    {
+        officers.add(officer);
+    }
+
+    public ArrayList<Officer> getOfficer()
+    {
+        return officers;
     }
 }
