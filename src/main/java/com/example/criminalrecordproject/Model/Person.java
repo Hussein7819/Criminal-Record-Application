@@ -5,11 +5,11 @@ import java.util.Scanner;
 abstract public class Person
 {
     protected String name;
-    protected int ID;
+    protected String ID;
     protected String phonenumber;
     protected int age;
 
-    public Person(String name, int ID, String phonenumber, int age) {
+    public Person(String name, String ID, String phonenumber, int age) {
         this.name = name;
         this.ID = ID;
         this.phonenumber = phonenumber;

@@ -9,8 +9,10 @@ import java.util.Scanner;
 public class user {
     protected ArrayList<String> Username;
     protected ArrayList<String> Password;
-    String Admin_username="admin";
-    String Admin_password="admin";
+
+    private String Admin_username="admin";
+    private String Admin_password="admin";
+
     protected ArrayList<Department> departments;
     public user(ArrayList<String> Username, ArrayList<String> Password) {
         this.Username = Username;
@@ -36,6 +38,8 @@ public class user {
         this.Password.add(password);
         System.out.println("Created an account successfully!");
     }
+
+
     public void login(){
         String username;
         String password;
@@ -82,11 +86,18 @@ public class user {
             }
         }
     }
+
+
+
+
     protected void logout() {
 
         System.out.println("logout successfully");
         System.exit(0);
     }
+
+
+
     protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments)
     {
         System.out.println("Enter Department ID to assign cases:");
@@ -147,6 +158,7 @@ public class user {
         int departmentIndex = 1;
         for (Department dept : departments)
         {
+            System.out.println("_______________________________________________________________________________________");
             System.out.println("Department " + departmentIndex + ":");
             System.out.println("\tID: " + dept.getDepartmentID());
             System.out.println("\tName: " + dept.getName());
@@ -159,6 +171,30 @@ public class user {
             }
             departmentIndex++;
         }
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println("Actions :");
+        System.out.println("1- add officers to department");
+        System.out.println("2- add cases to department");
+        System.out.println("3- remove officers from department");
+        System.out.println("4- remove cases from department");
+        System.out.println("5- Exit menu");
+
+        /*Scanner menu_choice = new Scanner(System.in);
+        menu_choice.nextInt();
+
+        switch(menu_choice)
+        {
+            case 1:
+
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            default:
+
+        }
+
+*/
     }
 
 }

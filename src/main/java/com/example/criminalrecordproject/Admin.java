@@ -20,6 +20,7 @@ public class Admin extends user {
         {
             try
             {
+                System.out.println("======================================================================================");
                 System.out.println("\nChoose an action:");
                 System.out.println("1. Add a new department");
                 System.out.println("2. Add new cases to a department");
@@ -86,6 +87,11 @@ public class Admin extends user {
         departments.add(new Department(deptID, deptName, activationDate));
         System.out.println("Department added successfully!");
     }
+
+    private static void addOfficers(){
+        System.out.println("Which department do you want to add officers to? \n enter department ID");
+    }
+
 
 }
 
