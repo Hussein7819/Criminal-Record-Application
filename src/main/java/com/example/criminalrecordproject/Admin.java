@@ -61,8 +61,7 @@ public class Admin extends user {
 
     private static void addDepartment(Scanner input, ArrayList<Department> departments)
     {
-        System.out.println("Enter Department ID:");
-        String deptID = input.nextLine();
+
         System.out.println("Enter Department Name:");
         boolean x = true;
         String deptName = "";
@@ -91,7 +90,7 @@ public class Admin extends user {
         System.out.println("Enter Date of Activation:");
         String activationDate = input.nextLine();
 
-        departments.add(new Department(deptID, deptName, activationDate));
+        departments.add(new Department(deptName, activationDate));
         System.out.println("Department added successfully!");
     }
 
