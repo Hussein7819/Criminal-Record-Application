@@ -5,20 +5,21 @@ import java.util.Scanner;
 
 public class Criminal extends Person
 {
-    private String criminalID;
+    public static int numOfCriminals = 0;
     private String currentLocation;
     private ArrayList<String> Crime;
 
-    public Criminal(String criminalID, String currentLocation)
+    public Criminal(String name, String currentLocation)
     {
-        this.criminalID = criminalID;
+        this.name = name;
+        this.ID = "C" + ++numOfCriminals;
         this.currentLocation = currentLocation;
         this.Crime=new ArrayList<>();
     }
 
     public String getCriminalID()
     {
-        return criminalID;
+        return ID;
     }
     public ArrayList<String> getCrime(){
         return Crime;

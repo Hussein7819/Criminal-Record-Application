@@ -27,7 +27,7 @@ public class user {
         this.departments = departments;
     }
 
-    protected void addacounts(String username,String password){
+   /* protected void addacounts(String username,String password){
         System.out.println("add account");
         Scanner sc=new Scanner(System.in);
         System.out.println("enter username:");
@@ -37,7 +37,7 @@ public class user {
         password=sc.nextLine();
         this.Password.add(password);
         System.out.println("Created an account successfully!");
-    }
+    }*/
 
 
     public void login(){

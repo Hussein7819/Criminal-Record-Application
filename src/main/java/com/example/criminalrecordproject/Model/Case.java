@@ -1,4 +1,6 @@
 package com.example.criminalrecordproject.Model;
+import com.example.criminalrecordproject.Department;
+
 import java.util.ArrayList;
 
 public class Case
@@ -10,6 +12,7 @@ public class Case
     private String crimeType;
     private ArrayList<Officer> assignedOfficers;
     private ArrayList<Criminal> criminals;
+    public int assignedDept;
 
     public Case(int caseId, String description, String startDate, String crimeType)
     {
@@ -19,6 +22,7 @@ public class Case
         this.crimeType = crimeType;
         this.assignedOfficers = new ArrayList<>();
         this.criminals = new ArrayList<>();
+       // this.assignedDept = Integer.parseInt(String Department.numofdepartments);
     }
 
     public int getCaseId()

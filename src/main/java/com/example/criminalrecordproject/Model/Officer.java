@@ -7,7 +7,7 @@ public class Officer extends Person {
     private String officerPassword;
     public static int officerNum = 0;
 
-    public Officer(String name, String ID, String phonenumber, int age, int salary, String officerUsername, String officerPassword)
+    public Officer(String name, String phonenumber, int age, int salary, String officerUsername, String officerPassword)
     {
         this.name =name;
         this.ID= "OFF"+ ++officerNum;

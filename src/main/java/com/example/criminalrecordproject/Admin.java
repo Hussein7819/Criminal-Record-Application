@@ -66,7 +66,7 @@ public class Admin extends user {
     }
     private static void addDepartment(Scanner input, ArrayList<Department> departments)
     {
-        System.out.println("Enter Department ID:");
+        /*System.out.println("Enter Department ID:");
         String deptID = input.nextLine();
 
 
@@ -77,14 +77,14 @@ public class Admin extends user {
                 System.out.println("A department with this ID already exists! Please try again.");
                 return;
             }
-        }
+        }*/
 
         System.out.println("Enter Department Name:");
         String deptName = input.nextLine();
         System.out.println("Enter Date of Activation:");
         String activationDate = input.nextLine();
 
-        departments.add(new Department(deptID, deptName, activationDate));
+        departments.add(new Department(deptName, activationDate));  //ID is added directly (no need to assign it)
         System.out.println("Department added successfully!");
     }
 
