@@ -21,10 +21,14 @@ public class Admin extends user {
             try {
                 System.out.println("======================================================================================");
                 System.out.println("\nChoose an action:");
-                System.out.println("1. Add a new department");
-                System.out.println("2. Add new cases to a department");
-                System.out.println("3. Display departments and their cases");
-                System.out.println("4. Exit");
+                System.out.println("1- Add a new department");
+                System.out.println("2- Add new cases to a department");
+                System.out.println("3- Display departments and their cases");
+                System.out.println("4- add officers to department");
+                System.out.println("5- remove officers from department");
+                System.out.println("6- remove cases from department");
+                System.out.println("7- Exit");
+
 
                 int choice = input.nextInt();
                 input.nextLine();
@@ -43,6 +47,12 @@ public class Admin extends user {
                         break;
 
                     case 4:
+                        displayDepartments(departments);
+                        System.out.println("Enter Department to add officers to :");
+                        Scanner choice2= new Scanner(System.in);
+
+
+                    case 8:
                         System.out.println("Exiting...");
                         user u;
                         return;
@@ -101,3 +111,21 @@ public class Admin extends user {
 
 }
 
+
+// taken from user----------------
+        /*Scanner menu_choice = new Scanner(System.in);
+        menu_choice.nextInt();
+
+        switch(menu_choice)
+        {
+            case 1:
+
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            default:
+
+        }
+
+*/

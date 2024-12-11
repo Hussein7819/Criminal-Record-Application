@@ -12,9 +12,9 @@ public class Case
     private String crimeType;
     private ArrayList<Officer> assignedOfficers;
     private ArrayList<Criminal> criminals;
-    public int assignedDept;
+    public String assignedDept;
 
-    public Case(int caseId, String description, String startDate, String crimeType)
+    public Case(int caseId, String description, String startDate, String crimeType, String assignedDept)
     {
         this.caseId = caseId;
         this.description = description;
@@ -22,6 +22,7 @@ public class Case
         this.crimeType = crimeType;
         this.assignedOfficers = new ArrayList<>();
         this.criminals = new ArrayList<>();
+        this.assignedDept=assignedDept;
        // this.assignedDept = Integer.parseInt(String Department.numofdepartments);
     }
 
