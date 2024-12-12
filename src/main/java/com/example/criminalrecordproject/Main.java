@@ -1,6 +1,7 @@
 package com.example.criminalrecordproject;
 
 import com.example.criminalrecordproject.Model.Case;
+import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.user;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,7 @@ public class Main //extends Application {
 
 
         ArrayList<Department> departments = new ArrayList<>();
+        ArrayList<Officer> officers = new ArrayList<>();
         Scanner input = new Scanner(System.in);
 
 
@@ -56,11 +58,13 @@ public class Main //extends Application {
         terrorism.addCase(new Case(401, "Bomb threat in a subway", "19/11/2024", "Terrorism",terrorism.departmentID));
         terrorism.addCase(new Case(402, "Investigation of a terror cell", "20/11/2024", "Terrorism",terrorism.departmentID));
 
-
-
+        Officer o1=new Officer("Ali",27,10000,"Ali_Officer1","Ali1", forensics.departmentID);
+        officers.add(o1);
+        Officer o2=new Officer("Ahmed",38,20000,"Ahmed_Officer2","Ahmed2", terrorism.departmentID);
+        officers.add(o2);
 
         System.out.println("\n\nWelcome to our criminal management system!");
-        user u = new user(departments);
+        user u = new user(departments, officers);
         u.login();
 
     }
