@@ -6,14 +6,12 @@ import java.util.Scanner;
 public class Criminal extends Person
 {
     public static int numOfCriminals = 0;
-    private String currentLocation;
     private ArrayList<String> Crime;
 
-    public Criminal(String name, String currentLocation)
+    public Criminal(String name)
     {
         this.name = name;
         this.ID = "C" + ++numOfCriminals;
-        this.currentLocation = currentLocation;
         this.Crime=new ArrayList<>();
     }
 
@@ -23,10 +21,6 @@ public class Criminal extends Person
     }
     public ArrayList<String> getCrime(){
         return Crime;
-    }
-    public String getCurrentLocation()
-    {
-        return currentLocation;
     }
 
     @Override

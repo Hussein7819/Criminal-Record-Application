@@ -198,6 +198,7 @@ public class user {
             System.out.println("\tName: " + officer.getName());
             System.out.println("\tAge"+ officer.getage());
             System.out.println("\tDepartment"+officer.getAssignedDepartment());
+            officerIndex++;
         }
     }
     protected static void displayCase(ArrayList<Department> departments,ArrayList<Officer> officers,String user_username){

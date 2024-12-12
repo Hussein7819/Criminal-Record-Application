@@ -48,12 +48,12 @@ public class Admin extends user {
                         break;
 
                     case 4:
-                        displayDepartments(departments);
-                        System.out.println("Enter Department to add officers to :");
-                        Scanner choice2= new Scanner(System.in);
+                        addOfficers(officers);
+                        break;
                     case 5 :
                     case 7:
                         displayOfficers(officers);
+                        break;
                     case 8:
                         System.out.println("Exiting...");
                         user u;
@@ -106,9 +106,60 @@ public class Admin extends user {
         System.out.println("Department added successfully!");
     }
 
-    private static void addOfficers() {
+    private static void addOfficers(ArrayList<Officer> officers) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter Officer Name:");
+        String officerName = input.nextLine();
+
+        System.out.println("Enter Officer Age");
+        int officerAge = input.nextInt();
+
+
+        input.nextLine();
+
+        System.out.println("Enter Officer Salary");
+        int officerSalary = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Enter Officer Username:");
+        String officerUsername = input.nextLine();
+
+        boolean x = false;
+        while (x) {
+            for(Officer off : officers) {
+                if(off.getOfficerUsername().equals(officerUsername)) {
+                    System.out.println("Officer Username already exists! Please try again:");
+                    x = true;
+                }
+            }
+            if (x) {
+                officerUsername = input.nextLine();
+            }
+        }
+
+        System.out.println("Enter Officer Password:");
+        String officerPassword = input.nextLine();
+
         System.out.println("Which department do you want to add officers to? \n enter department ID");
+        String departmentID = input.nextLine();
+
+        while (x) {
+            for (Officer off : officers) {
+                if(off.getOfficerID().equals(departmentID)) {
+                    x = true;
+                }
+            }
+            if (!x) {
+                System.out.println("Invalid department! Please try again:");
+            }
+            departmentID = input.nextLine();
+        }
+
+        Officer O = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword, departmentID);
+        officers.add(O);
     }
+
 
 
 }

@@ -11,7 +11,7 @@ public class Officer_menu extends user {
         super(username, password);
     }
 
-        public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers,String Username) {
+    public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers,String Username) {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
@@ -31,6 +31,10 @@ public class Officer_menu extends user {
                         break;
                     case 2:
                         displayCase(departments,officers,Username);
+                        break;
+                    case 3:
+                        Handle_Case(officers,departments,Username);
+                        break;
                     case 5:
                         System.out.println("Exiting...");
                         user u;
@@ -43,6 +47,27 @@ public class Officer_menu extends user {
                 input.nextLine();
             } catch (Exception e) {
                 System.out.println("An unexpected error occurred: " + e.getMessage());
+            }
+        }
+    }
+    private static void Handle_Case(ArrayList<Officer> officers, ArrayList<Department> departments, String Username) {
+        Scanner input = new Scanner(System.in);
+        boolean find = false;
+        System.out.println("Enter Case ID:");
+        int CaseID = input.nextInt();
+        while (find == false) {
+            for (Officer officer : officers) {
+                for (Department department : departments) {
+                    for (Case c : department.getCases()) {
+                        if (CaseID == c.getCaseId() && officer.getAssignedDepartment().equals(c.assignedDept)) {
+                            find = true;
+                        }
+                    }
+                }
+            }
+            if (!find) {
+                System.out.println("Invalid CaseID! Please enter a valid number:");
+                CaseID = input.nextInt();
             }
         }
     }

@@ -41,8 +41,17 @@ public class Officer extends Person {
     {
         return ID;
     }
+    public  void setofficerId(String officerId){
+        ID=officerId;
+    }
     public int getage(){
         return age;
+    }
+    public void setage(int age){
+        this.age=age;
+    }
+    public void setsalary(int salary){
+        this.salary=salary;
     }
     public String getAssignedDepartment() {
         return assignedDepartment;
@@ -53,6 +62,9 @@ public class Officer extends Person {
     public String getName()
     {
         return name;
+    }
+    public void setName(String name){
+        this.name=name;
     }
     public int getSalary()
     {
