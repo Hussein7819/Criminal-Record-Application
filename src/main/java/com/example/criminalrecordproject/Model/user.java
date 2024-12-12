@@ -174,5 +174,41 @@ public class user {
 
     }
 
+    protected static void DeleteDepartments(ArrayList<Department> departments)
+    {
+        Scanner d1 = new Scanner(System.in );
+        System.out.println("Please Enter the department you want to delete");
+        String delet = d1.nextLine();
+        int x= 0;
+        for(int i=0 ; i<departments.size(); i++)
+        {
+            if(delet.equals(departments.get(i)))
+            {
+                x= i ;
+                departments.remove(x) ;
+                break;
+            }
+        }
+
+    }
+
+    public static void Deleteofficers(ArrayList<Officer> officers)
+    {
+        Scanner d1 = new Scanner(System.in );
+        System.out.println("Please Enter the Officer you want to remove");
+        String delet = d1.nextLine();
+        int x= 0;
+        for(int i = 0; i<officers.size(); i++)
+        {
+            if(delet.equals(officers.get(i)))
+            {
+                x= i ;
+                officers.remove(x) ;
+                break;
+            }
+        }
+
+    }
+
 }
 

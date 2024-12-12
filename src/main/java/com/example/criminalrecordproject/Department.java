@@ -5,8 +5,10 @@ import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.user;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Department {
+
     public String departmentID;
     private String name;
     private String dateOfActivation;
@@ -72,4 +74,5 @@ public class Department {
     {
         return officers;
     }
+
 }

@@ -1,11 +1,12 @@
 package com.example.criminalrecordproject;
 
-import com.example.criminalrecordproject.Model.Case;
+import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.user;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 
 public class Admin extends user {
     int Adminid = 1;
@@ -50,6 +51,9 @@ public class Admin extends user {
                         displayDepartments(departments);
                         System.out.println("Enter Department to add officers to :");
                         Scanner choice2= new Scanner(System.in);
+                    case 5 :
+
+
 
 
                     case 8:
