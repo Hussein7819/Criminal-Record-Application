@@ -204,12 +204,13 @@ public class user {
         int index=0;
         for (Officer officer : officers) {
             if(officer.getOfficerUsername().equals(user_username)){
-                for (Department targetDepartment: departments)
-                for(Case c:targetDepartment.getCases()){
-                    if (officer.getAssignedDepartment().equals(c.assignedDept)) {
-                        System.out.println("\t\tCase ID: " + c.getCaseId() +
-                                ", Description: " + c.getDescription() +
-                                ", Crime Type: " + c.getCrimeType());
+                for (Department targetDepartment: departments) {
+                    for (Case c : targetDepartment.getCases()) {
+                        if (officer.getAssignedDepartment().equals(c.assignedDept)) {
+                            System.out.println("\t\tCase ID: " + c.getCaseId() +
+                                    ", Description: " + c.getDescription() +
+                                    ", Crime Type: " + c.getCrimeType());
+                        }
                     }
                 }
             }
