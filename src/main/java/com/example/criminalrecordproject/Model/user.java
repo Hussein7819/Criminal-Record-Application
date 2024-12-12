@@ -184,7 +184,7 @@ public class user {
         {
             if(delet.equals(departments.get(i)))
             {
-                x= i ;
+
                 departments.remove(x) ;
                 break;
             }
@@ -202,7 +202,7 @@ public class user {
         {
             if(delet.equals(officers.get(i)))
             {
-                x= i ;
+
                 officers.remove(x) ;
                 break;
             }
