@@ -2,40 +2,33 @@ package com.example.criminalrecordproject.Model;
 
 import java.util.Scanner;
 
-abstract public class Person
-{
+abstract public class Person {
     protected String name;
     protected String ID;
-    protected String phonenumber;
     protected int age;
 
-    public Person(String name, String ID, String phonenumber, int age) {
+    public Person(String ID,String name,int age) {
+        this.ID=ID;
         this.name = name;
-        this.ID = ID;
-        this.phonenumber = phonenumber;
         this.age = age;
     }
 
-    public Person() {}
+    public Person() {
+    }
 
-    protected void adddetails(){};
+    protected void addetails() {
+    }
 
-    public Person(String name,int age)
-    {
-        this.name=name;
-        this.age=age;
+    ;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
 
-     protected void changename(String name) //admin modifying names function
+    protected void changename(String name) //admin modifying names function
     {
-        this.name=name;
+        this.name = name;
     }
-
-    protected void ChangePhoneNumber(String phonenumber)
-    {
-        this.phonenumber=phonenumber;
-    }
-
-
 }

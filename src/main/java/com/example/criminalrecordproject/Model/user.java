@@ -7,25 +7,37 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class user {
-    protected ArrayList<String> Username;
-    protected ArrayList<String> Password;
-
-    private String Admin_username="admin";
+   /* private ArrayList<Officer> Username;
+    private ArrayList<Officer> Password;
+*/
+    /*private String Admin_username="admin";
     private String Admin_password="admin";
 
+     */
+    private String User_username;
+    private String User_password;
+    protected  ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
-    public user(ArrayList<String> Username, ArrayList<String> Password) {
+
+    /*public user(ArrayList<Officer> Username, ArrayList<Officer> Password) {
         this.Username = Username;
         this.Password = Password;
-    }
-    public user(String Admin_username, String Admin_password) {
+    }*/
+    /*public user(String Admin_username, String Admin_password) {
         this.Admin_username = Admin_username;
         this.Admin_password = Admin_password;
     }
 
-    public user(ArrayList<Department> departments) {
-        this.departments = departments;
+     */
+    public user(String User_username, String User_password) {
+        this.User_username = User_username;
+        this.User_password = User_password;
     }
+    public user(ArrayList<Department> departments,ArrayList<Officer> officers) {
+        this.departments = departments;
+        this.officers = officers;
+    }
+
 
    /* protected void addacounts(String username,String password){
         System.out.println("add account");
@@ -51,33 +63,36 @@ public class user {
         System.out.println("enter password:");
         password=sc.nextLine();
 
-            if (username.equals(Admin_username) && password.equals(Admin_password)) {
-                Admin admin = new Admin(Admin_username,Admin_password);
+            if (username.equals("admin") && password.equals("admin")) {
+                Admin admin= new Admin(username,password);
                 System.out.println("Login successfully!");
-                admin.Show_Admin_Menu(departments);
+                admin.Show_Admin_Menu(departments,officers);
             }
             else {
-                for (int i = 0; i < Username.size(); i++) {
-                    if (username.equals(Username.get(i)) && password.equals(Password.get(i))) {
-                        System.out.println("login successfully");
-                    } else {
-                        System.out.println("login failed");
+                boolean login=false;
+                for (int i=0;i<officers.size();i++){
+                    if (username.equals(officers.get(i).getOfficerUsername()) && password.equals(officers.get(i).getOfficerPassword())){
+                        System.out.println("Login successfully!");
+                        login=true;
+                        Officer_menu.menu(departments,officers,username);
                     }
+                }
+                if (login==false){
+                    System.out.println("Login failed!");
                 }
             }
             try{
-                System.out.println("1 to close the system\n 2 to login to another account");
+                System.out.println("1 to close the system\n 2 logout and return to login ");
                 int choice=sc.nextInt();
                 switch (choice) {
                     case 1:
                             logout();
                             break;
                             case 2:
-                                    System.out.println("Login in to anther account");
-                                    break;
-                                    default:
-                                        System.out.println( "unavailable option");
-                                        break;
+                                login();
+                                break;
+                            default:
+                                System.out.println( "unavailable option");
                 }
             }catch (IndexOutOfBoundsException e){
                 System.out.println("login failed"+e.getMessage());
@@ -173,7 +188,36 @@ public class user {
         }
 
     }
-
+    protected static void  displayOfficers(ArrayList<Officer> officers)
+    {
+        int officerIndex = 1;
+        for (Officer officer : officers) {
+            System.out.println("_______________________________________________________________________________________");
+            System.out.println("Officer " + officerIndex + ":");
+            System.out.println("\tID: " + officer.getOfficerID());
+            System.out.println("\tName: " + officer.getName());
+            System.out.println("\tAge"+ officer.getage());
+            System.out.println("\tDepartment"+officer.getAssignedDepartment());
+        }
+    }
+    protected static void displayCase(ArrayList<Department> departments,ArrayList<Officer> officers,String user_username){
+        int index=0;
+        for (Officer officer : officers) {
+            if(officer.getOfficerUsername().equals(user_username)){
+                for (Department targetDepartment: departments)
+                for(Case c:targetDepartment.getCases()){
+                    if (officer.getAssignedDepartment().equals(c.assignedDept)) {
+                        System.out.println("\t\tCase ID: " + c.getCaseId() +
+                                ", Description: " + c.getDescription() +
+                                ", Crime Type: " + c.getCrimeType());
+                    }
+                }
+            }
+            index++;
+        }
+    }
+    protected static void Handle_case(ArrayList<Officer> officers)
+    {}
     protected static void DeleteDepartments(ArrayList<Department> departments)
     {
         Scanner d1 = new Scanner(System.in );

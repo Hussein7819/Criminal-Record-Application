@@ -11,12 +11,11 @@ import java.util.Scanner;
 public class Admin extends user {
     int Adminid = 1;
     String Adminname = "Admin";
-
-    public Admin(String Username, String Password) {
-        super(Username, Password);
+    public Admin(String username, String password) {
+        super(username, password);
     }
 
-    public void Show_Admin_Menu(ArrayList<Department> departments) {
+    public void Show_Admin_Menu(ArrayList<Department> departments,ArrayList<Officer> officers) {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
@@ -28,7 +27,8 @@ public class Admin extends user {
                 System.out.println("4- add officers to department");
                 System.out.println("5- remove officers from department");
                 System.out.println("6- remove cases from department");
-                System.out.println("7- Exit");
+                System.out.println("7- display officers");
+                System.out.println("8- Exit");
 
 
                 int choice = input.nextInt();
@@ -52,10 +52,8 @@ public class Admin extends user {
                         System.out.println("Enter Department to add officers to :");
                         Scanner choice2= new Scanner(System.in);
                     case 5 :
-
-
-
-
+                    case 7:
+                        displayOfficers(officers);
                     case 8:
                         System.out.println("Exiting...");
                         user u;

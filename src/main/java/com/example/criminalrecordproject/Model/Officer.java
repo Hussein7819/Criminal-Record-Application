@@ -2,6 +2,8 @@ package com.example.criminalrecordproject.Model;
 
 import java.util.ArrayList;
 
+import com.example.criminalrecordproject.Department;
+
 public class Officer extends Person {
 
     private int salary;
@@ -11,11 +13,10 @@ public class Officer extends Person {
     private ArrayList<Case> assignedCases;
     private String assignedDepartment;
 
-    public Officer(String name, String phonenumber, int age, int salary, String officerUsername, String officerPassword, String assignedDepartment)
+    public Officer(String name,int age, int salary, String officerUsername, String officerPassword, String assignedDepartment)
     {
         this.name =name;
         this.ID= "OFF"+ ++officerNum;
-        this.phonenumber=phonenumber;
         this.age=age;
         this.salary=salary;
         this.officerUsername=officerUsername;
@@ -24,32 +25,44 @@ public class Officer extends Person {
         this.assignedDepartment= assignedDepartment;
     }
 
-
-
+    public String getOfficerUsername() {
+        return officerUsername;
+    }
+    public void setOfficerUsername(String officerUsername) {
+        this.officerUsername = officerUsername;
+    }
+    public String getOfficerPassword() {
+        return officerPassword;
+    }
+    public void setOfficerPassword(String officerPassword) {
+        this.officerPassword = officerPassword;
+    }
     public String getOfficerID()
     {
         return ID;
     }
-
+    public int getage(){
+        return age;
+    }
     public String getAssignedDepartment() {
         return assignedDepartment;
     }
-
     public void setAssignedCases(ArrayList<Case> assignedCases) {
         this.assignedCases = assignedCases;
     }
-
     public String getName()
     {
         return name;
     }
-
     public int getSalary()
     {
         return salary;
     }
 
     @Override
-    protected void adddetails() {}
+    protected void addetails() {}
+    protected void  add_officer_department(ArrayList<Department> addtodepartment){
+
+    }
 }
 

@@ -30,7 +30,7 @@ public class Criminal extends Person
     }
 
     @Override
-    protected void adddetails() {}
+    protected void addetails() {}
     protected void AddCrime(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Add crime");
