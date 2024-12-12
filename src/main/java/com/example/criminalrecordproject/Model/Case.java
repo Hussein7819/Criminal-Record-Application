@@ -22,7 +22,7 @@ public class Case
         this.crimeType = crimeType;
         this.assignedOfficers = new ArrayList<>();
         this.criminals = new ArrayList<>();
-        this.assignedDept=assignedDept;
+        this.assignedDept=assignedDept;       //Dept ID
        // this.assignedDept = Integer.parseInt(String Department.numofdepartments);
     }
 
