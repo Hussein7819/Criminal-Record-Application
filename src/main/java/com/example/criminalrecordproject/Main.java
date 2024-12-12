@@ -57,7 +57,7 @@ public class Main //extends Application {
         terrorism.addCase(new Case(402, "Investigation of a terror cell", "20/11/2024", "Terrorism",terrorism.departmentID));
 
 
-
+//
 
         System.out.println("\n\nWelcome to our criminal management system!");
         user u = new user(departments);
