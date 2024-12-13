@@ -59,8 +59,12 @@ public class Officer_menu extends user {
             for (Officer officer : officers) {
                 for (Department department : departments) {
                     for (Case c : department.getCases()) {
-                        if (CaseID == c.getCaseId() && officer.getAssignedDepartment().equals(c.assignedDept)) {
+                        if (CaseID == c.getCaseId() && c.getOfficer().equals(officer)) {
                             find = true;
+                            System.out.println("\t\tCase ID: " + c.getCaseId() +
+                                    ", Description: " + c.getDescription() +
+                                    ", Crime Type: " + c.getCrimeType());
+                            edit_Case(officers,departments);
                         }
                     }
                 }
@@ -70,5 +74,10 @@ public class Officer_menu extends user {
                 CaseID = input.nextInt();
             }
         }
+    }
+    protected static void edit_Case(ArrayList<Officer> officers, ArrayList<Department> departments) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("What do you want to Update?");
+        System.out.println("");
     }
 }

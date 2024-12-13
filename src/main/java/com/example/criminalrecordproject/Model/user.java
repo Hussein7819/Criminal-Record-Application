@@ -218,8 +218,6 @@ public class user {
             index++;
         }
     }
-    protected static void Handle_case(ArrayList<Officer> officers)
-    {}
     protected static void DeleteDepartments(ArrayList<Department> departments)
     {
         Scanner d1 = new Scanner(System.in );

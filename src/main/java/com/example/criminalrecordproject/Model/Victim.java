@@ -1,11 +1,14 @@
 package com.example.criminalrecordproject.Model;
 
-public class Victim  {
+import java.util.ArrayList;
+
+public class Victim extends Case  {
     private int victimId;
     private String victimName;
     private String Location;
 
-    public Victim(int victimId, String victimName, String Location) {
+    public Victim(int caseid,int victimId, String victimName, String Location) {
+        super(caseid);
         this.victimId = victimId;
         this.victimName = victimName;
         this.Location=Location;
@@ -24,6 +27,10 @@ public class Victim  {
         return "Victim ID: " + victimId + ", Name: " + victimName + ", Location: " + Location;
     }
 
+    @Override
+    public int getCaseId() {
+        return super.getCaseId();
+    }
 
 
 }

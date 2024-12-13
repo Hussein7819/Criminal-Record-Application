@@ -1,5 +1,4 @@
 package com.example.criminalrecordproject.Model;
-import com.example.criminalrecordproject.Department;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ public class Case
     private ArrayList<Officer> assignedOfficers;
     private ArrayList<Criminal> criminals;
     public String assignedDept;
-
+    protected ArrayList<Victim> victims;
     public Case(int caseId, String description, String startDate, String crimeType, String assignedDept)
     {
         this.caseId = caseId;
@@ -24,6 +23,10 @@ public class Case
         this.criminals = new ArrayList<>();
         this.assignedDept=assignedDept;       //Dept ID
        // this.assignedDept = Integer.parseInt(String Department.numofdepartments);
+    }
+
+    public Case(int caseId) {
+        this.caseId = caseId;
     }
 
     public int getCaseId()
@@ -55,11 +58,6 @@ public class Case
     {
         this.lastUpdateDate = lastUpdateDate;
     }
-
-    public void addOfficer(Officer officer)
-    {
-        assignedOfficers.add(officer);
-    }
     public ArrayList<Officer> getOfficer()
     {
         return assignedOfficers;
@@ -67,5 +65,11 @@ public class Case
     public void addCriminal(Criminal criminal)
     {
         criminals.add(criminal);
+    }
+    public ArrayList<Victim> getVictim(){
+        return victims;
+    }
+    public void AddVictim(Victim victim){
+        victims.add(victim);
     }
 }
