@@ -16,15 +16,6 @@ public class Department {
     private ArrayList<Case> cases;
     public static int numofdepartments = 0;
 
-
-  /*  public Department(String departmentID, String name, String dateOfActivation)
-    {
-        this.departmentID = "D" + (++numofdepartments);
-        this.name = name;
-        this.dateOfActivation = dateOfActivation;
-        this.officers = new ArrayList<>();
-        this.cases = new ArrayList<>();
-    }*/
     public Department(String name, String dateOfActivation)
     {
         this.departmentID= "D" + (++numofdepartments);
