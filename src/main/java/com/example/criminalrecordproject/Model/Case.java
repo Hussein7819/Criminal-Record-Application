@@ -1,9 +1,14 @@
 package com.example.criminalrecordproject.Model;
 
+import com.example.criminalrecordproject.Department;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Case
-{
+public class Case implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int caseId;
     private String description;
     private String startDate;
@@ -12,18 +17,27 @@ public class Case
     private ArrayList<Officer> assignedOfficers;
     private ArrayList<Criminal> criminals;
     public String assignedDept;
-    protected ArrayList<Victim> victims;
 
-    public Case(int caseId, String description, String startDate, String crimeType, String assignedDept)
+    //for the DB
+    public int caseIndex=0;
+    public static int numoftotalcases;
+
+
+    protected ArrayList<Victim> victims;
+    public Case(String description, String startDate, String crimeType, Department dept)
     {
-        this.caseId = caseId;
+        this.caseId = (dept.deptNo*100)+ dept.numofcasesAssigned++;
         this.description = description;
         this.startDate = startDate;
         this.crimeType = crimeType;
         this.assignedOfficers = new ArrayList<>();
         this.criminals = new ArrayList<>();
-        this.assignedDept = assignedDept;
+        this.assignedDept=dept.departmentID;       //Dept ID
         this.victims = new ArrayList<>();
+
+        numoftotalcases++;
+        this.caseIndex= numoftotalcases;
+
     }
 
     public Case(int caseId)

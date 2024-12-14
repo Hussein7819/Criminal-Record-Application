@@ -4,7 +4,6 @@ import com.example.criminalrecordproject.Model.Case;
 import com.example.criminalrecordproject.Model.Criminal;
 import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.user;
-import com.example.criminalrecordproject.Model.Report;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -31,7 +30,7 @@ public class Main //extends Application {
 
     public static void main(String[] args) {
 
-        //launch();
+        DirSetup.setupDirectory();
 
 
         ArrayList<Department> departments = new ArrayList<>();
@@ -39,49 +38,62 @@ public class Main //extends Application {
         ArrayList<Criminal> criminals = new ArrayList<>();
         Scanner input = new Scanner(System.in);
 
+        // Read the existing data from the directories into the lists
+        FileReader.readAll(departments, officers, criminals);
+        Department.numofdepartments=departments.size();
+        Criminal.numOfCriminals=criminals.size();
+        Officer.officerNum=officers.size();
 
-        // Existing departments and cases inside it
-        Department homicide = new Department("Homicide", "20/11/2024");
-        departments.add(homicide);
-        homicide.addCase(new Report(101, "Murder investigation in downtown", "Neighbour1, Neighbour2", "Unknown", "Bloody knife, fingerprints"));
-        homicide.addCase(new Report(102, "Suspicious death in a park", "dustman", "Unknown", "DNA samples, footprints"));
 
-        Department cybercrime = new Department("Cybercrime", "21/11/2024");
-        departments.add(cybercrime);
-        cybercrime.addCase(new Report(201, "Ransomware attack on a company", "Company IT Staff", "Hacker Group", "Encrypted files, ransom note"));
-        cybercrime.addCase(new Report(202, "Phishing scam targeting seniors", "Victims A, B, C", "Scammer X", "Email logs, IP addresses"));
+        // Pre-existing departments and cases (only if no existing data is found)
+        if (departments.isEmpty()) {
+            Department homicide = new Department("Homicide", "20/11/2024");
+            departments.add(homicide);
+            homicide.addCase(new Case("Murder investigation in downtown", "15/11/2024", "Homicide", homicide));
+            homicide.addCase(new Case("Suspicious death in a park", "17/11/2024", "Homicide", homicide));
 
-        Department forensics = new Department("Forensics", "22/11/2024");
-        departments.add(forensics);
-        forensics.addCase(new Report(301, "Analysis of blood samples", "Witness D", "Unknown", "Blood samples, fibers"));
-        forensics.addCase(new Report(302, "DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"));
+            Department cybercrime = new Department("Cybercrime", "21/11/2024");
+            departments.add(cybercrime);
+            cybercrime.addCase(new Case("Ransomware attack on a company", "18/11/2024", "Cybercrime", cybercrime));
+            cybercrime.addCase(new Case("Phishing scam targeting seniors", "19/11/2024", "Cybercrime", cybercrime));
 
-        Department terrorism = new Department("Terrorism", "23/11/2024");
-        departments.add(terrorism);
-        terrorism.addCase(new Report(401, "Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage"));
-        terrorism.addCase(new Report(402, "Investigation of a terror cell", "Police officer", "Suspect Y", "Communications, funding trail"));
+            Department forensics = new Department("Forensics", "22/11/2024");
+            departments.add(forensics);
+            forensics.addCase(new Case("Analysis of blood samples", "20/11/2024", "Forensics", forensics));
+            forensics.addCase(new Case("DNA matching for suspects", "21/11/2024", "Forensics", forensics));
 
-        Department robbery = new Department("Robbery", "24/11/2024");
-        departments.add(robbery);
-        robbery.addCase(new Report(501, "Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"));
-        robbery.addCase(new Report(502, "Jewelry store theft", "Store Owner", "Two individuals", "Gloves, broken glass"));
+            Department terrorism = new Department("Terrorism", "23/11/2024");
+            departments.add(terrorism);
+            terrorism.addCase(new Case("Bomb threat in a subway", "19/11/2024", "Terrorism", terrorism));
+            terrorism.addCase(new Case("Investigation of a terror cell", "20/11/2024", "Terrorism", terrorism));
+        }
 
-        // Existing Officers
-        Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", forensics.departmentID);
-        officers.add(o1);
-        Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", terrorism.departmentID);
-        officers.add(o2);
+        // Pre-existing Officers
+        if (officers.isEmpty()) {
+            Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "D1");
+            officers.add(o1);
+            Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "D2");
+            officers.add(o2);
+        }
 
-        // Existing Criminals
-        Criminal c1 = new Criminal("Mahmoud Mohamed");
-        criminals.add(c1);
-        Criminal c2 = new Criminal("Ahmed Hussien");
-        criminals.add(c2);
+        // Pre-existing Criminals
+        if (criminals.isEmpty()) {
+            Criminal c1 = new Criminal("Mahmoud Mohamed");
+            criminals.add(c1);
+            Criminal c2 = new Criminal("Ahmed Hussien");
+            criminals.add(c2);
+        }
 
+        // Welcome message
         System.out.println("\n\nWelcome to our criminal management system!");
+
+        // Create user and call login
         user u = new user(departments, officers);
         u.login();
 
+        FileSaver.saveAll(departments, officers, criminals);
 
+        }
     }
-}
+
+

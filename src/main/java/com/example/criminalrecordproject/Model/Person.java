@@ -1,10 +1,14 @@
 package com.example.criminalrecordproject.Model;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-abstract public class Person {
+abstract public class Person implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     protected String name;
-    protected String ID;
+    public String ID;
     protected int age;
 
     public Person(String ID,String name,int age) {

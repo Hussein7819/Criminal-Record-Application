@@ -3,16 +3,24 @@ package com.example.criminalrecordproject.Model;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Criminal extends Person
-{
+import java.io.Serializable;
+
+
+public class Criminal extends Person implements Serializable  {
+
+    private static final long serialVersionUID = 1L;
+
+    public int criminalIndex=0;
+
     public static int numOfCriminals = 0;
     private ArrayList<String> Crime;
 
     public Criminal(String name)
     {
         this.name = name;
-        this.ID = "C" + ++numOfCriminals;
+        this.ID = "C" + numOfCriminals++;
         this.Crime=new ArrayList<>();
+        criminalIndex= numOfCriminals;
     }
 
     public String getCriminalID()

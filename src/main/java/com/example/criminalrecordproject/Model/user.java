@@ -132,16 +132,16 @@ public class user {
                 int choice=sc.nextInt();
                 switch (choice) {
                     case 1:
-                            logout();
-                            break;
-                            case 2:
-                                login();
-                                break;
-                            default:
-                                System.out.println( "unavailable option");
+                        logout();
+                        return;
+                    case 2:
+                        login();
+                        break;
+                    default:
+                        System.out.println("unavailable option");
                 }
-            }catch (IndexOutOfBoundsException e){
-                System.out.println("login failed"+e.getMessage());
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("login failed" + e.getMessage());
                 System.out.println("enter the correct format");
                 char ch = sc.next().charAt(0);
             }
@@ -154,26 +154,30 @@ public class user {
     protected void logout() {
 
         System.out.println("logout successfully");
-        System.exit(0);
+
+
     }
 
 
-
-    protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments)
-    {
+    protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments) {
+        Department targetDepartment = null;
         System.out.println("Enter Department ID to assign cases: ");
         String assignDeptID = input.nextLine();
-        Department targetDepartment = null;
+        for (Department dept : departments) {
+            if (dept.getDepartmentID().equals(assignDeptID)) {
+                targetDepartment = dept;
+                break;
+            }
+        }
+
         int caseID = 0;
         String description = new String();
         String startDate = new String();
-        String crimeType= new String();
-        Case newCase = new Case(caseID, description, startDate, crimeType, assignDeptID);
+        String crimeType = new String();
+        Case newCase = new Case(description, startDate, crimeType, targetDepartment);
 
-        for (Department dept : departments)
-        {
-            if (dept.getDepartmentID().equals(assignDeptID))
-            {
+        for (Department dept : departments) {
+            if (dept.getDepartmentID().equals(assignDeptID)) {
                 targetDepartment = dept;
                 break;
             }
@@ -187,19 +191,10 @@ public class user {
 
         System.out.println("How many cases would you like to add?");
         int numCases = input.nextInt();
-        input.nextLine();
+        //   input.nextLine();
 
-        for (int i = 0; i < numCases; i++)
-        {
+        for (int i = 0; i < numCases; i++) {
             System.out.println("Enter details for case " + (i + 1));
-            System.out.println("Enter Case ID:");
-            caseID = input.nextInt();
-            for(Case c : targetDepartment.getCases()){
-                if(c.getCaseId()==caseID){
-                    System.out.println("this case ID already exists");
-                    return;
-                }
-            }
             input.nextLine();
             System.out.println("Enter Case Description:");
             description = input.nextLine();
@@ -211,14 +206,12 @@ public class user {
             targetDepartment.addCase(newCase);
         }
 
-        System.out.println(numCases + " cases added to department: " + targetDepartment.getDetails());
+        System.out.println(numCases + " cases added to department: " + targetDepartment.getDepartmentID());
     }
 
-    protected static void displayDepartments(ArrayList<Department> departments)
-    {
+    protected static void displayDepartments(ArrayList<Department> departments) {
         int departmentIndex = 1;
-        for (Department dept : departments)
-        {
+        for (Department dept : departments) {
             System.out.println("_______________________________________________________________________________________");
             System.out.println("Department " + departmentIndex + ":");
             System.out.println("\tID: " + dept.getDepartmentID());
@@ -234,24 +227,25 @@ public class user {
         }
 
     }
-    protected static void  displayOfficers(ArrayList<Officer> officers)
-    {
+
+    protected static void displayOfficers(ArrayList<Officer> officers) {
         int officerIndex = 1;
         for (Officer officer : officers) {
             System.out.println("_______________________________________________________________________________________");
             System.out.println("Officer " + officerIndex + ":");
             System.out.println("\tID: " + officer.getOfficerID());
             System.out.println("\tName: " + officer.getName());
-            System.out.println("\tAge"+ officer.getage());
-            System.out.println("\tDepartment"+officer.getAssignedDepartment());
+            System.out.println("\tAge" + officer.getage());
+            System.out.println("\tDepartment" + officer.getAssignedDepartment());
             officerIndex++;
         }
     }
-    protected static void displayCase(ArrayList<Department> departments,ArrayList<Officer> officers,String user_username){
-        int index=0;
+
+    protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, String user_username) {
+        int index = 0;
         for (Officer officer : officers) {
-            if(officer.getOfficerUsername().equals(user_username)){
-                for (Department targetDepartment: departments) {
+            if (officer.getOfficerUsername().equals(user_username)) {
+                for (Department targetDepartment : departments) {
                     for (Case c : targetDepartment.getCases()) {
                         if (officer.getAssignedDepartment().equals(c.assignedDept)) {
                             System.out.println("\t\tCase ID: " + c.getCaseId() +
@@ -264,36 +258,31 @@ public class user {
             index++;
         }
     }
-    protected static void DeleteDepartments(ArrayList<Department> departments)
-    {
-        Scanner d1 = new Scanner(System.in );
+
+    protected static void DeleteDepartments(ArrayList<Department> departments) {
+        Scanner d1 = new Scanner(System.in);
         System.out.println("Please Enter the department you want to delete");
         String delet = d1.nextLine();
-        int x= 0;
-        for(int i=0 ; i<departments.size(); i++)
-        {
-            if(delet.equals(departments.get(i)))
-            {
+        int x = 0;
+        for (int i = 0; i < departments.size(); i++) {
+            if (delet.equals(departments.get(i))) {
 
-                departments.remove(x) ;
+                departments.remove(x);
                 break;
             }
         }
 
     }
 
-    public static void Deleteofficers(ArrayList<Officer> officers)
-    {
-        Scanner d1 = new Scanner(System.in );
+    public static void Deleteofficers(ArrayList<Officer> officers) {
+        Scanner d1 = new Scanner(System.in);
         System.out.println("Please Enter the Officer you want to remove");
         String delet = d1.nextLine();
-        int x= 0;
-        for(int i = 0; i<officers.size(); i++)
-        {
-            if(delet.equals(officers.get(i)))
-            {
+        int x = 0;
+        for (int i = 0; i < officers.size(); i++) {
+            if (delet.equals(officers.get(i))) {
 
-                officers.remove(x) ;
+                officers.remove(x);
                 break;
             }
         }
