@@ -2,7 +2,8 @@ package com.example.criminalrecordproject.Model;
 
 import com.example.criminalrecordproject.Admin;
 import com.example.criminalrecordproject.Department;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,6 +30,51 @@ public class user {
     }
 
      */
+    public class SimpleDateValidation {
+
+        public static void isValidDate() {
+            boolean isValid = false;
+            String date = "";
+
+            Scanner in = new Scanner(System.in);
+
+            while (!isValid) {
+                System.out.println("Enter Start Date (dd/MM):");
+                date = in.nextLine();
+
+
+                if (date.chars().filter(ch -> ch == '/').count() != 1) {
+                    System.out.println("Invalid Date format. Please enter in dd/MM format.");
+                    continue;
+                }
+
+
+                String[] parts = date.split("/");
+                if (parts.length != 2) {
+                    System.out.println("Invalid Date format. Please enter in dd/MM format.");
+                    continue;
+                }
+
+                try {
+
+                    int day = Integer.parseInt(parts[0]);
+                    int month = Integer.parseInt(parts[1]);
+
+
+                    if (day <= 24 && day > 0 && month <= 12 && month > 0) {
+                        System.out.println("Valid Date format.");
+                        isValid = true;
+                    } else {
+                        System.out.println("Invalid Date. Day should be ≤ 24, and Month should be ≤ 12.");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid Date format. Please enter numeric values for day and month.");
+                }
+            }
+        }
+
+    }
+
     public user(String User_username, String User_password) {
         this.User_username = User_username;
         this.User_password = User_password;
@@ -157,8 +203,8 @@ public class user {
             input.nextLine();
             System.out.println("Enter Case Description:");
             description = input.nextLine();
-            System.out.println("Enter Start Date:");
-            startDate = input.nextLine();
+
+           SimpleDateValidation.isValidDate();
             System.out.println("Enter Crime Type:");
             crimeType = input.nextLine();
 
