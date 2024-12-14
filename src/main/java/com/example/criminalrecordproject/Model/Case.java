@@ -13,6 +13,7 @@ public class Case
     private ArrayList<Criminal> criminals;
     public String assignedDept;
     protected ArrayList<Victim> victims;
+
     public Case(int caseId, String description, String startDate, String crimeType, String assignedDept)
     {
         this.caseId = caseId;
@@ -21,12 +22,14 @@ public class Case
         this.crimeType = crimeType;
         this.assignedOfficers = new ArrayList<>();
         this.criminals = new ArrayList<>();
-        this.assignedDept=assignedDept;       //Dept ID
-       // this.assignedDept = Integer.parseInt(String Department.numofdepartments);
+        this.assignedDept = assignedDept;
+        this.victims = new ArrayList<>();
     }
 
-    public Case(int caseId) {
+    public Case(int caseId)
+    {
         this.caseId = caseId;
+        this.victims = new ArrayList<>();
     }
 
     public int getCaseId()
@@ -58,18 +61,30 @@ public class Case
     {
         this.lastUpdateDate = lastUpdateDate;
     }
+
     public ArrayList<Officer> getOfficer()
     {
         return assignedOfficers;
     }
+
     public void addCriminal(Criminal criminal)
     {
         criminals.add(criminal);
     }
-    public ArrayList<Victim> getVictim(){
+
+    public ArrayList<Victim> getVictim()
+    {
         return victims;
     }
-    public void AddVictim(Victim victim){
+
+    public void AddVictim(Victim victim)
+    {
         victims.add(victim);
+    }
+
+
+    public String getReport()
+    {
+        return "No detailed report available for this case.";
     }
 }

@@ -161,7 +161,7 @@ public class user {
 
     protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments)
     {
-        System.out.println("Enter Department ID to assign cases:");
+        System.out.println("Enter Department ID to assign cases: ");
         String assignDeptID = input.nextLine();
         Department targetDepartment = null;
         int caseID = 0;
