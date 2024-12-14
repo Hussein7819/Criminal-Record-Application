@@ -18,16 +18,6 @@ import java.util.Scanner;
 
 public class Main //extends Application {
 {
-/*
-    @Override
-     public void start(Stage stage) throws IOException {
-         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("sample.fxml"));
-         Scene scene = new Scene(fxmlLoader.load());
-         stage.setTitle("Criminal Record");
-         stage.setScene(scene);
-         stage.show();
-     }*/
-
     public static void main(String[] args) {
 
         DirSetup.setupDirectory();
@@ -88,7 +78,7 @@ public class Main //extends Application {
         System.out.println("\n\nWelcome to our criminal management system!");
 
         // Create user and call login
-        user u = new user(departments, officers);
+        user u = new user(departments, officers,criminals);
         u.login();
 
         FileSaver.saveAll(departments, officers, criminals);

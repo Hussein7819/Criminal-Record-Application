@@ -2,8 +2,7 @@ package com.example.criminalrecordproject.Model;
 
 import com.example.criminalrecordproject.Admin;
 import com.example.criminalrecordproject.Department;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,6 +18,7 @@ public class user {
     private String User_password;
     protected  ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
+    protected  ArrayList<Criminal> criminals;
 
     /*public user(ArrayList<Officer> Username, ArrayList<Officer> Password) {
         this.Username = Username;
@@ -79,9 +79,10 @@ public class user {
         this.User_username = User_username;
         this.User_password = User_password;
     }
-    public user(ArrayList<Department> departments,ArrayList<Officer> officers) {
+    public user(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
         this.departments = departments;
         this.officers = officers;
+        this.criminals=criminals;
     }
 
 
@@ -112,7 +113,7 @@ public class user {
             if (username.equals("admin") && password.equals("admin")) {
                 Admin admin= new Admin(username,password);
                 System.out.println("Login successfully!");
-                admin.Show_Admin_Menu(departments,officers);
+                admin.Show_Admin_Menu(departments,officers,criminals);
             }
             else {
                 boolean login=false;
@@ -219,9 +220,17 @@ public class user {
             System.out.println("\tDate of Activation: " + dept.getDateOfActivation());
             System.out.println("\tCases assigned to this department:");
             for (Case c : dept.getCases()) {
-                System.out.println("\t\tCase ID: " + c.getCaseId() +
-                        ", Description: " + c.getDescription() +
-                        ", Crime Type: " + c.getCrimeType());
+                if (c instanceof Report) {
+                   Report report = (Report) c;
+                   System.out.println("\t\tCase ID: " + report.getCaseId() +
+                           ", Report Details: " + report.getReport()
+                   );
+                }
+                else {
+                    System.out.println("\t\tCase ID: " + c.getCaseId() +
+                            ", Description: " + c.getDescription() +
+                            ", Crime Type: " + c.getCrimeType());
+                }
             }
             departmentIndex++;
         }
@@ -240,17 +249,22 @@ public class user {
             officerIndex++;
         }
     }
-
     protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, String user_username) {
-        int index = 0;
+        int index=0;
         for (Officer officer : officers) {
             if (officer.getOfficerUsername().equals(user_username)) {
                 for (Department targetDepartment : departments) {
-                    for (Case c : targetDepartment.getCases()) {
-                        if (officer.getAssignedDepartment().equals(c.assignedDept)) {
-                            System.out.println("\t\tCase ID: " + c.getCaseId() +
-                                    ", Description: " + c.getDescription() +
-                                    ", Crime Type: " + c.getCrimeType());
+                    if (officer.getAssignedDepartment().equals(targetDepartment.getDepartmentID())) {
+                        for (Case c : targetDepartment.getCases()) {
+                            if (c instanceof Report) {
+                                 Report report = (Report) c;
+                                 System.out.println("\t\tCase ID: " + report.getCaseId() +
+                                         ", Report Details: " +
+                                         report.getReport()); }
+                            else {
+                                System.out.println("\t\tCase ID: " + c.getCaseId() +
+                                        ", Description: " + c.getDescription() +
+                                        ", Crime Type: " + c.getCrimeType()); }
                         }
                     }
                 }
@@ -263,11 +277,13 @@ public class user {
         Scanner d1 = new Scanner(System.in);
         System.out.println("Please Enter the department you want to delete");
         String delet = d1.nextLine();
-        int x = 0;
-        for (int i = 0; i < departments.size(); i++) {
-            if (delet.equals(departments.get(i))) {
+        int x= 0;
+        for(int i=0 ; i<departments.size(); i++)
+        {
+            if(delet.equals(departments.get(i)))
+            {
 
-                departments.remove(x);
+                departments.remove(x) ;
                 break;
             }
         }
@@ -275,19 +291,72 @@ public class user {
     }
 
     public static void Deleteofficers(ArrayList<Officer> officers) {
-        Scanner d1 = new Scanner(System.in);
-        System.out.println("Please Enter the Officer you want to remove");
-        String delet = d1.nextLine();
-        int x = 0;
-        for (int i = 0; i < officers.size(); i++) {
-            if (delet.equals(officers.get(i))) {
+                                    Scanner d1 = new Scanner(System.in);
+                                    System.out.println("Please Enter the Officer ID you want to remove");
+                                    String deleteID = d1.nextLine();
+                                    boolean officerFound = false;
+                                    for (int i = 0; i < officers.size(); i++) {
+                                        if (deleteID.equals(officers.get(i).getOfficerID())) {
+                                            officers.remove(i); System.out.println("Officer removed successfully.");
+                                            officerFound = true; return;
+                                        }
+                                    }
+                                    if (!officerFound) {
+                                        System.out.println("Officer not found.");
+                                    }
+                                }
+                                public static void DeleteCase(ArrayList<Department> departments) {
+                                    Scanner d1 = new Scanner(System.in);
+                                    System.out.println("Please Enter the Case ID you want to delete");
+                                    int deleteID = d1.nextInt();
+                                    boolean caseFound = false;
+                                    for (Department department : departments) {
+                                        for (int i = 0; i < department.getCases().size(); i++) {
+                                            if (deleteID == department.getCases().get(i).getCaseId()) {
+                                                department.getCases().remove(i);
+                                                System.out.println("Case deleted successfully.");
+                                                caseFound = true;
+                                                return;
+                                            }
+                                        }
+                                    }
+                                    if (!caseFound) {
+                                        System.out.println("Case not found.");
+                                    }
+                                }
+                                protected static void AssignOfficers(ArrayList<Officer> officers,ArrayList<Department> departments){
+                                    Scanner d1 = new Scanner(System.in );
+                                    System.out.println("Please Enter the Officer ID you want to assign");
+                                    String assign = d1.nextLine();
+                                    System.out.println("Please Enter the Case ID you want to assign");
+                                    String assign2 = d1.nextLine();
+                                    int x=0;
+                                    int y=0;
+                                    for (Officer officer : officers) {
+                                        if(assign.equals(officer.getOfficerID())){
+                                            for (Department department : departments) {
+                                                for (Case c : department.getCases()) {
+                                                    if (assign2.equals(c.getCaseId())) {
+                                                        c.setAssignedOfficers(officer.getOfficerID());
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                protected static void DisplayCriminals(ArrayList<Criminal> criminals){
+        int i=0;
+        for (Criminal c:criminals){
+                                        System.out.println("Criminal"+ c.criminalIndex +
+                                               "ID:" + c.getCriminalID() +
+                                        "Name:" + c.getname());
+                                        for (int x=0;x<c.getCrime().size();x++) {
+                                            System.out.println("Crime"+ ++x + c.getCrime().get(x));
+                                        }
+                                    }
 
-                officers.remove(x);
-                break;
-            }
-        }
-
-    }
-
+                                }
 }
+
+
 

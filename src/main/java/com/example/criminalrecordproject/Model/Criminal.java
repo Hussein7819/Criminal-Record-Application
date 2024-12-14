@@ -30,7 +30,9 @@ public class Criminal extends Person implements Serializable  {
     public ArrayList<String> getCrime(){
         return Crime;
     }
-
+    public String getname(){
+        return name;
+    }
     @Override
     protected void addetails() {}
     protected void AddCrime()

@@ -1,5 +1,6 @@
 package com.example.criminalrecordproject;
 
+import com.example.criminalrecordproject.Model.Criminal;
 import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.user;
 
@@ -15,7 +16,7 @@ public class Admin extends user {
         super(username, password);
     }
 
-    public void Show_Admin_Menu(ArrayList<Department> departments,ArrayList<Officer> officers) {
+    public void Show_Admin_Menu(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
@@ -28,7 +29,11 @@ public class Admin extends user {
                 System.out.println("5- remove officers from department");
                 System.out.println("6- remove cases from department");
                 System.out.println("7- display officers");
-                System.out.println("8- Exit");
+                System.out.println("8- Assign Officer for a case");
+                System.out.println("9-Display Criminals");
+                System.out.println("10-Add Criminals");
+                System.out.println("11-Delete departments");
+                System.out.println("12- Exit");
 
 
                 int choice = input.nextInt();
@@ -53,12 +58,24 @@ public class Admin extends user {
                     case 5 :
                         Deleteofficers(officers);
                         break;
-                    case 6:
-
+                        case 6:
+                        DeleteCase(departments);
+                        break;
                     case 7:
                         displayOfficers(officers);
                         break;
-                    case 8:
+                        case 8:
+                            AssignOfficers(officers,departments);
+                            break;
+                            case 9:
+                                DisplayCriminals(criminals);
+                                break;
+                                case 10:
+                                    break;
+                                    case 11:
+                                        DeleteDepartments(departments);
+                                        break;
+                    case 12:
                         System.out.println("Exiting...");
                         user u;
                         return;
@@ -168,21 +185,3 @@ public class Admin extends user {
 
 }
 
-
-// taken from user----------------
-        /*Scanner menu_choice = new Scanner(System.in);
-        menu_choice.nextInt();
-
-        switch(menu_choice)
-        {
-            case 1:
-
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            default:
-
-        }
-
-*/

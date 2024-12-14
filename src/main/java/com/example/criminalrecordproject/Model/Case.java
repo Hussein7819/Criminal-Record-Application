@@ -14,7 +14,7 @@ public class Case implements Serializable {
     private String startDate;
     private String lastUpdateDate;
     private String crimeType;
-    private ArrayList<Officer> assignedOfficers;
+    private ArrayList<String> assignedOfficers;
     private ArrayList<Criminal> criminals;
     public String assignedDept;
 
@@ -24,13 +24,14 @@ public class Case implements Serializable {
 
 
     protected ArrayList<Victim> victims;
+    protected String Report;
     public Case(String description, String startDate, String crimeType, Department dept)
     {
         this.caseId = (dept.deptNo*100)+ dept.numofcasesAssigned++;
         this.description = description;
         this.startDate = startDate;
         this.crimeType = crimeType;
-        this.assignedOfficers = new ArrayList<>();
+        this.assignedOfficers = new ArrayList<String>();
         this.criminals = new ArrayList<>();
         this.assignedDept=dept.departmentID;       //Dept ID
         this.victims = new ArrayList<>();
@@ -40,10 +41,11 @@ public class Case implements Serializable {
 
     }
 
-    public Case(int caseId)
-    {
+    public Case(int caseId) {
         this.caseId = caseId;
-        this.victims = new ArrayList<>();
+    }
+    public Case(String Report){
+        this.Report = Report;
     }
 
     public int getCaseId()
@@ -76,7 +78,7 @@ public class Case implements Serializable {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public ArrayList<Officer> getOfficer()
+    public ArrayList<String> getOfficer()
     {
         return assignedOfficers;
     }
@@ -85,18 +87,15 @@ public class Case implements Serializable {
     {
         criminals.add(criminal);
     }
-
-    public ArrayList<Victim> getVictim()
-    {
+    public ArrayList<Victim> getVictim(){
         return victims;
     }
-
-    public void AddVictim(Victim victim)
-    {
+    public void AddVictim(Victim victim){
         victims.add(victim);
     }
-
-
+    public void setAssignedOfficers(String off){
+        this.assignedOfficers.add(off);
+    }
     public String getReport()
     {
         return "No detailed report available for this case.";
