@@ -1,13 +1,15 @@
 package com.example.criminalrecordproject.Model;
 
-public class Location {
+public class Location
+{
     private String city;
     private String district;
     private String street;
     private String DiscriptionOfArea;
 
 
-    public Location(String city, String district, String Street, String DiscriptionOfArea) {
+    public Location(String city, String district, String Street, String DiscriptionOfArea)
+    {
         this.city = city;
         this.district = district;
         this.street = street;
@@ -15,11 +17,13 @@ public class Location {
 
     }
 
-    public String getFullLocation(){
+    public String getFullLocation()
+    {
         return street +"-"+district + "-" + city+ "-"+DiscriptionOfArea;
     }
 
-    public String toString(){
+    public String toString()
+    {
         return getFullLocation();
     }
 

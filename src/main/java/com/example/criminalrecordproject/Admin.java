@@ -166,21 +166,3 @@ public class Admin extends user {
 
 }
 
-
-// taken from user----------------
-        /*Scanner menu_choice = new Scanner(System.in);
-        menu_choice.nextInt();
-
-        switch(menu_choice)
-        {
-            case 1:
-
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            default:
-
-        }
-
-*/
