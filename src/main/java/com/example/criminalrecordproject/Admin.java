@@ -51,6 +51,8 @@ public class Admin extends user {
                         addOfficers(officers);
                         break;
                     case 5 :
+                        Deleteofficers(officers);
+                        break;
                     case 7:
                         displayOfficers(officers);
                         break;
