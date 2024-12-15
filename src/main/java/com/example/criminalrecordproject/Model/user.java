@@ -71,17 +71,7 @@ public class user {
     }
 
 
-   /* protected void addacounts(String username,String password){
-        System.out.println("add account");
-        Scanner sc=new Scanner(System.in);
-        System.out.println("enter username:");
-        username=sc.nextLine();
-        this.Username.add(username);
-        System.out.println("enter password:");
-        password=sc.nextLine();
-        this.Password.add(password);
-        System.out.println("Created an account successfully!");
-    }*/
+
 
 
     public void login(){
