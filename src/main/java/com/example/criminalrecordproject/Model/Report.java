@@ -1,23 +1,22 @@
 package com.example.criminalrecordproject.Model;
 
-import java.util.ArrayList;
 
-public class Report extends Case
-{
+import com.example.criminalrecordproject.Department;
+
+public class Report extends Case {
     private String reportDescription;
     private String witnesses;
     private String suspects;
     private String evidence;
 
-    public Report(int caseId, String reportDescription, String witnesses, String suspects, String evidence)
-    {
-        super(caseId);
+    // Constructor for Report with Case ID
+    public Report(int caseId, String reportDescription, String witnesses, String suspects, String evidence, String crimeType) {
+        super(caseId, reportDescription, "Not Provided", "Not Provided"); // Calling the Case constructor
         this.reportDescription = reportDescription;
         this.witnesses = witnesses;
         this.suspects = suspects;
         this.evidence = evidence;
     }
-
     public String getReportDescription()
     {
         return reportDescription;
