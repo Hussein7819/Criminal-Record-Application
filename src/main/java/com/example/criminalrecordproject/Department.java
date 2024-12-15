@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Department implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     public String departmentID;
     private String name;
@@ -20,59 +20,50 @@ public class Department implements Serializable {
     public int numofcasesAssigned = 0;
     public int deptNo = 0;
 
-    public Department(String name, String dateOfActivation)
-    {
-        this.departmentID= "D" + (numofdepartments++);
+    public Department(String name, String dateOfActivation) {
+        this.departmentID = "D" + (numofdepartments++);
         this.name = name;
         this.dateOfActivation = dateOfActivation;
         this.officers = new ArrayList<>();
         this.cases = new ArrayList<>();
-        this.deptNo= numofdepartments;
+        this.deptNo = numofdepartments;
     }
 
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getDateOfActivation()
-    {
+    public String getDateOfActivation() {
         return dateOfActivation;
     }
 
-    public String getDetails()
-    {
+    public String getDetails() {
         return "ID: " + departmentID + ", Name: " + name + ", Active since: " + dateOfActivation;
     }
 
 
-    public void addCase(Case newCase)
-    {
+    public void addCase(Case newCase) {
         cases.add(newCase);
     }
 
-    public String getDepartmentID()
-    {
+    public String getDepartmentID() {
         return departmentID;
     }
 
-    public ArrayList<Case> getCases()
-    {
+    public ArrayList<Case> getCases() {
         return cases;
     }
-    public void addOfficer(Officer officer)
-    {
+
+    public void addOfficer(Officer officer) {
         officers.add(officer);
     }
 
-    public ArrayList<Officer> getOfficer()
-    {
+    public ArrayList<Officer> getOfficer() {
         return officers;
     }
 
-    public String getFileID()
-    {
+    public String getFileID() {
         return departmentID;
     }
 

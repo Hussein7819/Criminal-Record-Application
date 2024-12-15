@@ -9,7 +9,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class Admin extends user {
+public class Admin extends user
+{
     int Adminid = 1;
     String Adminname = "Admin";
     public Admin(String username, String password) {
