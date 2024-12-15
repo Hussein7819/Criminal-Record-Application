@@ -18,7 +18,7 @@ public class user {
     private String User_password;
     protected  ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
-    protected  ArrayList<Criminal> criminals;
+    protected static ArrayList<Criminal> criminals;
 
     /*public user(ArrayList<Officer> Username, ArrayList<Officer> Password) {
         this.Username = Username;

@@ -13,7 +13,7 @@ public class Officer_menu extends user
         super(username, password);
     }
 
-    public void menu(ArrayList<Department> departments, ArrayList<Officer> officers, String Username)
+    public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers, String Username)
     {
         Scanner input = new Scanner(System.in);
         while (true)
