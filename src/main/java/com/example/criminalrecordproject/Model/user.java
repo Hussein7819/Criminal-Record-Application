@@ -7,29 +7,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class user {
-   /* private ArrayList<Officer> Username;
-    private ArrayList<Officer> Password;
-*/
-    /*private String Admin_username="admin";
-    private String Admin_password="admin";
 
-     */
     private String User_username;
     private String User_password;
     protected  ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
     protected static ArrayList<Criminal> criminals;
 
-    /*public user(ArrayList<Officer> Username, ArrayList<Officer> Password) {
-        this.Username = Username;
-        this.Password = Password;
-    }*/
-    /*public user(String Admin_username, String Admin_password) {
-        this.Admin_username = Admin_username;
-        this.Admin_password = Admin_password;
-    }
 
-     */
     public class SimpleDateValidation {
 
         public static void isValidDate() {
