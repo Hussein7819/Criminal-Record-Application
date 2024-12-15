@@ -17,6 +17,10 @@ public class Case implements Serializable {
     private ArrayList<String> assignedOfficers;
     private ArrayList<Criminal> criminals;
     public String assignedDept;
+    /*private String reportDescription;
+    private String witnesses;
+    private String suspects;
+    private String evidence;*/
 
     //for the DB
     public int caseIndex=0;
@@ -40,14 +44,17 @@ public class Case implements Serializable {
         this.caseIndex= numoftotalcases;
 
     }
+    /*public Case(int caseId,String reportDescription, String witnesses, String suspects, String evidence){
+        this.caseId = caseId;
+        this.reportDescription = reportDescription;
+        this.witnesses = witnesses;
+        this.suspects = suspects;
+        this.evidence = evidence;
+    }*/
 
     public Case(int caseId) {
         this.caseId = caseId;
     }
-    public Case(String Report){
-        this.Report = Report;
-    }
-
     public int getCaseId()
     {
         return caseId;
@@ -96,6 +103,31 @@ public class Case implements Serializable {
     public void setAssignedOfficers(String off){
         this.assignedOfficers.add(off);
     }
+    /*public void setreportdescription(String reportDescription){
+        this.reportDescription = reportDescription;
+    }
+    public String getreportdescription(){
+        return reportDescription;
+    }
+    public void  setWitnesses(String witnesses){
+        this.witnesses = witnesses;
+    }
+    public String getWitnesses(){
+        return witnesses;
+    }
+    public void  setSuspects(String suspects){
+        this.suspects = suspects;
+    }
+    public String getSuspects(){
+        return suspects;
+    }
+    public void  setEvidence(String evidence){
+        this.evidence = evidence;
+    }
+    public String getEvidence(){
+        return evidence;
+    }*/
+
     public String getReport()
     {
         return "No detailed report available for this case.";

@@ -220,7 +220,11 @@ public class user {
             System.out.println("\tDate of Activation: " + dept.getDateOfActivation());
             System.out.println("\tCases assigned to this department:");
             for (Case c : dept.getCases()) {
-                if (c instanceof Report) {
+                System.out.println("Case ID:" + c.getCaseId()+
+                        "Description:" + c.getDescription() +
+                        "Start Date:"+ c.getStartDate() +
+                        "Crime type:" + c.getCrimeType());
+               if (c instanceof Report) {
                    Report report = (Report) c;
                    System.out.println("\t\tCase ID: " + report.getCaseId() +
                            ", Report Details: " + report.getReport()
@@ -255,7 +259,7 @@ public class user {
             if (officer.getOfficerUsername().equals(user_username)) {
                 for (Department targetDepartment : departments) {
                     if (officer.getAssignedDepartment().equals(targetDepartment.getDepartmentID())) {
-                        for (Case c : targetDepartment.getCases()) {
+                        for (Case c : targetDepartment.getCases()) {;
                             if (c instanceof Report) {
                                  Report report = (Report) c;
                                  System.out.println("\t\tCase ID: " + report.getCaseId() +

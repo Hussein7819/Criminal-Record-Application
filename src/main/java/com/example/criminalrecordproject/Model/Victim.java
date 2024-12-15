@@ -1,7 +1,5 @@
 package com.example.criminalrecordproject.Model;
 
-import java.util.ArrayList;
-
 public class Victim extends Case  {
     private int victimId;
     private String victimName;
