@@ -8,70 +8,76 @@ public class Criminal extends Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public int criminalIndex = 0;
-    public static int numOfCriminals = 0;
-    private ArrayList<String> Crime;
-    private String dangerLevel;
+    public static int numOfCriminals = 0; // Tracks total criminals
+    private ArrayList<String> Crime; // List of crimes committed by the criminal
     private Location address;
+    private String dangerLevel; // Danger level specific to each criminal
 
+    // Constructor to initialize the criminal with name and generate ID
     public Criminal(String name) {
         this.name = name;
         this.ID = "C" + numOfCriminals++;
         this.Crime = new ArrayList<>();
-        criminalIndex = numOfCriminals;
-        updateDangerLevel(); // Initialize danger level based on existing crimes
+        this.dangerLevel = "No Record"; // Initialize danger level
     }
 
+    // Overloaded constructor to initialize with address
     public Criminal(String name, Location address) {
         this(name);
         this.address = address;
     }
 
+    // Getter for Criminal ID
     public String getCriminalID() {
         return ID;
     }
 
+    // Getter for crimes list
     public ArrayList<String> getCrime() {
         return Crime;
     }
 
+    // Getter for danger level
     public String getDangerLevel() {
         return dangerLevel;
     }
 
+    // Getter for address
     public String getAddress() {
         return address != null ? address.toString() : "Address not available";
     }
 
+    // Getter for name
     public String getName() {
         return name;
     }
 
     @Override
-    protected void addetails() {
-    }
+    protected void addetails() {}
 
+    // Add a crime and update the danger level based on number of crimes
     protected void AddCrime() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Add crime:");
-        Crime.add(sc.nextLine());
-        updateDangerLevel(); // Update danger level after adding a crime
+        String crime = sc.nextLine();
+        Crime.add(crime); // Add the crime to the criminal's list
+        updateDangerLevel(); // Update the danger level after adding the crime
     }
 
-  public void updateDangerLevel() {
-        int crimeCount = Crime.size();
-        if (crimeCount == 0) {
+    // Recalculate the danger level based on the number of crimes for this individual criminal
+    public void updateDangerLevel() {
+        int numOfCrimes = Crime.size(); // Number of crimes committed by the current criminal
+
+        if (numOfCrimes == 0) {
             dangerLevel = "No Record";
-        } else if (crimeCount == 1) {
+        } else if (numOfCrimes == 1) {
             dangerLevel = "Normal";
-        } else if (crimeCount == 2) {
+        } else if (numOfCrimes >= 2 && numOfCrimes <= 3) {
             dangerLevel = "Moderate";
-        } else if (crimeCount >= 3 && crimeCount <= 5) {
+        } else if (numOfCrimes >= 4 && numOfCrimes < 5) {
             dangerLevel = "Dangerous";
-        } else if (crimeCount > 5) {
+        } else {
             dangerLevel = "Insane";
         }
     }
-
-
 }

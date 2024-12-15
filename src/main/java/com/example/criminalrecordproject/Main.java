@@ -64,22 +64,47 @@ public class Main { // Main class
 
         // Pre-existing Criminals
         if (criminals.isEmpty()) {
+
+            // Initialize criminals and add crimes
             Criminal c1 = new Criminal("Mahmoud Mohamed", new Location("Cairo", "Nasr City", "Main Street", "Near Mall"));
             c1.getCrime().add("Robbery: Jewelry store heist");
+            c1.getCrime().add("Robbery: Breaking and entering a warehouse");
             c1.updateDangerLevel(); // Manually update danger level
             criminals.add(c1);
 
             Criminal c2 = new Criminal("Ahmed Hussien", new Location("Giza", "Dokki", "Park Avenue", "Opposite Museum"));
             c2.getCrime().add("Homicide: Assault leading to death");
+            c2.getCrime().add("Homicide: Suspicious death investigation in a park");
             c2.updateDangerLevel(); // Manually update danger level
             criminals.add(c2);
 
-            // Additional criminals
-            Criminal c3 = new Criminal("Fatima Khaled", new Location("Cairo", "Heliopolis", "Airport Road", "Near Mall"));
-            c3.getCrime().add("Forensics: Tampering with evidence");
+            // New criminals related to specific departments
+            Criminal c3 = new Criminal("Hassan Omar", new Location("Alexandria", "Montaza", "Corniche Road", "Near Beach"));
+            c3.getCrime().add("Homicide: Murder in downtown");
+            c3.getCrime().add("Homicide: Suspicious death in a park");
             c3.updateDangerLevel(); // Manually update danger level
             criminals.add(c3);
+
+            Criminal c4 = new Criminal("Fatima Khaled", new Location("Cairo", "Heliopolis", "Airport Road", "Near Mall"));
+            c4.getCrime().add("Forensics: Tampering with evidence");
+            c4.getCrime().add("Forensics: Forgery of documents");
+            c4.updateDangerLevel(); // Manually update danger level
+            criminals.add(c4);
+
+            Criminal c5 = new Criminal("Youssef Ali", new Location("Cairo", "Shobra", "Industrial Zone", "Opposite Factory"));
+            c5.getCrime().add("Robbery: Armed bank robbery");
+            c5.getCrime().add("Robbery: Jewelry store heist");
+            c5.updateDangerLevel(); // Manually update danger level
+            criminals.add(c5);
+
+            Criminal c6 = new Criminal("Amira Saeed", new Location("Aswan", "City Center", "Market Street", "Near River"));
+            c6.getCrime().add("Terrorism: Bomb threat in a subway");
+            c6.getCrime().add("Terrorism: Investigation of a terror cell");
+            c6.getCrime().add("Terrorism: Attempted sabotage of power plant");
+            c6.updateDangerLevel(); // Manually update danger level
+            criminals.add(c6);
         }
+
 
         // Welcome message
         System.out.println("\n\nWelcome to our criminal management system!");
