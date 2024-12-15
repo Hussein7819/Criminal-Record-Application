@@ -11,7 +11,7 @@ public class Report extends Case {
 
     // Constructor for Report with Case ID
     public Report(int caseId, String reportDescription, String witnesses, String suspects, String evidence, String crimeType) {
-        super(caseId, reportDescription, "Not Provided", "Not Provided"); // Calling the Case constructor
+        super(caseId); // Calling the Case constructor
         this.reportDescription = reportDescription;
         this.witnesses = witnesses;
         this.suspects = suspects;

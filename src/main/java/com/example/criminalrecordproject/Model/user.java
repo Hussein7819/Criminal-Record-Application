@@ -353,7 +353,7 @@ public class user {
         for (Criminal c:criminals){
                                         System.out.println("Criminal"+ c.criminalIndex +
                                                "ID:" + c.getCriminalID() +
-                                        "Name:" + c.getname());
+                                        "Name:" + c.getName());
                                         for (int x=0;x<c.getCrime().size();x++) {
                                             System.out.println("Crime"+ ++x + c.getCrime().get(x));
                                         }

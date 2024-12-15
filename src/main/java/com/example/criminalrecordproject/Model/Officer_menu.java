@@ -13,7 +13,7 @@ public class Officer_menu extends user
         super(username, password);
     }
 
-    public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers, String Username)
+    public void menu(ArrayList<Department> departments, ArrayList<Officer> officers, String Username)
     {
         Scanner input = new Scanner(System.in);
         while (true)
@@ -159,7 +159,7 @@ public class Officer_menu extends user
                             System.out.print("Enter Evidence: ");
                             String evidence = input.nextLine();
 
-                            Report updatedReport = new Report(caseId, newReportDescription, witnesses, suspects, evidence, department);
+                            Report updatedReport = new Report(caseId, newReportDescription, witnesses, suspects, evidence,c.getCrimeType());
                             System.out.println("Report updated to: " + updatedReport.getReport());
                         }
                     }
