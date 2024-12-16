@@ -13,7 +13,7 @@ public class Officer_menu extends user
         super(username, password);
     }
 
-    public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers, String Username)
+    public static void menu(ArrayList<Department> departments, ArrayList<Officer> officers,ArrayList<OfficerAuthentication> Authentication,String Off_ID)
     {
         Scanner input = new Scanner(System.in);
         while (true)
@@ -34,10 +34,10 @@ public class Officer_menu extends user
                         displayOfficers(officers);
                         break;
                     case 2:
-                        displayCase(departments,officers,Username);
+                        displayCase(departments,officers,Off_ID);
                         break;
                     case 3:
-                        Handle_Case(officers,departments,Username);
+                        Handle_Case(officers,departments,Authentication,Off_ID);
                         break;
                         case 4:
                             DisplayCriminals( criminals);
@@ -57,39 +57,38 @@ public class Officer_menu extends user
             }
         }
     }
-    private static void Handle_Case(ArrayList<Officer> officers, ArrayList<Department> departments, String Username) {
+    private static void Handle_Case(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentication, String Off_ID) {
         Scanner input = new Scanner(System.in);
         boolean find = false;
-        System.out.println("Enter Case ID:");
-        int CaseID = input.nextInt();
-        input.nextLine();
-        while(!find) {
-            for (Officer officer : officers) {
-                if (officer.getOfficerUsername().equals(Username)) {
-                    for (Department department : departments) {
-                        for (Case c : department.getCases()) {
-                            if (CaseID == c.getCaseId() && c.getOfficer().equals(officer.getOfficerID())) {
-                                find = true;
-                                System.out.println("\t\tCase ID: " + c.getCaseId() +
-                                        ", Description: " + c.getDescription() +
-                                        ", Crime Type: " + c.getCrimeType());
-                                edit_Case(officers, departments);
-                                return;
-                            }
-                        }
+
+        while (!find) {
+            System.out.println("Enter Case ID:");
+            String CaseID = input.nextLine(); // Changed to String to match the type in OfficerAuthentication
+            boolean caseIdFound = false;
+
+            for (OfficerAuthentication finding : Authentication) {
+                if (finding.getCase_ID().equals(CaseID)) {
+                    caseIdFound = true;
+                    if (finding.getOfficers_ID().contains(Off_ID)) {
+                        find = true;
+                        edit_Case(departments, CaseID);
+                        return;
+                    } else {
+                        System.out.println("You are not assigned to this case.");
+                        return;
                     }
                 }
             }
 
-            if (!find) {
+            if (!caseIdFound) {
                 System.out.println("Invalid Case ID! Please enter a valid number:");
-                CaseID = input.nextInt();
-                input.nextLine();  // Consume the newline
             }
         }
     }
 
-    protected static void edit_Case(ArrayList<Officer> officers, ArrayList<Department> departments) {
+
+
+    protected static void edit_Case(ArrayList<Department> departments, String CaseID) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("What do you want to update?");
@@ -99,57 +98,48 @@ public class Officer_menu extends user
         int choice = input.nextInt();
         input.nextLine();  // Consume the newline
 
-        switch (choice) {
-            case 1:
-                System.out.println("Enter new Location details:");
-                System.out.print("City: ");
-                String city = input.nextLine();
-                System.out.print("District: ");
-                String district = input.nextLine();
-                System.out.print("Street: ");
-                String street = input.nextLine();
-                System.out.print("Description of Area: ");
-                String descriptionOfArea = input.nextLine();
-                Location newLocation = new Location(city, district, street, descriptionOfArea);
-                System.out.println("Location updated to: " + newLocation.getFullLocation());
-                break;
+        for (Department department : departments) {
+            for (Case c : department.getCases()) {
+                if (c.getCaseId() == Integer.parseInt(CaseID)) {
+                    switch (choice) {
+                        case 1:
+                            System.out.println("Enter new Location details:");
+                            System.out.print("City: ");
+                            String city = input.nextLine();
+                            System.out.print("District: ");
+                            String district = input.nextLine();
+                            System.out.print("Street: ");
+                            String street = input.nextLine();
+                            System.out.print("Description of Area: ");
+                            String descriptionOfArea = input.nextLine();
+                            Location newLocation = new Location(city, district, street, descriptionOfArea);
+                            System.out.println("Location updated to: " + newLocation.getFullLocation());
+                            break;
 
-            case 2:
-                System.out.println("Enter Victim ID to update:");
-                int victimId = input.nextInt();
-                input.nextLine();
-                boolean victimFound = false;
-                for (Department department : departments) {
-                    for (Case c : department.getCases()) {
-                        for (Victim v : c.getVictim()) {
-                            if (v.getvictimId() == victimId) {
-                                victimFound = true;
-                                System.out.println("Current details: " + v.getVictimDetails());
-                                System.out.print("Enter new Name: ");
-                                String newName = input.nextLine();
-                                System.out.print("Enter new Location: ");
-                                String newVictimLocation = input.nextLine();
-                                v.setLocation(newVictimLocation);
-                                System.out.println("Victim details updated to: Victim ID: " + victimId + ", Name: " + newName + ", Location: " + newVictimLocation);
+                        case 2:
+                            System.out.println("Enter Victim ID to update:");
+                            int victimId = input.nextInt();
+                            input.nextLine();
+                            boolean victimFound = false;
+                            for (Victim v : c.getVictim()) {
+                                if (v.getvictimId() == victimId) {
+                                    victimFound = true;
+                                    System.out.println("Current details: " + v.getVictimDetails());
+                                    System.out.print("Enter new Name: ");
+                                    String newName = input.nextLine();
+                                    System.out.print("Enter new Location: ");
+                                    String newVictimLocation = input.nextLine();
+                                    v.setLocation(newVictimLocation);
+                                    System.out.println("Victim details updated to: Victim ID: " + victimId + ", Name: " + newName + ", Location: " + newVictimLocation);
+                                }
                             }
-                        }
-                    }
-                }
-                if (!victimFound) {
-                    System.out.println("Victim not found.");
-                }
-                break;
+                            if (!victimFound) {
+                                System.out.println("Victim not found.");
+                            }
+                            break;
 
-            case 3:
-                System.out.println("Enter Case ID to update the report:");
-                int caseId = input.nextInt();
-                input.nextLine();
-                boolean caseFound = false;
-                for (Department department : departments) {
-                    for (Case c : department.getCases()) {
-                        if (c.getCaseId() == caseId) {
-                            caseFound = true;
-                            System.out.println("Current Report: " + c.getReport());
+                        case 3:
+                            System.out.println("Enter new Report details:");
                             System.out.print("Enter new Report Description: ");
                             String newReportDescription = input.nextLine();
                             System.out.print("Enter Witnesses (comma-separated): ");
@@ -159,20 +149,28 @@ public class Officer_menu extends user
                             System.out.print("Enter Evidence: ");
                             String evidence = input.nextLine();
 
-                            Report updatedReport = new Report(caseId, newReportDescription, witnesses, suspects, evidence,c.getCrimeType());
-                            System.out.println("Report updated to: " + updatedReport.getReport());
-                        }
-                    }
-                }
-                if (!caseFound) {
-                    System.out.println("Case not found.");
-                }
-                break;
+                            if (c instanceof Report) {
+                                ((Report) c).setReportDescription(newReportDescription);
+                                ((Report) c).setWitnesses(witnesses);
+                                ((Report) c).setSuspects(suspects);
+                                ((Report) c).setEvidence(evidence);
+                                System.out.println("Report updated to: " + c.getReport());
+                            } else {
+                                System.out.println("Invalid case type for updating the report.");
+                            }
+                            break;
 
-            default:
-                System.out.println("Invalid choice.");
-                break;
+                        default:
+                            System.out.println("Invalid choice.");
+                            break;
+                    }
+                    return;
+                }
+            }
         }
+
+        System.out.println("Case ID not found.");
     }
 
 }
+

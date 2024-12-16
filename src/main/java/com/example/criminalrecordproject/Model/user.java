@@ -13,7 +13,7 @@ public class user {
     protected ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
     protected static ArrayList<Criminal> criminals;
-
+    protected static ArrayList<OfficerAuthentication> Authentication;
 
     public class SimpleDateValidation {
 
@@ -65,13 +65,12 @@ public class user {
         this.User_password = User_password;
     }
 
-    public user(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
+    public user(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals,ArrayList<OfficerAuthentication> Authentication) {
         this.departments = departments;
         this.officers = officers;
         this.criminals = criminals;
+        this.Authentication = Authentication;
     }
-
-
     public void login() {
         String username;
         String password;
@@ -86,14 +85,14 @@ public class user {
             if (username.equals("admin") && password.equals("admin")) {
                 Admin admin = new Admin(username, password);
                 System.out.println("Login successfully!");
-                admin.Show_Admin_Menu(departments, officers, criminals);
+                admin.Show_Admin_Menu(departments, officers, criminals,Authentication);
             } else {
                 boolean login = false;
-                for (int i = 0; i < officers.size(); i++) {
-                    if (username.equals(officers.get(i).getOfficerUsername()) && password.equals(officers.get(i).getOfficerPassword())) {
+                for (Officer Off:officers) {
+                    if (username.equals(Off.getOfficerUsername()) && password.equals(Off.getOfficerPassword())) {
                         System.out.println("Login successfully!");
                         login = true;
-                        Officer_menu.menu(departments, officers, username);
+                        Officer_menu.menu(departments, officers,Authentication,Off.getOfficerID());
                     }
                 }
                 if (login == false) {
@@ -222,10 +221,10 @@ public class user {
         }
     }
 
-    protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, String user_username) {
+    protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, String Off_ID) {
         int index = 0;
         for (Officer officer : officers) {
-            if (officer.getOfficerUsername().equals(user_username)) {
+            if (officer.getOfficerID().equals(Off_ID)) {
                 for (Department targetDepartment : departments) {
                     if (officer.getAssignedDepartment().equals(targetDepartment.getDepartmentID())) {
                         for (Case c : targetDepartment.getCases()) {
@@ -301,26 +300,61 @@ public class user {
         }
     }
 
-    protected static void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments) {
+    protected static void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications) {
         Scanner d1 = new Scanner(System.in);
-        System.out.println("Please Enter the Officer ID you want to assign");
-        String assign = d1.nextLine();
-        System.out.println("Please Enter the Case ID you want to assign");
-        String assign2 = d1.nextLine();
-        int x = 0;
-        int y = 0;
+        System.out.println("Please Enter the Officer ID you want to assign:");
+        String assign_Officer = d1.nextLine();
+        System.out.println("Please Enter the Case ID you want to assign:");
+        String assign_Case = d1.nextLine();
+
+        boolean officerFound = false;
+        boolean caseFound = false;
+
         for (Officer officer : officers) {
-            if (assign.equals(officer.getOfficerID())) {
+          ;
+            if (assign_Officer.equals(officer.getOfficerID())) {
+                officerFound = true;
                 for (Department department : departments) {
                     for (Case c : department.getCases()) {
-                        if (assign2.equals(c.getCaseId())) {
-                            c.setAssignedOfficers(officer.getOfficerID());
+
+                        if (c instanceof Report) {
+                            Report report = (Report) c;
+                            if (assign_Case.equals(String.valueOf(report.getCaseId())) && officer.getAssignedDepartment().equals(department.getDepartmentID())) {
+                                caseFound = true;
+                                boolean alreadyAssigned = false;
+                                // Check if the officer is already assigned
+                                for (OfficerAuthentication auth : Authentications) {
+                                    if (auth.getCase_ID().equals(assign_Case)) {
+                                        if (!auth.getOfficers_ID().contains(assign_Officer)) {
+                                            auth.getOfficers_ID().add(assign_Officer);
+                                        }
+                                        alreadyAssigned = true;
+                                        break;
+                                    }
+                                }
+
+                                if (!alreadyAssigned) {
+                                    OfficerAuthentication assign = new OfficerAuthentication(assign_Case, String.valueOf(new ArrayList<>()));
+                                    assign.getOfficers_ID().add(assign_Officer);
+                                    Authentications.add(assign);
+                                }
+
+                                System.out.println("Officer assigned successfully!");
+                                return;
+                            }
                         }
                     }
                 }
             }
         }
+
+        if (!officerFound) {
+            System.out.println("Officer ID not found.");
+        } else if (!caseFound) {
+            System.out.println("Case ID not found or does not match the officer's department.");
+        }
     }
+
 
     protected static void DisplayCriminals(ArrayList<Criminal> criminals)
     {

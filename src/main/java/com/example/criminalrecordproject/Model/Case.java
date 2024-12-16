@@ -103,30 +103,6 @@ public class Case implements Serializable {
     public void setAssignedOfficers(String off){
         this.assignedOfficers.add(off);
     }
-    /*public void setreportdescription(String reportDescription){
-        this.reportDescription = reportDescription;
-    }
-    public String getreportdescription(){
-        return reportDescription;
-    }
-    public void  setWitnesses(String witnesses){
-        this.witnesses = witnesses;
-    }
-    public String getWitnesses(){
-        return witnesses;
-    }
-    public void  setSuspects(String suspects){
-        this.suspects = suspects;
-    }
-    public String getSuspects(){
-        return suspects;
-    }
-    public void  setEvidence(String evidence){
-        this.evidence = evidence;
-    }
-    public String getEvidence(){
-        return evidence;
-    }*/
 
     public String getReport()
     {

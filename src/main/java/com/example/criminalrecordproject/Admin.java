@@ -2,6 +2,7 @@ package com.example.criminalrecordproject;
 
 import com.example.criminalrecordproject.Model.Criminal;
 import com.example.criminalrecordproject.Model.Officer;
+import com.example.criminalrecordproject.Model.OfficerAuthentication;
 import com.example.criminalrecordproject.Model.user;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Admin extends user
         super(username, password);
     }
 
-    public void Show_Admin_Menu(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
+    public void Show_Admin_Menu(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals, ArrayList<OfficerAuthentication> Authentication) {
         Scanner input = new Scanner(System.in);
         while (true) {
             try {
@@ -66,7 +67,7 @@ public class Admin extends user
                         displayOfficers(officers);
                         break;
                         case 8:
-                            AssignOfficers(officers,departments);
+                            AssignOfficers(officers,departments,Authentication);
                             break;
                             case 9:
                                 DisplayCriminals(criminals);
@@ -181,8 +182,6 @@ public class Admin extends user
         Officer O = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword, departmentID);
         officers.add(O);
     }
-
-
 
 }
 

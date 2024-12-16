@@ -1,10 +1,6 @@
 package com.example.criminalrecordproject;
 
-import com.example.criminalrecordproject.Model.Criminal;
-import com.example.criminalrecordproject.Model.Officer;
-import com.example.criminalrecordproject.Model.user;
-import com.example.criminalrecordproject.Model.Location;
-import com.example.criminalrecordproject.Model.Report;
+import com.example.criminalrecordproject.Model.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,6 +13,7 @@ public class Main { // Main class
         ArrayList<Department> departments = new ArrayList<>();
         ArrayList<Officer> officers = new ArrayList<>();
         ArrayList<Criminal> criminals = new ArrayList<>();
+        ArrayList<OfficerAuthentication> Authentication=new ArrayList<OfficerAuthentication>();
         Scanner input = new Scanner(System.in);
 
         // Read the existing data from the directories into the lists
@@ -110,7 +107,7 @@ public class Main { // Main class
         System.out.println("\n\nWelcome to our criminal management system!");
 
         // Create user and call login
-        user u = new user(departments, officers, criminals);
+        user u = new user(departments, officers, criminals,Authentication);
         u.login();
 
         // Save all data before exiting

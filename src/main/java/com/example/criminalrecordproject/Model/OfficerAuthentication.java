@@ -1,25 +1,24 @@
 package com.example.criminalrecordproject.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 public class OfficerAuthentication {
-    public String username;
-    private String password;
-
-    public OfficerAuthentication(String username, String password){
-        this.username = username;
-        this.password=password;
+    protected ArrayList<String> officers_ID;
+    protected String Case_ID;
+    public OfficerAuthentication(String Case_ID, String officers_ID) {
+        this.Case_ID = Case_ID;
+        this.officers_ID = new ArrayList<>();
     }
-    // Method to authenticate officer
-    public boolean Authentication(String enteredUsername, String enteredPassword) {
-        return  this.username.equals(enteredUsername)&& this.password.equals(enteredPassword);
+    public String getCase_ID() {
+            return Case_ID;
     }
-
-    // Method to check case access
-    public boolean checkCaseAccess(int officerId, List<Integer> caseOfficers){
-        return caseOfficers.contains(officerId);
+    public void setCase_ID(String case_ID) {
+        Case_ID = case_ID;
     }
-    @Override
-    public String toString(){
-        return "OfficerAuthentication{"+"username = "+ username + '\'' + '}';
+    public ArrayList<String> getOfficers_ID() {
+        return officers_ID;
+    }
+    public void setOfficers_ID(ArrayList<String> officers_ID) {
+        this.officers_ID = officers_ID;
     }
 }
