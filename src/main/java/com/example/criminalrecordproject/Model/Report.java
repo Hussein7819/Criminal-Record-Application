@@ -11,12 +11,13 @@ public class Report extends Case {
 
     // Constructor for Report with Case ID
     public Report(int caseId, String reportDescription, String witnesses, String suspects, String evidence, String crimeType) {
-        super(caseId); // Calling the Case constructor
+        super(caseId); // Calls the partial Case constructor
         this.reportDescription = reportDescription;
         this.witnesses = witnesses;
         this.suspects = suspects;
         this.evidence = evidence;
     }
+
     public String getReportDescription()
     {
         return reportDescription;

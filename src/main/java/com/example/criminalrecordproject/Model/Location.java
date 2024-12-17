@@ -19,7 +19,7 @@ public class Location
 
     public String getFullLocation()
     {
-        return street +"-"+district + "-" + city+ "-"+DiscriptionOfArea;
+        return city +"-"+district + "-" + street+ "-"+DiscriptionOfArea;
     }
 
     public String toString()

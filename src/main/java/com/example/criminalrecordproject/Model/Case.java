@@ -44,13 +44,6 @@ public class Case implements Serializable {
         this.caseIndex= numoftotalcases;
 
     }
-    /*public Case(int caseId,String reportDescription, String witnesses, String suspects, String evidence){
-        this.caseId = caseId;
-        this.reportDescription = reportDescription;
-        this.witnesses = witnesses;
-        this.suspects = suspects;
-        this.evidence = evidence;
-    }*/
 
     public Case(int caseId) {
         this.caseId = caseId;
