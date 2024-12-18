@@ -25,28 +25,31 @@ public class Main { // Main class
         if (departments.isEmpty()) {
             Department homicide = new Department("Homicide", "20/11/2024");
             departments.add(homicide);
-            homicide.addCase(new Report(1001, "Murder investigation in downtown", "John Doe, Jane Smith", "Unknown", "Bloody knife, fingerprints", "homicide"));
-            homicide.addCase(new Report(1002, "Suspicious death in a park", "Park Goer", "Unknown", "DNA samples, footprints", "homicide"));
+           // homicide.addCase(new Report(1001, "Murder investigation in downtown", "John Doe, Jane Smith", "Unknown", "Bloody knife, fingerprints", "homicide"));
+           // homicide.addCase(new Report(1002, "Suspicious death in a park", "Park Goer", "Unknown", "DNA samples, footprints", "homicide"));
+              homicide.addCase(new Case("Murder investigation in downtown","20/12/2024","Murder",homicide,new Report("Murder investigation in downtown","John Doe , Jane Smith","None","\"Bloody knife, fingerprints\"")));
+
 
             Department cybercrime = new Department("Cybercrime", "21/11/2024");
             departments.add(cybercrime);
-            cybercrime.addCase(new Report(2001, "Ransomware attack on a company", "Company IT Staff", "Hacker Group", "Encrypted files, ransom note", "cybercrime"));
-            cybercrime.addCase(new Report(2002, "Phishing scam targeting seniors", "Victims A, B, C", "Scammer X", "Email logs, IP addresses", "cybercrime"));
+           // cybercrime.addCase(new Report(2001, "Ransomware attack on a company", "Company IT Staff", "Hacker Group", "Encrypted files, ransom note", "cybercrime"));
+           // cybercrime.addCase(new Report(2002, "Phishing scam targeting seniors", "Victims A, B, C", "Scammer X", "Email logs, IP addresses", "cybercrime"));
+            homicide.addCase(new Case("Ransomware attack on a company","30/11/2024","Cybercrime",cybercrime,new Report("Ransomware attack on a company","John Doe , Jane Smith","Anonymous","Encrypted files, ransom note")));
 
             Department forensics = new Department("Forensics", "22/11/2024");
             departments.add(forensics);
-            forensics.addCase(new Report(3001, "Analysis of blood samples", "Witness D", "Unknown", "Blood samples, fibers"," forensics"));
-            forensics.addCase(new Report(3002, "DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"," forensics"));
+            // forensics.addCase(new Report(3001, "Analysis of blood samples", "Witness D", "Unknown", "Blood samples, fibers"," forensics"));
+            // forensics.addCase(new Report(3002, "DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"," forensics"));
 
             Department terrorism = new Department("Terrorism", "23/11/2024");
             departments.add(terrorism);
-            terrorism.addCase(new Report(4001, "Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage", "terrorism"));
-            terrorism.addCase(new Report(4002, "Investigation of a terror cell", "Informant", "Suspect Y", "Communications, funding trail"," terrorism"));
+           // terrorism.addCase(new Report(4001, "Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage", "terrorism"));
+           // terrorism.addCase(new Report(4002, "Investigation of a terror cell", "Informant", "Suspect Y", "Communications, funding trail"," terrorism"));
 
             Department robbery = new Department("Robbery", "24/11/2024");
             departments.add(robbery);
-            robbery.addCase(new Report(5001, "Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"," robbery"));
-            robbery.addCase(new Report(5002, "Jewelry store theft", "Store Owner", "Two individuals", "Gloves, broken glass"," robbery"));
+           // robbery.addCase(new Report(5001, "Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"," robbery"));
+           // robbery.addCase(new Report(5002, "Jewelry store theft", "Store Owner", "Two individuals", "Gloves, broken glass"," robbery"));
         }
 
 

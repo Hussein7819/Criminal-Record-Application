@@ -3,19 +3,30 @@ package com.example.criminalrecordproject.Model;
 
 import com.example.criminalrecordproject.Department;
 
-public class Report extends Case {
+import java.io.Serializable;
+
+public class Report implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    public static int reportID=0;
     private String reportDescription;
     private String witnesses;
     private String suspects;
     private String evidence;
 
     // Constructor for Report with Case ID
-    public Report(int caseId, String reportDescription, String witnesses, String suspects, String evidence, String crimeType) {
-        super(caseId); // Calls the partial Case constructor
+    public Report(/*int caseId,*/ String reportDescription, String witnesses, String suspects, String evidence  /*String crimeType-- already in case*/) {
+        // super(caseId); // Calls the partial Case constructor
+        this.reportID = ++reportID;
         this.reportDescription = reportDescription;
         this.witnesses = witnesses;
         this.suspects = suspects;
         this.evidence = evidence;
+    }
+
+    public int getReportID() {
+        return reportID;
     }
 
     public String getReportDescription()
@@ -58,8 +69,6 @@ public class Report extends Case {
         this.evidence = evidence;
     }
 
-
-    @Override
     public String getReport()
     {
         return "Report Description: " + reportDescription +

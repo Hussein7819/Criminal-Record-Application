@@ -1,6 +1,11 @@
 package com.example.criminalrecordproject.Model;
 
-public class Victim extends Case  {
+import java.io.Serializable;
+
+public class Victim extends Case implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private int victimId;
     private String victimName;
     private String Location;

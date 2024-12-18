@@ -191,16 +191,16 @@ public class Officer_menu extends user {
                                 System.out.print("Enter Evidence: ");
                                 String evidence = input.nextLine();
 
-                                if (c instanceof Report) {
-                                    Report reportCase = (Report) c;
-                                    reportCase.setReportDescription(newReportDescription);
-                                    reportCase.setWitnesses(witnesses);
-                                    reportCase.setSuspects(suspects);
-                                    reportCase.setEvidence(evidence);
+                                //if (c instanceof Report) {
+                                   // Report reportCase = (Report) c;
+                                    c.getCaseReport().setReportDescription(newReportDescription);
+                                    c.getCaseReport().setWitnesses(witnesses);
+                                    c.getCaseReport().setSuspects(suspects);
+                                    c.getCaseReport().setEvidence(evidence);
                                     System.out.println("Report updated to: " + c.getReport());
-                                } else {
-                                    System.out.println("Invalid case type for updating the report.");
-                                }
+                               // } else {
+                               //   System.out.println("Invalid case type for updating the report.");
+                               // }
                                 break;
 
                             default:

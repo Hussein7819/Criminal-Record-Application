@@ -246,17 +246,19 @@ public class user {
                         {
                             for (Case c : targetDepartment.getCases())
                             {
-                                if (c instanceof Report)
-                                {
-                                    Report report = (Report) c;
-                                    System.out.println("\t\tCase ID: " + report.getCaseId() +
-                                            ", Report Details: " + report.getReport());
-                                } else
-                                {
+                                //if (c instanceof Report)
+                                //{
+                                   // Report report = (Report) c;
+
+                             //   System.out.println("\t\tCase ID: " + report.getReportID() +
+                               //             ", Report Details: " + report.getReport());
+                                //} else
+                                //{
                                     System.out.println("\t\tCase ID: " + c.getCaseId() +
                                             ", Description: " + c.getDescription() +
                                             ", Crime Type: " + c.getCrimeType());
-                                }
+                                    System.out.println("Case report" + c.getReport());
+                                //}
                             }
                         }
                     }
@@ -346,9 +348,9 @@ public class user {
                     {
                         for (Case c : department.getCases())
                         {
-                            if (c instanceof Report) {
-                                Report report = (Report) c;
-                                if (assign_Case.equals(String.valueOf(report.getCaseId())) && officer.getAssignedDepartment().equals(department.getDepartmentID()))
+                           // if (c instanceof Report) {
+                           //     Report report = (Report) c;
+                                if (assign_Case.equals(String.valueOf(c.getCaseId())) && officer.getAssignedDepartment().equals(department.getDepartmentID()))
                                 {
                                     caseFound = true;
                                     boolean alreadyAssigned = false;
@@ -379,7 +381,7 @@ public class user {
                         }
                     }
                 }
-            }
+           // }
 
             if (!officerFound)
             {
