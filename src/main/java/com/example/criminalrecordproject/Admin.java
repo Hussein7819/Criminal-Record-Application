@@ -33,9 +33,8 @@ public class Admin extends user
                 System.out.println("7- Add Officers");
                 System.out.println("8- display officers");
                 System.out.println("9-Display Criminals");
-                System.out.println("10-Add Criminals");
-                System.out.println("11-Delete departments");
-                System.out.println("12- Exit");
+                System.out.println("10-Delete departments");
+                System.out.println("11- Exit");
 
 
                 int choice = input.nextInt();
@@ -73,13 +72,10 @@ public class Admin extends user
                             case 9:
                                 DisplayCriminals(criminals);
                                 break;
-                                case 10:
-                                    AddCriminalToDepartment(departments,criminals);
-                                    break;
-                                    case 11:
+                                    case 10:
                                         DeleteDepartments(departments);
                                         break;
-                    case 12:
+                    case 11:
                         System.out.println("Exiting...");
                         user u;
                         return;
@@ -172,60 +168,6 @@ public class Admin extends user
 
         System.out.println("Officer added successfully.");
     }
-
-
-
-
-    public static void AddCriminalToDepartment(ArrayList<Department> departments, ArrayList<Criminal> criminals) {
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            // Ask for criminal details
-            System.out.println("Enter Criminal Name:");
-            String criminalName = scanner.nextLine();
-
-            // Create the new criminal
-            Criminal newCriminal = new Criminal(criminalName);
-
-            // Add to the global list of criminals
-            criminals.add(newCriminal);
-
-            // Ask for the crime type
-            System.out.println("Enter the Crime Type:");
-            String crimeType = scanner.nextLine();
-
-            // Add the crime to the criminal record
-            newCriminal.AddCrime(); // Optionally, you could provide a way to add multiple crimes
-
-            // Find the matching department for the crime type
-            boolean foundDepartment = false;
-
-            for (Department dept : departments) {
-                if (dept.getName().equalsIgnoreCase(crimeType)) {
-                    // Add criminal to the department's case related to the crime
-                    Case newCase = new Case("Case for " + crimeType, "2024-12-18", crimeType, dept);
-                    newCase.addCriminal(newCriminal); // Add criminal to case
-                    dept.addCase(newCase); // Add case to department
-                    foundDepartment = true;
-
-                    System.out.println("Criminal " + criminalName + " added to the department for crime: " + crimeType);
-                    break;
-                }
-            }
-
-            if (!foundDepartment) {
-                System.out.println("No department found for this crime type.");
-            }
-
-        } catch (Exception e) {
-            System.out.println("An error occurred while adding the criminal: " + e.getMessage());
-        }
-    }
-
-
-
-
-
 
 
 
