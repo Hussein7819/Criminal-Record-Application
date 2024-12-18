@@ -15,7 +15,7 @@ public class user {
     protected static ArrayList<Criminal> criminals;
     protected static ArrayList<OfficerAuthentication> Authentication;
 
-    public class SimpleDateValidation {
+    public class DateValidation {
 
         public static void isValidDate() {
             boolean isValid = false;
@@ -23,12 +23,14 @@ public class user {
 
             Scanner in = new Scanner(System.in);
 
-            while (!isValid) {
+            while (!isValid)
+            {
                 System.out.println("Enter Start Date (dd/MM):");
                 date = in.nextLine();
 
 
-                if (date.chars().filter(ch -> ch == '/').count() != 1) {
+                if (date.chars().filter(ch -> ch == '/').count() != 1)
+                {
                     System.out.println("Invalid Date format. Please enter in dd/MM format.");
                     continue;
                 }
@@ -47,7 +49,6 @@ public class user {
 
 
                     if (day <= 24 && day > 0 && month <= 12 && month > 0) {
-                        System.out.println("Valid Date format.");
                         isValid = true;
                     } else {
                         System.out.println("Invalid Date. Day should be ≤ 24, and Month should be ≤ 12.");
@@ -165,10 +166,8 @@ public class user {
         for (int i = 0; i < numCases; i++) {
             System.out.println("Enter details for case " + (i + 1));
             input.nextLine();
-            System.out.println("Enter Case Description:");
-            description = input.nextLine();
-
-            SimpleDateValidation.isValidDate();
+            System.out.println("Enter Case Date:");
+            DateValidation.isValidDate();
             System.out.println("Enter Crime Type:");
             crimeType = input.nextLine();
 
@@ -277,6 +276,7 @@ public class user {
     protected static void DeleteDepartments(ArrayList<Department> departments) {
         Scanner d1 = new Scanner(System.in);
         System.out.println("Please Enter the department you want to delete");
+        
         String delete = d1.nextLine();
         int x = 0;
         for (int i = 0; i < departments.size(); i++) {
@@ -291,40 +291,61 @@ public class user {
 
     public static void Deleteofficers(ArrayList<Officer> officers) {
         Scanner d1 = new Scanner(System.in);
-        System.out.println("Please Enter the Officer ID you want to remove");
-        String deleteID = d1.nextLine();
-        boolean officerFound = false;
-        for (int i = 0; i < officers.size(); i++) {
-            if (deleteID.equals(officers.get(i).getOfficerID())) {
-                officers.remove(i);
-                System.out.println("Officer removed successfully.");
-                officerFound = true;
-                return;
+        boolean exist = false;
+        do {
+            try {
+                System.out.println("Please Enter the Officer ID you want to remove");
+                String deleteID = d1.nextLine();
+                for (int i = 0; i < officers.size(); i++) {
+                    if (deleteID.equals(officers.get(i).getOfficerID())) {
+                        officers.remove(i);
+                        System.out.println("Officer removed successfully.");
+                        exist = true;
+                        break;
+                    }
+                }
+                if (!exist) {
+                    throw new Exception("Officer ID not found.");
+                }
+            } catch (Exception e) {
+                System.out.println("The Officer Does not exist Please Try again. ");
             }
-        }
-        if (!officerFound) {
-            System.out.println("Officer not found.");
-        }
+        } while (!exist);
     }
 
-    public static void DeleteCase(ArrayList<Department> departments) {
+
+
+    public static void DeleteCase(ArrayList<Department> departments)
+    {
         Scanner d1 = new Scanner(System.in);
-        System.out.println("Please Enter the Case ID you want to delete");
-        int deleteID = d1.nextInt();
         boolean caseFound = false;
-        for (Department department : departments) {
-            for (int i = 0; i < department.getCases().size(); i++) {
-                if (deleteID == department.getCases().get(i).getCaseId()) {
-                    department.getCases().remove(i);
-                    System.out.println("Case deleted successfully.");
-                    caseFound = true;
-                    return;
+        do {
+
+            try {
+                System.out.println("Please Enter the Case ID you want to delete");
+               String deleteID = d1.nextLine();
+                for (Department department : departments)
+                {
+                    for (int i = 0; i < department.getCases().size(); i++)
+                    {
+                        if (deleteID.equals(department.getCases().get(i).getCaseId()))
+                        {
+                            department.getCases().remove(i);
+                            System.out.println("Case deleted successfully.");
+                            caseFound = true;
+                            break;
+                        }
+                    }
                 }
+                if (!caseFound) {
+
+                    throw new Exception("Case not found.");
+                }
+            } catch (Exception e) {
+                System.out.println("The Case Does not exist Please Try again. ");
             }
-        }
-        if (!caseFound) {
-            System.out.println("Case not found.");
-        }
+
+        } while (!caseFound);
     }
 
     protected static void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications)
