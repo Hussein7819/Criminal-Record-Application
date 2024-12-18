@@ -31,6 +31,16 @@ public class Officer extends Person implements Serializable {
         this.officerIndex= officerNum;
     }
 
+    public Officer(String officerName, int officerAge, int officerSalary, String officerUsername, String officerPassword)
+    {
+        this.name =name;
+        this.ID= "OFF"+ officerNum++;
+        this.age=age;
+        this.salary=salary;
+        this.officerUsername=officerUsername;
+        this.officerPassword=officerPassword;
+    }
+
     public String getOfficerUsername() {
         return officerUsername;
     }

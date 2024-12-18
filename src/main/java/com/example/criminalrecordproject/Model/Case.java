@@ -17,7 +17,7 @@ public class Case implements Serializable {
     private String lastUpdateDate;
     private String crimeType;
     private ArrayList<String> assignedOfficers;
-    private ArrayList<Criminal> criminals;
+    protected ArrayList<Criminal> criminals;
     public String assignedDept;
     /*private String reportDescription;
     private String witnesses;
@@ -57,13 +57,23 @@ public class Case implements Serializable {
         numoftotalcases++;
         this.caseIndex= numoftotalcases;
     }
+    public void addOfficer(Officer officer) {
+        if (officer == null) {
+            throw new IllegalArgumentException("Officer cannot be null");
+        }
+        if (!this.assignedOfficers.contains(officer.getOfficerUsername())) {
+            this.assignedOfficers.add(officer.getOfficerUsername());
+            System.out.println("Officer " + officer.getOfficerUsername() + " assigned to case " + this.caseId);
+        } else {
+            System.out.println("Officer is already assigned to this case.");
+        }
+    }
 
     public Case(int caseId) {
         this.caseId = caseId;
     }
-    public int getCaseId()
-    {
-        return caseId;
+    public String getCaseID() {
+        return String.valueOf(this.caseId); // Convert caseId to String if needed.
     }
 
     public String getDescription()
@@ -126,4 +136,6 @@ public class Case implements Serializable {
                 "\nSuspects: " + caseReport.getSuspects() +
                 "\nEvidence: " + caseReport.getEvidence();
     }
+
+
 }

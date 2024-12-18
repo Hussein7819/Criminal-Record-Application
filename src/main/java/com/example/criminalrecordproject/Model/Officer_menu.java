@@ -132,7 +132,7 @@ public class Officer_menu extends user {
             boolean caseFound = false;
             for (Department department : departments) {
                 for (Case c : department.getCases()) {
-                    if (c.getCaseId() == caseId) {
+                    if (c.getCaseID().equals(CaseID)) {
                         caseFound = true; // Case found, now proceed to update
 
                         switch (choice) {

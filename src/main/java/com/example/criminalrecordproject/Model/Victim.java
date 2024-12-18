@@ -31,8 +31,8 @@ public class Victim extends Case implements Serializable {
     }
 
     @Override
-    public int getCaseId() {
-        return super.getCaseId();
+    public String getCaseID() {
+        return super.getCaseID();
     }
 
 

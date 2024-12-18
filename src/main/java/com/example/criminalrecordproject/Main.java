@@ -21,35 +21,29 @@ public class Main { // Main class
         Department.numofdepartments = departments.size();
         Criminal.numOfCriminals = criminals.size();
         Officer.officerNum = officers.size();
-// Pre-existing departments and cases (only if no existing data is found)
+
+
+       // Pre-existing departments and cases (only if no existing data is found)
         if (departments.isEmpty()) {
             Department homicide = new Department("Homicide", "20/11/2024");
             departments.add(homicide);
-           // homicide.addCase(new Report(1001, "Murder investigation in downtown", "John Doe, Jane Smith", "Unknown", "Bloody knife, fingerprints", "homicide"));
-           // homicide.addCase(new Report(1002, "Suspicious death in a park", "Park Goer", "Unknown", "DNA samples, footprints", "homicide"));
-              homicide.addCase(new Case("Murder investigation in downtown","20/12/2024","Murder",homicide,new Report("Murder investigation in downtown","John Doe , Jane Smith","None","\"Bloody knife, fingerprints\"")));
-
+            homicide.addCase(new Case("Murder investigation in downtown","20/12/2024","Murder",homicide,new Report("Murder investigation in downtown","John Doe , Jane Smith","None","\"Bloody knife, fingerprints\"")));
 
             Department cybercrime = new Department("Cybercrime", "21/11/2024");
             departments.add(cybercrime);
-           // cybercrime.addCase(new Report(2001, "Ransomware attack on a company", "Company IT Staff", "Hacker Group", "Encrypted files, ransom note", "cybercrime"));
-           // cybercrime.addCase(new Report(2002, "Phishing scam targeting seniors", "Victims A, B, C", "Scammer X", "Email logs, IP addresses", "cybercrime"));
-            homicide.addCase(new Case("Ransomware attack on a company","30/11/2024","Cybercrime",cybercrime,new Report("Ransomware attack on a company","John Doe , Jane Smith","Anonymous","Encrypted files, ransom note")));
+            cybercrime.addCase(new Case("Ransomware attack on a company","30/11/2024","Cybercrime",cybercrime,new Report("Ransomware attack on a company","John Doe , Jane Smith","Anonymous","Encrypted files, ransom note")));
 
             Department forensics = new Department("Forensics", "22/11/2024");
             departments.add(forensics);
-            // forensics.addCase(new Report(3001, "Analysis of blood samples", "Witness D", "Unknown", "Blood samples, fibers"," forensics"));
-            // forensics.addCase(new Report(3002, "DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"," forensics"));
+            forensics.addCase(new Case("DNA matching for suspects","25/11/2024","Forensics",forensics,new Report("DNA matching for suspects","Detective X","Suspect Z","DNA samples, evidence logs")));
 
             Department terrorism = new Department("Terrorism", "23/11/2024");
             departments.add(terrorism);
-           // terrorism.addCase(new Report(4001, "Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage", "terrorism"));
-           // terrorism.addCase(new Report(4002, "Investigation of a terror cell", "Informant", "Suspect Y", "Communications, funding trail"," terrorism"));
+            terrorism.addCase(new Case("Bomb threat in a subway","26/11/2024","Terrorism",terrorism,new Report("Bomb threat in a subway","Witness A, Witness B","Terrorist Group X","Explosives residue, CCTV footage")));
 
             Department robbery = new Department("Robbery", "24/11/2024");
             departments.add(robbery);
-           // robbery.addCase(new Report(5001, "Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"," robbery"));
-           // robbery.addCase(new Report(5002, "Jewelry store theft", "Store Owner", "Two individuals", "Gloves, broken glass"," robbery"));
+            robbery.addCase(new Case("Bank heist in downtown","27/11/2024","Robbery",robbery,new Report("Bank heist in downtown","Bank Manager, Security Guard","Masked Robbers","CCTV footage, dropped wallet")));
         }
 
 
@@ -91,18 +85,28 @@ public class Main { // Main class
             c4.updateDangerLevel(); // Manually update danger level
             criminals.add(c4);
 
-            Criminal c5 = new Criminal("Youssef Ali", new Location("Cairo", "Shobra", "Industrial Zone", "Opposite Factory"));
-            c5.getCrime().add("Robbery: Armed bank robbery");
+            Criminal c5 = new Criminal("Amira Saeed", new Location("Cairo", "Shobra", "Industrial Zone", "Opposite Factory"));;
             c5.getCrime().add("Robbery: Jewelry store heist");
             c5.updateDangerLevel(); // Manually update danger level
             criminals.add(c5);
 
-            Criminal c6 = new Criminal("Amira Saeed", new Location("Aswan", "City Center", "Market Street", "Near River"));
+            Criminal c6 = new Criminal("Youssef Ali", new Location("Aswan", "City Center", "Market Street", "Near River"));
             c6.getCrime().add("Terrorism: Bomb threat in a subway");
             c6.getCrime().add("Terrorism: Investigation of a terror cell");
             c6.getCrime().add("Terrorism: Attempted sabotage of power plant");
             c6.updateDangerLevel(); // Manually update danger level
             criminals.add(c6);
+
+            Criminal c7 = new Criminal("Omar Farouk", new Location("Cairo", "Nasr City", "Tech Park", "Next to IT Plaza"));
+            c7.getCrime().add("Cybercrime: Ransomware attack on a company");
+            c7.getCrime().add("Cybercrime: Phishing scam targeting seniors");
+            c7.getCrime().add("Cybercrime: Data breach in a government system");
+            c7.getCrime().add("Cybercrime: Unauthorized access to financial records");
+            c7.getCrime().add("Cybercrime: Distributed denial-of-service attack");
+            c7.updateDangerLevel(); // Manually update danger level
+            criminals.add(c7);
+
+
         }
 
 

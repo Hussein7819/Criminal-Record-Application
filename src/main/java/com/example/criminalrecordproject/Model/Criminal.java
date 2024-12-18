@@ -56,7 +56,7 @@ public class Criminal extends Person implements Serializable {
     protected void addetails() {}
 
     // Add a crime and update the danger level based on number of crimes
-    protected void AddCrime() {
+    public void AddCrime() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Add crime:");
         String crime = sc.nextLine();
