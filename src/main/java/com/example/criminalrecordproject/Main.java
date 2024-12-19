@@ -51,15 +51,15 @@ public class Main { // Main class
         // Pre-existing Officers
         // Example: Initializing officers with assigned departments
         if (officers.isEmpty()) {
-            Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "Homicide");
+            Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "D0");
             officers.add(o1);
-            Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "Cybercrime");
+            Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "D1");
             officers.add(o2);
-            Officer o3 = new Officer("Hassan Khalid", 30, 15000, "Hassan_Officer3", "Hassan3", "Terrorism");
+            Officer o3 = new Officer("Hassan Khalid", 30, 15000, "Hassan_Officer3", "Hassan3", "D2");
             officers.add(o3);
-            Officer o4 = new Officer("Omar Hassan", 45, 25000, "Omar_Officer4", "Omar4", "Forensics");
+            Officer o4 = new Officer("Omar Hassan", 45, 25000, "Omar_Officer4", "Omar4", "D3");
             officers.add(o4);
-            Officer o5 = new Officer("Youssef Ehab", 33, 18000, "Youssef_Officer5", "Youssef5", "Robbery");
+            Officer o5 = new Officer("Youssef Ehab", 33, 18000, "Youssef_Officer5", "Youssef5", "D4");
             officers.add(o5);
         }
 
