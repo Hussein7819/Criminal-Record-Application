@@ -50,7 +50,7 @@ public class Admin extends user
                         break;
 
                     case 3:
-                        displayDepartments(departments);
+                        displayDepartments(departments,Authentication);
                         break;
 
                     case 4:
@@ -64,7 +64,7 @@ public class Admin extends user
                         DeleteCase(departments);
                         break;
                     case 7:
-                        addOfficers(officers);
+                        addOfficers(officers,departments);
                         break;
                         case 8:
                             displayOfficers(officers);
@@ -127,7 +127,7 @@ public class Admin extends user
         System.out.println("Department added successfully!");
     }
 
-    private static void addOfficers(ArrayList<Officer> officers) {
+    private static void addOfficers(ArrayList<Officer> officers, ArrayList<Department> departments) {
         Scanner input = new Scanner(System.in);
 
         System.out.println("Enter Officer Name:");
@@ -135,7 +135,6 @@ public class Admin extends user
 
         System.out.println("Enter Officer Age:");
         int officerAge = input.nextInt();
-
         input.nextLine();  // Consume newline left-over
 
         System.out.println("Enter Officer Salary:");
@@ -162,11 +161,35 @@ public class Admin extends user
         System.out.println("Enter Officer Password:");
         String officerPassword = input.nextLine();
 
-        // Create new officer object without assigning them to any case
-        Officer newOfficer = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword);
+        // Prompt to assign Officer to a Department by ID
+        System.out.println("Enter Department ID to assign the Officer to:");
+        for (Department department : departments) {
+            System.out.println("Department ID: " + department.getDepartmentID());
+        }
+
+        // Get the department ID from the user
+        String departmentID = input.nextLine();
+
+        // Find the department by ID
+        Department selectedDepartment = null;
+        for (Department department : departments) {
+            if (department.getDepartmentID().equals(departmentID)) {
+                selectedDepartment = department;
+                break;
+            }
+        }
+
+        // If the department is not found
+        if (selectedDepartment == null) {
+            System.out.println("Department ID not found. Officer not added.");
+            return;
+        }
+
+        // Create new officer and assign the department
+        Officer newOfficer = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword, departmentID);
         officers.add(newOfficer);
 
-        System.out.println("Officer added successfully.");
+        System.out.println("Officer added successfully and assigned to the department" );
     }
 
 

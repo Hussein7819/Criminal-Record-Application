@@ -2,16 +2,17 @@ package com.example.criminalrecordproject.Model;
 
 import com.example.criminalrecordproject.Admin;
 import com.example.criminalrecordproject.Department;
-import com.example.criminalrecordproject.Model.Case;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+
 
 public class user {
 
     private String User_username;
     private String User_password;
-    protected ArrayList<Officer> officers;
+    protected static ArrayList<Officer> officers;
     protected ArrayList<Department> departments;
     protected static ArrayList<Criminal> criminals;
     protected static ArrayList<OfficerAuthentication> Authentication;
@@ -188,7 +189,7 @@ public class user {
         }
     }
 
-    protected static void displayDepartments(ArrayList<Department> departments) {
+    protected static void displayDepartments(ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications) {
         try {
             if (departments == null || departments.isEmpty()) {
                 System.out.println("No departments to display.");
@@ -196,6 +197,7 @@ public class user {
             }
 
             int departmentIndex = 1;
+            // Loop through each department
             for (Department dept : departments) {
                 System.out.println("_______________________________________________________________________________________");
                 System.out.println("Department " + departmentIndex + ":");
@@ -204,24 +206,42 @@ public class user {
                 System.out.println("\tDate of Activation: " + dept.getDateOfActivation());
                 System.out.println("\tCases assigned to this department:");
 
+                // Loop through each case in the department
                 for (Case c : dept.getCases()) {
                     // Display case details
-                    System.out.println("Case ID: " + c.getCaseID() +
+                    System.out.println("\tCase ID: " + c.getCaseID() +
                             ", Description: " + c.getDescription() +
                             ", Start Date: " + c.getStartDate() +
-                            ", Crime type: " + c.getCrimeType());
+                            ", Crime Type: " + c.getCrimeType());
 
                     // Display case report details
                     Report caseReport = c.getCaseReport();
-                    System.out.println("\tReport Details:");
-                    System.out.println("\t\tDescription: " + caseReport.getReportDescription());
-                    System.out.println("\t\tWitnesses: " + caseReport.getWitnesses());
-                    System.out.println("\t\tSuspects: " + caseReport.getSuspects());
-                    System.out.println("\t\tEvidence: " + caseReport.getEvidence());
+                    System.out.println("\t\tReport Details:");
+                    System.out.println("\t\t\tDescription: " + caseReport.getReportDescription());
+                    System.out.println("\t\t\tWitnesses: " + caseReport.getWitnesses());
+                    System.out.println("\t\t\tSuspects: " + caseReport.getSuspects());
+                    System.out.println("\t\t\tEvidence: " + caseReport.getEvidence());
 
-                    System.out.println("\tCriminals assigned to this case:");
+                    // Display criminals associated with the case
+                    System.out.println("\t\tCriminals assigned to this case:");
                     for (Criminal criminal : c.criminals) {
-                        System.out.println("\t\t" + criminal.getName() + " (" + criminal.getCriminalID() + ")");
+                        System.out.println("\t\t\t" + criminal.getName() + " (" + criminal.getCriminalID() + ")");
+                    }
+
+                    // Display officers assigned to the case
+                    System.out.println("\t\tOfficers assigned to this case:");
+                    for (OfficerAuthentication auth : Authentications) {
+                        if (auth.getCase_ID().equals(c.getCaseID())) {
+                            // For each officer assigned to the case
+                            for (String officerID : auth.getOfficers_ID()) {
+                                Officer officer = OfficerAuthentication.findOfficerByID(officerID, officers);
+                                if (officer != null) {
+                                    System.out.println("\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
+                                } else {
+                                    System.out.println("\t\tOfficer not found with ID: " + officerID);
+                                }
+                            }
+                        }
                     }
 
                 }
@@ -250,7 +270,12 @@ public class user {
                 System.out.println("\tID: " + officer.getOfficerID());
                 System.out.println("\tName: " + officer.getName());
                 System.out.println("\tAge: " + officer.getage());
-                System.out.println("\tDepartment: " + officer.getAssignedDepartment());
+                String assignedDepartment = officer.getAssignedDepartment(); // Assuming this method exists
+                if (assignedDepartment != null) {
+                    System.out.println("\tDepartment: " + assignedDepartment);
+                } else {
+                    System.out.println("\tDepartment: Not assigned yet");
+                }
                 officerIndex++;
             }
         } catch (Exception e)
@@ -301,20 +326,35 @@ public class user {
     }
 
     protected static void DeleteDepartments(ArrayList<Department> departments) {
-        Scanner d1 = new Scanner(System.in);
-        System.out.println("Please Enter the department you want to delete");
-        
-        String delete = d1.nextLine();
-        int x = 0;
-        for (int i = 0; i < departments.size(); i++) {
-             if (delete.equals(departments.get(i).getDepartmentID()))  {
-
-                departments.remove(x);
-                break;
-            }
+        if (departments.isEmpty()) {
+            System.out.println("No departments available to delete.");
+            return;
         }
 
+        Scanner d1 = new Scanner(System.in);
+        System.out.println("Please enter the Department ID you want to delete:");
+
+        try {
+            String deleteID = d1.nextLine();
+            boolean departmentFound = false;
+
+            for (int i = 0; i < departments.size(); i++) {
+                if (departments.get(i).getDepartmentID().equals(deleteID)) {
+                    departments.remove(i);
+                    departmentFound = true;
+                    System.out.println("Department with ID '" + deleteID + "' has been deleted.");
+                    break;
+                }
+            }
+
+            if (!departmentFound) {
+                System.out.println("Department with ID '" + deleteID + "' not found.");
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while attempting to delete the department: " + e.getMessage());
+        }
     }
+
 
     public static void Deleteofficers(ArrayList<Officer> officers, ArrayList<Department> departments) {
         Scanner d1 = new Scanner(System.in);
@@ -393,77 +433,90 @@ public class user {
         } while (!caseFound);
     }
 
-    protected void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications)
-    {
+    protected void AssignOfficers(
+            ArrayList<Officer> officers,
+            ArrayList<Department> departments,
+            ArrayList<OfficerAuthentication> Authentications
+    ) {
         try {
             Scanner d1 = new Scanner(System.in);
+
+            // Prompt for Officer ID
             System.out.println("Please Enter the Officer ID you want to assign:");
             String assign_Officer = d1.nextLine();
+
+            // Prompt for Case ID
             System.out.println("Please Enter the Case ID you want to assign:");
             String assign_Case = d1.nextLine();
 
+            // Flags to track officer and case status
             boolean officerFound = false;
             boolean caseFound = false;
 
-            for (Officer officer : officers)
-            {
-                if (assign_Officer.equals(officer.getOfficerID()))
-                {
+            // 1. Find the officer by the entered Officer ID
+            for (Officer officer : officers) {
+                if (assign_Officer.equals(officer.getOfficerID())) {
                     officerFound = true;
-                    for (Department department : departments)
-                    {
-                        for (Case c : department.getCases())
-                        {
-                           // if (c instanceof Report) {
-                           //     Report report = (Report) c;
-                            if (assign_Case.equals(c.getCaseID()) && officer.getAssignedDepartment().equals(department.getDepartmentID()))  // Compare Case IDs as strings
 
+                    // 2. Retrieve the officer's assigned department
+                    String assignedDepartmentID = officer.getAssignedDepartment();
+                    System.out.println("Officer's Assigned Department: " + assignedDepartmentID);
 
-                            {
+                    // 3. Loop through all departments to find the officer's assigned department
+                    for (Department department : departments) {
+                        if (department.getDepartmentID().equals(assignedDepartmentID)) {
+                            System.out.println("Found the officer's department: " + department.getDepartmentID());
+
+                            // 4. Check if the entered Case ID exists in the department's cases
+                            for (Case c : department.getCases()) {
+                                System.out.println("Checking case: " + c.getCaseID());
+                                if (assign_Case.equals(c.getCaseID())) {
                                     caseFound = true;
+                                    System.out.println("Case found: " + c.getCaseID());
+
+                                    // 5. Check if the officer is already assigned to this case
                                     boolean alreadyAssigned = false;
-                                    for (OfficerAuthentication auth : Authentications)
-                                    {
-                                        if (auth.getCase_ID().equals(assign_Case))
-                                        {
-                                            if (!auth.getOfficers_ID().contains(assign_Officer))
-                                            {
-                                                auth.getOfficers_ID().add(assign_Officer);
+                                    for (OfficerAuthentication auth : Authentications) {
+                                        if (auth.getCase_ID().equals(assign_Case)) {
+                                            if (!auth.getOfficers_ID().contains(assign_Officer)) {
+                                                System.out.println("Assigning officer " + assign_Officer + " to case " + assign_Case);
+                                                auth.getOfficers_ID().add(assign_Officer); // Add the officer to the case
+                                            } else {
+                                                alreadyAssigned = true;
+                                                System.out.println("Officer is already assigned to this case.");
                                             }
-                                            alreadyAssigned = true;
                                             break;
                                         }
                                     }
 
-                                    if (!alreadyAssigned)
-                                    {
-                                        OfficerAuthentication assign = new OfficerAuthentication(assign_Case, String.valueOf(new ArrayList<>()));
-                                        assign.getOfficers_ID().add(assign_Officer);
+                                    // 6. If no authentication exists for the case, create a new one
+                                    if (!alreadyAssigned) {
+                                        System.out.println("Creating new OfficerAuthentication for case " + assign_Case);
+                                        OfficerAuthentication assign = new OfficerAuthentication(assign_Case, new ArrayList<>());
+                                        assign.getOfficers_ID().add(assign_Officer); // Add officer to case
                                         Authentications.add(assign);
                                     }
 
-                                    System.out.println("Officer assigned successfully!");
+                                    // 7. Success message
+                                    System.out.println("Officer assigned successfully to case " + assign_Case + "!");
                                     return;
                                 }
                             }
                         }
                     }
                 }
-           // }
-
-            if (!officerFound)
-            {
-                System.out.println("Officer ID not found.");
-            } else if (!caseFound)
-            {
-                System.out.println("Case ID not found or does not match the officer's department.");
             }
-        } catch (Exception e)
-        {
+
+            // Error Messages
+            if (!officerFound) {
+                System.out.println("Officer ID not found.");
+            } else if (!caseFound) {
+                System.out.println("Case ID not found or does not match the officer's assigned department.");
+            }
+        } catch (Exception e) {
             System.out.println("An error occurred while assigning officers: " + e.getMessage());
         }
     }
-
 
     protected static void DisplayCriminals(ArrayList<Criminal> criminals)
     {

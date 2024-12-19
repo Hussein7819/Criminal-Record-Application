@@ -49,19 +49,26 @@ public class Main { // Main class
 
 
         // Pre-existing Officers
+        // Example: Initializing officers with assigned departments
         if (officers.isEmpty()) {
-            Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "D1");
+            Officer o1 = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "Homicide");
             officers.add(o1);
-            Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "D2");
+            Officer o2 = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "Cybercrime");
             officers.add(o2);
+            Officer o3 = new Officer("Hassan Khalid", 30, 15000, "Hassan_Officer3", "Hassan3", "Terrorism");
+            officers.add(o3);
+            Officer o4 = new Officer("Omar Hassan", 45, 25000, "Omar_Officer4", "Omar4", "Forensics");
+            officers.add(o4);
+            Officer o5 = new Officer("Youssef Ehab", 33, 18000, "Youssef_Officer5", "Youssef5", "Robbery");
+            officers.add(o5);
         }
+
 
         // Pre-existing Criminals
         if (criminals.isEmpty()) {
 
             // Initialize criminals and add crimes
             Criminal c1 = new Criminal("Mahmoud Mohamed", new Location("Cairo", "Nasr City", "Main Street", "Near Mall"));
-            c1.getCrime().add("Robbery: Jewelry store heist");
             c1.getCrime().add("Robbery: Breaking and entering a warehouse");
             c1.updateDangerLevel(); // Manually update danger level
             criminals.add(c1);
