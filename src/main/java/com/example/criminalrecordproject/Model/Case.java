@@ -1,6 +1,7 @@
 package com.example.criminalrecordproject.Model;
 
 import com.example.criminalrecordproject.Department;
+import com.example.criminalrecordproject.Model.Criminal;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -57,6 +58,29 @@ public class Case implements Serializable {
         numoftotalcases++;
         this.caseIndex= numoftotalcases;
     }
+
+    // New constructor that also accepts officers and criminals
+    public Case(String description, String startDate, String crimeType, Department dept,
+                ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
+        this.caseId = (dept.deptNo * 100) + dept.numofcasesAssigned++;
+        this.description = description;
+        this.startDate = startDate;
+        this.crimeType = crimeType;
+        this.assignedOfficers = new ArrayList<String>();
+        this.criminals = criminals != null ? criminals : new ArrayList<>();
+        this.assignedDept = dept.departmentID;       // Dept ID
+        this.victims = new ArrayList<>();
+        this.caseReport = new Report("No Description yet", "no witnesses yet", "No suspects yet", "no evidence yet");
+
+        // Assign officers to the case
+        if (officers != null) {
+            for (Officer officer : officers) {
+                this.assignedOfficers.add(officer.getOfficerUsername());
+            }
+        }
+    }
+
+
     public void addOfficer(Officer officer) {
         if (officer == null) {
             throw new IllegalArgumentException("Officer cannot be null");
@@ -106,9 +130,13 @@ public class Case implements Serializable {
         return assignedOfficers;
     }
 
-    public void addCriminal(Criminal criminal)
-    {
-        criminals.add(criminal);
+    public void addCriminal(Criminal criminal) {
+        if (criminal != null && !criminals.contains(criminal)) {
+            criminals.add(criminal);
+            System.out.println("Criminal " + criminal.getCriminalID() + " added to case " + this.caseId);
+        } else {
+            System.out.println("Criminal already added or invalid.");
+        }
     }
     public ArrayList<Victim> getVictim(){
         return victims;
