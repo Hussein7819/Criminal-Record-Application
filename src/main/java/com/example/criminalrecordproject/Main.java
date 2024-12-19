@@ -25,76 +25,92 @@ public class Main { // Main class
 
         // Pre-existing departments and cases (only if no existing data is found)
         if (departments.isEmpty()) {
+            // Homicide Department
             Department homicide = new Department("Homicide", "20/11/2024");
             departments.add(homicide);
-            // Create Officer and Criminal for this case
+
             Officer homicideOfficer = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "D0");
+            officers.add(homicideOfficer);
+
             Criminal homicideCriminal = new Criminal("Mahmoud Mohamed", new Location("Cairo", "Nasr City", "Main Street", "Near Mall"));
             homicideCriminal.getCrime().add("Robbery: Breaking and entering a warehouse");
             criminals.add(homicideCriminal);
 
-            // Add case with officer and criminal
-            Case homicideCase = new Case("Murder investigation in downtown", "20/12/2024", "Murder", homicide, new Report("Murder investigation in downtown","John Doe , Jane Smith","None","\"Bloody knife, fingerprints\""));
+            Case homicideCase = new Case("Murder investigation in downtown", "20/12/2024", "Murder", homicide,
+                    new Report("Murder investigation in downtown", "John Doe , Jane Smith", "None", "\"Bloody knife, fingerprints\""));
             homicideCase.addOfficer(homicideOfficer);
             homicideCase.addCriminal(homicideCriminal);
             homicide.addCase(homicideCase);
 
+            // Cybercrime Department
             Department cybercrime = new Department("Cybercrime", "21/11/2024");
             departments.add(cybercrime);
-            // Create Officer and Criminal for this case
+
             Officer cybercrimeOfficer = new Officer("Hassan Khalid", 30, 15000, "Hassan_Officer3", "Hassan3", "D2");
+            officers.add(cybercrimeOfficer);
+
             Criminal cybercrimeCriminal = new Criminal("Omar Farouk", new Location("Cairo", "Nasr City", "Tech Park", "Next to IT Plaza"));
             cybercrimeCriminal.getCrime().add("Cybercrime: Ransomware attack on a company");
             criminals.add(cybercrimeCriminal);
 
-            // Add case with officer and criminal
-            Case cybercrimeCase = new Case("Ransomware attack on a company", "30/11/2024", "Cybercrime", cybercrime, new Report("Ransomware attack on a company","John Doe , Jane Smith","Anonymous","Encrypted files, ransom note"));
+            Case cybercrimeCase = new Case("Ransomware attack on a company", "30/11/2024", "Cybercrime", cybercrime,
+                    new Report("Ransomware attack on a company", "John Doe , Jane Smith", "Anonymous", "Encrypted files, ransom note"));
             cybercrimeCase.addOfficer(cybercrimeOfficer);
             cybercrimeCase.addCriminal(cybercrimeCriminal);
             cybercrime.addCase(cybercrimeCase);
 
+            // Forensics Department
             Department forensics = new Department("Forensics", "22/11/2024");
             departments.add(forensics);
-            // Create Officer and Criminal for this case
+
             Officer forensicsOfficer = new Officer("Youssef Ehab", 33, 18000, "Youssef_Officer5", "Youssef5", "D4");
+            officers.add(forensicsOfficer);
+
             Criminal forensicsCriminal = new Criminal("Fatima Khaled", new Location("Cairo", "Heliopolis", "Airport Road", "Near Mall"));
             forensicsCriminal.getCrime().add("Forensics: Tampering with evidence");
             criminals.add(forensicsCriminal);
 
-            // Add case with officer and criminal
-            Case forensicsCase = new Case("DNA matching for suspects", "25/11/2024", "Forensics", forensics, new Report("DNA matching for suspects","Detective X","Suspect Z","DNA samples, evidence logs"));
+            Case forensicsCase = new Case("DNA matching for suspects", "25/11/2024", "Forensics", forensics,
+                    new Report("DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"));
             forensicsCase.addOfficer(forensicsOfficer);
             forensicsCase.addCriminal(forensicsCriminal);
             forensics.addCase(forensicsCase);
 
+            // Terrorism Department
             Department terrorism = new Department("Terrorism", "23/11/2024");
             departments.add(terrorism);
-            // Create Officer and Criminal for this case
+
             Officer terrorismOfficer = new Officer("Omar Hassan", 45, 25000, "Omar_Officer4", "Omar4", "D3");
+            officers.add(terrorismOfficer);
+
             Criminal terrorismCriminal = new Criminal("Youssef Ali", new Location("Aswan", "City Center", "Market Street", "Near River"));
             terrorismCriminal.getCrime().add("Terrorism: Bomb threat in a subway");
             criminals.add(terrorismCriminal);
 
-            // Add case with officer and criminal
-            Case terrorismCase = new Case("Bomb threat in a subway", "26/11/2024", "Terrorism", terrorism, new Report("Bomb threat in a subway","Witness A, Witness B","Terrorist Group X","Explosives residue, CCTV footage"));
+            Case terrorismCase = new Case("Bomb threat in a subway", "26/11/2024", "Terrorism", terrorism,
+                    new Report("Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage"));
             terrorismCase.addOfficer(terrorismOfficer);
             terrorismCase.addCriminal(terrorismCriminal);
             terrorism.addCase(terrorismCase);
 
+            // Robbery Department
             Department robbery = new Department("Robbery", "24/11/2024");
             departments.add(robbery);
-            // Create Officer and Criminal for this case
+
             Officer robberyOfficer = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "D1");
+            officers.add(robberyOfficer);
+
             Criminal robberyCriminal = new Criminal("Amira Saeed", new Location("Cairo", "Shobra", "Industrial Zone", "Opposite Factory"));
             robberyCriminal.getCrime().add("Robbery: Jewelry store heist");
             criminals.add(robberyCriminal);
 
-            // Add case with officer and criminal
-            Case robberyCase = new Case("Bank heist in downtown", "27/11/2024", "Robbery", robbery, new Report("Bank heist in downtown","Bank Manager, Security Guard","Masked Robbers","CCTV footage, dropped wallet"));
+            Case robberyCase = new Case("Bank heist in downtown", "27/11/2024", "Robbery", robbery,
+                    new Report("Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"));
             robberyCase.addOfficer(robberyOfficer);
             robberyCase.addCriminal(robberyCriminal);
             robbery.addCase(robberyCase);
         }
+
 
 // Pre-existing Officers
         if (officers.isEmpty()) {

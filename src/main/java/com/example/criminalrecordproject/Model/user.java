@@ -296,18 +296,24 @@ public class user {
                     }
 
                     // Display officers assigned to the case
+                    // Display officers assigned to the case
                     System.out.println("\t\tOfficers assigned to this case:");
+                    boolean officerFound = false; // To track if any officer is found
                     for (OfficerAuthentication auth : Authentications) {
                         if (auth.getCase_ID().equals(c.getCaseID())) {
                             for (String officerID : auth.getOfficers_ID()) {
-                                for (Officer officer : officers) {
-                                    if (officer.getOfficerID().equals(officerID)) {
-                                        System.out.println("\t\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
-                                    }
+                                Officer officer = OfficerAuthentication.findOfficerByID(officerID, officers);
+                                if (officer != null) {
+                                    System.out.println("\t\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
+                                    officerFound = true;
                                 }
                             }
                         }
                     }
+                    if (!officerFound) {
+                        System.out.println("\t\t\tNo officers assigned to this case.");
+                    }
+
                 }
                 departmentIndex++;
             }
