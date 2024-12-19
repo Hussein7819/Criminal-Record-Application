@@ -132,8 +132,7 @@ public class user {
 
     }
 
-
-    protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments) {
+    protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
         Department targetDepartment = null;
         System.out.println("Enter Department ID to assign cases: ");
         String assignDeptID = input.nextLine();
@@ -182,12 +181,80 @@ public class user {
             Report caseReport = new Report(reportDescription, witnesses, suspects, evidence);
             Case newCase = new Case("New case for " + crimeType, startDate, crimeType, targetDepartment, caseReport);
 
+            // Prompt for Officer assignments
+            System.out.println("How many officers would you like to assign to this case?");
+            int numOfficers = input.nextInt();
+            input.nextLine(); // consume newline
+
+            for (int j = 0; j < numOfficers; j++) {
+                System.out.println("Enter Officer ID to assign to this case:");
+                String officerID = input.nextLine();
+
+                // Find officer by ID
+                Officer officer = null;
+                for (Officer tempOfficer : officers) {
+                    if (tempOfficer.getOfficerID().equals(officerID)) {
+                        officer = tempOfficer;
+                        break;
+                    }
+                }
+
+                if (officer != null) {
+                    newCase.addOfficer(officer); // Add officer to case
+                } else {
+                    System.out.println("Officer not found with ID: " + officerID);
+                }
+            }
+
+            // Prompt for Criminal assignments
+            System.out.println("How many criminals would you like to assign to this case?");
+            int numCriminals = input.nextInt();
+            input.nextLine(); // consume newline
+
+            for (int k = 0; k < numCriminals; k++) {
+                System.out.println("Enter Criminal ID to assign to this case:");
+                String criminalID = input.nextLine();
+
+                // Find criminal by ID
+                Criminal criminal = null;
+                for (Criminal tempCriminal : criminals) {
+                    if (tempCriminal.getCriminalID().equals(criminalID)) {
+                        criminal = tempCriminal;
+                        break;
+                    }
+                }
+
+                // If criminal is not found, create a new one and add it to the list
+                if (criminal == null) {
+                    System.out.println("Criminal not found with ID: " + criminalID + ". Creating new criminal.");
+
+                    System.out.println("Enter Criminal Name:");
+                    String criminalName = input.nextLine();
+
+                    System.out.println("Enter Criminal Address:(City, District, Street, Area description)");
+                    String criminalAddress = input.nextLine();
+
+                    System.out.println("Enter Danger Level (e.g.,Normal,Moderate,Dangerous,Insane):");
+                    String dangerLevel = input.nextLine();
+
+                    // Generate a new criminal ID (this could be a more complex logic)
+                    String newCriminalID = "C" + (criminals.size() + 1); // Example ID generation
+                    criminal = new Criminal(newCriminalID, criminalName, criminalAddress, dangerLevel);
+
+                    criminals.add(criminal); // Add the new criminal to the list
+                    System.out.println("New criminal added: " + criminalName);
+                }
+
+                newCase.addCriminal(criminal); // Add criminal to case
+            }
+
             // Add the case to the department
             targetDepartment.addCase(newCase);
 
             System.out.println("Case added to department " + targetDepartment.getDepartmentID());
         }
     }
+
 
     protected static void displayDepartments(ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications) {
         try {
@@ -222,27 +289,32 @@ public class user {
                     System.out.println("\t\t\tSuspects: " + caseReport.getSuspects());
                     System.out.println("\t\t\tEvidence: " + caseReport.getEvidence());
 
-                    // Display criminals associated with the case
+                    // Display criminals assigned to the case
                     System.out.println("\t\tCriminals assigned to this case:");
                     for (Criminal criminal : c.criminals) {
                         System.out.println("\t\t\t" + criminal.getName() + " (" + criminal.getCriminalID() + ")");
                     }
 
-                    // Display officers assigned to the case
+                    // Assuming you have a list of all Officer objects in your system, e.g., `officers` is that list
                     System.out.println("\t\tOfficers assigned to this case:");
-                    for (OfficerAuthentication auth : Authentications) {
-                        if (auth.getCase_ID().equals(c.getCaseID())) {
-                            // For each officer assigned to the case
-                            for (String officerID : auth.getOfficers_ID()) {
-                                Officer officer = OfficerAuthentication.findOfficerByID(officerID, officers);
-                                if (officer != null) {
-                                    System.out.println("\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
-                                } else {
-                                    System.out.println("\t\tOfficer not found with ID: " + officerID);
-                                }
+                    for (String officerUsername : c.getOfficer()) {  // Iterate over the officer usernames
+                        // Search for the officer object using the username
+                        Officer officer = null;
+                        for (Officer tempOfficer : officers) {  // Assuming `officers` is the list of all officers
+                            if (tempOfficer.getOfficerUsername().equals(officerUsername)) {
+                                officer = tempOfficer;
+                                break;  // Stop once you find the officer
                             }
                         }
+
+                        // Now that you have the officer object, you can display their name
+                        if (officer != null) {
+                            System.out.println("\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
+                        } else {
+                            System.out.println("\t\tOfficer not found with username: " + officerUsername);
+                        }
                     }
+
 
                 }
                 departmentIndex++;
@@ -518,12 +590,9 @@ public class user {
         }
     }
 
-    protected static void DisplayCriminals(ArrayList<Criminal> criminals)
-    {
-        try
-        {
-            if (criminals == null || criminals.isEmpty())
-            {
+    protected static void DisplayCriminals(ArrayList<Criminal> criminals) {
+        try {
+            if (criminals == null || criminals.isEmpty()) {
                 System.out.println("No criminals to display.");
                 return;
             }
@@ -535,22 +604,17 @@ public class user {
                 System.out.println("  Address: " + c.getAddress());
                 System.out.println("  Danger Level: " + c.getDangerLevel());
 
-                if (c.getCrime() == null || c.getCrime().isEmpty())
-                {
+                if (c.getCrime() == null || c.getCrime().isEmpty()) {
                     System.out.println("  Crimes: None");
-                }
-                else
-                {
+                } else {
                     System.out.println("  Crimes:");
-                    for (int x = 0; x < c.getCrime().size(); x++)
-                    {
+                    for (int x = 0; x < c.getCrime().size(); x++) {
                         System.out.println("    " + (x + 1) + ". " + c.getCrime().get(x));
                     }
                 }
                 System.out.println("---------------------------------------------------");
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("An error occurred while displaying criminals: " + e.getMessage());
         }
     }

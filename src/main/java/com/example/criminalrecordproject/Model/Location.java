@@ -16,7 +16,7 @@ public class Location implements Serializable
     {
         this.city = city;
         this.district = district;
-        this.street = street;
+        this.street = Street;
         this.DiscriptionOfArea = DiscriptionOfArea;
 
     }

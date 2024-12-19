@@ -46,7 +46,7 @@ public class Admin extends user
                         break;
 
                     case 2:
-                        addCasesToDepartment(input, departments);
+                        addCasesToDepartment(input, departments,officers,criminals);
                         break;
 
                     case 3:

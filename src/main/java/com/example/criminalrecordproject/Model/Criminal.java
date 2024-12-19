@@ -14,7 +14,7 @@ public class Criminal extends Person implements Serializable {
     private String dangerLevel; // Danger level specific to each criminal
 
     // Constructor to initialize the criminal with name and generate ID
-    public Criminal(String name) {
+    public Criminal(String name, String criminalName, String criminalAddress, String dangerLevel) {
         this.name = name;
         this.ID = "C" + numOfCriminals++;
         this.Crime = new ArrayList<>();
@@ -23,8 +23,11 @@ public class Criminal extends Person implements Serializable {
 
     // Overloaded constructor to initialize with address
     public Criminal(String name, Location address) {
-        this(name);
-        this.address = address;
+        this.name = name;  // Directly assign name
+        this.ID = "C" + numOfCriminals++;  // Set a unique ID
+        this.Crime = new ArrayList<>();  // Initialize Crime as an empty list
+        this.dangerLevel = "No Record";  // Set default danger level
+        this.address = address;  // Assign the location address
     }
 
     // Getter for Criminal ID
