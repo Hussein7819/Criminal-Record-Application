@@ -50,7 +50,7 @@ public class Admin extends user
                         break;
 
                     case 3:
-                        displayDepartments(departments,Authentication);
+                        displayDepartments(departments,Authentication,officers);
                         break;
 
                     case 4:
@@ -58,7 +58,7 @@ public class Admin extends user
                         AssignOfficers(officers,departments,Authentication);
                         break;
                     case 5 :
-                        Deleteofficers(officers,departments);
+                        Deleteofficers(officers,departments,Authentication);
                         break;
                         case 6:
                         DeleteCase(departments);
