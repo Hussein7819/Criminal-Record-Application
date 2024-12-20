@@ -180,5 +180,6 @@ public class Main { // Main class
 
         // Save all data before exiting
         FileSaver.saveAll(departments, officers, criminals);
+
     }
 }
