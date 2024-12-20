@@ -234,12 +234,12 @@ public class user {
                     System.out.println("Enter Criminal Address:(City, District, Street, Area description)");
                     String criminalAddress = input.nextLine();
 
-                    System.out.println("Enter Danger Level (e.g.,Normal,Moderate,Dangerous,Insane):");
+                    System.out.println("Enter Danger Level (e.g.,Low, Moderate, High, Very High):");
                     String dangerLevel = input.nextLine();
 
-                    // Generate a new criminal ID (this could be a more complex logic)
-                    String newCriminalID = "C" + (criminals.size() + 1); // Example ID generation
-                    criminal = new Criminal(newCriminalID, criminalName, criminalAddress, dangerLevel);
+
+
+                    criminal = new Criminal(criminalName, criminalAddress, dangerLevel);
 
                     criminals.add(criminal); // Add the new criminal to the list
                     System.out.println("New criminal added: " + criminalName);
@@ -296,24 +296,22 @@ public class user {
                     }
 
                     // Display officers assigned to the case
-                    // Display officers assigned to the case
                     System.out.println("\t\tOfficers assigned to this case:");
-                    boolean officerFound = false; // To track if any officer is found
-                    for (OfficerAuthentication auth : Authentications) {
-                        if (auth.getCase_ID().equals(c.getCaseID())) {
-                            for (String officerID : auth.getOfficers_ID()) {
-                                Officer officer = OfficerAuthentication.findOfficerByID(officerID, officers);
-                                if (officer != null) {
-                                    System.out.println("\t\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
-                                    officerFound = true;
+                    for (OfficerAuthentication auth : Authentications)
+                    {
+                        if (auth.getCase_ID().equals(c.getCaseID()))
+                        {
+                            for (String officerID : auth.getOfficers_ID())
+                            {
+                                for (Officer officer : officers) {
+                                    if (officer.getOfficerID().equals(officerID))
+                                    {
+                                        System.out.println("\t\t\t" + officer.getName() + " (Officer ID: " + officer.getOfficerID() + ")");
+                                    }
                                 }
                             }
                         }
                     }
-                    if (!officerFound) {
-                        System.out.println("\t\t\tNo officers assigned to this case.");
-                    }
-
                 }
                 departmentIndex++;
             }
@@ -321,7 +319,6 @@ public class user {
             System.out.println("An error occurred while displaying departments: " + e.getMessage());
         }
     }
-
 
 
     protected static void displayOfficers(ArrayList<Officer> officers)
@@ -354,43 +351,44 @@ public class user {
         }
     }
 
-    protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, String Off_ID) {
+    protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<OfficerAuthentication> Authentications, String Off_ID) {
         try {
             boolean officerFound = false;
-            for (Officer officer : officers) {
-                if (officer.getOfficerID().equals(Off_ID))
-                {
-                    officerFound = true;
-                    for (Department targetDepartment : departments)
-                    {
-                        if (officer.getAssignedDepartment().equals(targetDepartment.getDepartmentID()))
-                        {
-                            for (Case c : targetDepartment.getCases())
-                            {
-                                //if (c instanceof Report)
-                                //{
-                                   // Report report = (Report) c;
+            boolean caseFound = false;
 
-                             //   System.out.println("\t\tCase ID: " + report.getReportID() +
-                               //             ", Report Details: " + report.getReport());
-                                //} else
-                                //{
-                                    System.out.println("\t\tCase ID: " + c.getCaseID() +
-                                            ", Description: " + c.getDescription() +
-                                            ", Crime Type: " + c.getCrimeType());
-                                    System.out.println("Case report" + c.getReport());
-                                //}
+            // Check if the officer exists
+            for (Officer officer : officers) {
+                if (officer.getOfficerID().equals(Off_ID)) {
+                    officerFound = true;
+
+                    // Loop through officer authentications to find cases assigned to the officer
+                    for (OfficerAuthentication auth : Authentications) {
+                        if (auth.getOfficers_ID().contains(Off_ID)) {
+                            caseFound = true;
+
+                            // Find the case in the relevant department
+                            for (Department department : departments) {
+                                for (Case c : department.getCases()) {
+                                    if (c.getCaseID().equals(auth.getCase_ID())) {
+                                        System.out.println("\tCase ID: " + c.getCaseID() +
+                                                ", Description: " + c.getDescription() +
+                                                ", Crime Type: " + c.getCrimeType());
+                                        System.out.println("\tCase Report: " + c.getReport());
+                                    }
+                                }
                             }
                         }
                     }
+                    break;
                 }
             }
-            if (!officerFound)
-            {
+
+            if (!officerFound) {
                 System.out.println("Officer ID not found.");
+            } else if (!caseFound) {
+                System.out.println("No cases assigned to this officer.");
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println("An error occurred while displaying cases: " + e.getMessage());
         }
     }
@@ -606,6 +604,7 @@ public class user {
                 System.out.println("  Address: " + c.getAddress());
                 System.out.println("  Danger Level: " + c.getDangerLevel());
 
+                // Display associated crimes
                 if (c.getCrime() == null || c.getCrime().isEmpty()) {
                     System.out.println("  Crimes: None");
                 } else {
@@ -620,7 +619,6 @@ public class user {
             System.out.println("An error occurred while displaying criminals: " + e.getMessage());
         }
     }
-
 
 }
 

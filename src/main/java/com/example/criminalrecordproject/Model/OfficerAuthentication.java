@@ -29,7 +29,8 @@ public class OfficerAuthentication {
     }
 
     // Method to find an officer by ID, officers list is passed as a parameter
-    public static Officer findOfficerByID(String officerID, ArrayList<Officer> officers) {
+    public static Officer findOfficerByID(String officerID, ArrayList<Officer> officers)
+    {
         for (Officer officer : officers) {
             if (officer.getOfficerID().equals(officerID)) {
                 return officer;

@@ -30,7 +30,7 @@ public class Officer_menu extends user {
                         displayOfficers(officers);
                         break;
                     case 2:
-                        displayCase(departments, officers, Off_ID);
+                        displayCase(departments, officers,Authentication, Off_ID);
                         break;
                     case 3:
                         Handle_Case(officers, departments, Authentication, Off_ID);
