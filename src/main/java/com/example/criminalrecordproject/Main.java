@@ -183,9 +183,14 @@ public class Main { // Main class
         // Welcome message
         System.out.println("\n\nWelcome to our criminal management system!");
 
+        String ans;
+        Scanner answer = new Scanner(System.in);
+
         // Create user and call login
         user u = new user(departments, officers, criminals,Authentication);
-        u.login();
+
+           u.login();
+
 
         // Save all data before exiting
         FileSaver.saveAll(departments, officers, criminals);

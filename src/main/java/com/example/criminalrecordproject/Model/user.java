@@ -16,7 +16,7 @@ public class user {
     protected ArrayList<Department> departments;
     protected static ArrayList<Criminal> criminals;
     protected static ArrayList<OfficerAuthentication> Authentication;
-    protected static ArrayList<Case>cases;
+    protected static ArrayList<Case> cases;
 
     public class DateValidation {
 
@@ -26,14 +26,12 @@ public class user {
 
             Scanner in = new Scanner(System.in);
 
-            while (!isValid)
-            {
+            while (!isValid) {
                 System.out.println("Enter Start Date (dd/MM):");
                 date = in.nextLine();
 
 
-                if (date.chars().filter(ch -> ch == '/').count() != 1)
-                {
+                if (date.chars().filter(ch -> ch == '/').count() != 1) {
                     System.out.println("Invalid Date format. Please enter in dd/MM format.");
                     continue;
                 }
@@ -69,60 +67,61 @@ public class user {
         this.User_password = User_password;
     }
 
-    public user(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals,ArrayList<OfficerAuthentication> Authentication) {
+    public user(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals, ArrayList<OfficerAuthentication> Authentication) {
         this.departments = departments;
         this.officers = officers;
         this.criminals = criminals;
         this.Authentication = Authentication;
     }
+
     public void login() {
         String username;
         String password;
-        while (true) {
-            System.out.println("login");
-            Scanner sc = new Scanner(System.in);
-            System.out.println("enter username:");
-            username = sc.nextLine();
-            System.out.println("enter password:");
-            password = sc.nextLine();
+        //  while (true) {
+        System.out.println("login");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter username:");
+        username = sc.nextLine();
+        System.out.println("enter password:");
+        password = sc.nextLine();
 
-            if (username.equals("admin") && password.equals("admin")) {
-                Admin admin = new Admin(username, password);
-                System.out.println("Login successfully!");
-                admin.Show_Admin_Menu(departments, officers, criminals,Authentication,cases);
-            } else {
-                boolean login = false;
-                for (Officer Off:officers) {
-                    if (username.equals(Off.getOfficerUsername()) && password.equals(Off.getOfficerPassword())) {
-                        System.out.println("Login successfully!");
-                        login = true;
-                        Officer_menu.menu(departments, officers,Authentication,Off.getOfficerID());
-                    }
-                }
-                if (login == false) {
-                    System.out.println("Login failed!");
+        if (username.equals("admin") && password.equals("admin")) {
+            Admin admin = new Admin(username, password);
+            System.out.println("Login successfully!");
+            admin.Show_Admin_Menu(departments, officers, criminals, Authentication, cases);
+        } else {
+            boolean login = false;
+            for (Officer Off : officers) {
+                if (username.equals(Off.getOfficerUsername()) && password.equals(Off.getOfficerPassword())) {
+                    System.out.println("Login successfully!");
+                    login = true;
+                    Officer_menu.menu(departments, officers, Authentication, Off.getOfficerID());
                 }
             }
-            try {
-                System.out.println("1 to close the system\n 2 logout and return to login ");
-                int choice = sc.nextInt();
-                switch (choice) {
-                    case 1:
-                        logout();
-                        return;
-                    case 2:
-                        login();
-                        break;
-                    default:
-                        System.out.println("unavailable option");
-                }
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("login failed" + e.getMessage());
-                System.out.println("enter the correct format");
-                char ch = sc.next().charAt(0);
+            if (login == false) {
+                System.out.println("Login failed!");
             }
         }
+        try {
+            System.out.println("1 to save and close the system\n 2 logout and return to login ");
+            int choice = sc.nextInt();
+            switch (choice) {
+                case 1:
+                    logout();
+                    return;
+                case 2:
+                    login();
+                    break;
+                default:
+                    System.out.println("unavailable option");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("login failed" + e.getMessage());
+            System.out.println("enter the correct format");
+            char ch = sc.next().charAt(0);
+        }
     }
+//}
 
 
     protected void logout() {
