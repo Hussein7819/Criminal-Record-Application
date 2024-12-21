@@ -22,6 +22,8 @@ public class Main { // Main class
         Criminal.numOfCriminals = criminals.size();
         Officer.officerNum = officers.size();
 
+        //Local defined not related to files
+       // ArrayList<Witness> witnesses_local= new ArrayList<>();
 
         // Pre-existing departments and cases (only if no existing data is found)
         if (departments.isEmpty()) {
@@ -37,7 +39,7 @@ public class Main { // Main class
             criminals.add(homicideCriminal);
 
             Case homicideCase = new Case("Murder investigation in downtown", "20/12/2024", "Murder", homicide,
-                    new Report("Murder investigation in downtown", "John Doe , Jane Smith", "None", "\"Bloody knife, fingerprints\""));
+                    new Report("Murder investigation in downtown", new Witness("John Doe", "01131526985"), "None", "\"Bloody knife, fingerprints\""));
             homicideCase.addOfficer(homicideOfficer);
             homicideCase.addCriminal(homicideCriminal);
             homicide.addCase(homicideCase);
@@ -54,7 +56,7 @@ public class Main { // Main class
             criminals.add(cybercrimeCriminal);
 
             Case cybercrimeCase = new Case("Ransomware attack on a company", "30/11/2024", "Cybercrime", cybercrime,
-                    new Report("Ransomware attack on a company", "John Doe , Jane Smith", "Anonymous", "Encrypted files, ransom note"));
+                    new Report("Ransomware attack on a company", new Witness("Jane Smith","01112535654"), "Anonymous", "Encrypted files, ransom note"));
             cybercrimeCase.addOfficer(cybercrimeOfficer);
             cybercrimeCase.addCriminal(cybercrimeCriminal);
             cybercrime.addCase(cybercrimeCase);
@@ -71,7 +73,7 @@ public class Main { // Main class
             criminals.add(forensicsCriminal);
 
             Case forensicsCase = new Case("DNA matching for suspects", "25/11/2024", "Forensics", forensics,
-                    new Report("DNA matching for suspects", "Detective X", "Suspect Z", "DNA samples, evidence logs"));
+                    new Report("DNA matching for suspects", new Witness("Detective X","01185426648"), "Suspect Z", "DNA samples, evidence logs"));
             forensicsCase.addOfficer(forensicsOfficer);
             forensicsCase.addCriminal(forensicsCriminal);
             forensics.addCase(forensicsCase);
@@ -88,7 +90,7 @@ public class Main { // Main class
             criminals.add(terrorismCriminal);
 
             Case terrorismCase = new Case("Bomb threat in a subway", "26/11/2024", "Terrorism", terrorism,
-                    new Report("Bomb threat in a subway", "Witness A, Witness B", "Terrorist Group X", "Explosives residue, CCTV footage"));
+                    new Report("Bomb threat in a subway", new Witness("Ali sayed","01115476459"), "Terrorist Group X", "Explosives residue, CCTV footage"));
             terrorismCase.addOfficer(terrorismOfficer);
             terrorismCase.addCriminal(terrorismCriminal);
             terrorism.addCase(terrorismCase);
@@ -105,7 +107,7 @@ public class Main { // Main class
             criminals.add(robberyCriminal);
 
             Case robberyCase = new Case("Bank heist in downtown", "27/11/2024", "Robbery", robbery,
-                    new Report("Bank heist in downtown", "Bank Manager, Security Guard", "Masked Robbers", "CCTV footage, dropped wallet"));
+                    new Report("Bank heist in downtown", new Witness("Security Guard", "01115426455"), "Masked Robbers", "CCTV footage, dropped wallet"));
             robberyCase.addOfficer(robberyOfficer);
             robberyCase.addCriminal(robberyCriminal);
             robbery.addCase(robberyCase);

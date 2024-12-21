@@ -170,8 +170,11 @@ public class user {
             System.out.println("Enter Case Report Description:");
             String reportDescription = input.nextLine();
 
-            System.out.println("Enter Witnesses:");
-            String witnesses = input.nextLine();
+            System.out.println("Enter Witness data:");
+            System.out.println("Name");
+            String witnessname = input.nextLine();
+            System.out.println("Phone number :");
+            String witnessesnumber = input.nextLine();
 
             System.out.println("Enter Suspects:");
             String suspects = input.nextLine();
@@ -180,7 +183,7 @@ public class user {
             String evidence = input.nextLine();
 
             // Create the case with the details
-            Report caseReport = new Report(reportDescription, witnesses, suspects, evidence);
+            Report caseReport = new Report(reportDescription, new Witness(witnessname,witnessesnumber), suspects, evidence);
             Case newCase = new Case("New case for " + crimeType, startDate, crimeType, targetDepartment, caseReport);
 
 
@@ -272,7 +275,7 @@ public class user {
                     Report caseReport = c.getCaseReport();
                     System.out.println("\t\tReport Details:");
                     System.out.println("\t\t\tDescription: " + caseReport.getReportDescription());
-                    System.out.println("\t\t\tWitnesses: " + caseReport.getWitnesses());
+                    System.out.println("\t\t\tWitness: " + caseReport.getwitnessData(caseReport));
                     System.out.println("\t\t\tSuspects: " + caseReport.getSuspects());
                     System.out.println("\t\t\tEvidence: " + caseReport.getEvidence());
 

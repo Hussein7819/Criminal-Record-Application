@@ -184,8 +184,13 @@ public class Officer_menu extends user {
                                 System.out.println("Enter new Report details:");
                                 System.out.print("Enter new Report Description: ");
                                 String newReportDescription = input.nextLine();
-                                System.out.print("Enter Witnesses (comma-separated): ");
-                                String witnesses = input.nextLine();
+
+                                System.out.print("Enter Witness data (comma-separated): ");
+                                System.out.println("Name: ");
+                                String witnessname= input.nextLine();
+                                System.out.println("Phone-number: ");
+                                String witnessnumber = input.nextLine();
+
                                 System.out.print("Enter Suspects (comma-separated): ");
                                 String suspects = input.nextLine();
                                 System.out.print("Enter Evidence: ");
@@ -194,7 +199,7 @@ public class Officer_menu extends user {
                                 //if (c instanceof Report) {
                                    // Report reportCase = (Report) c;
                                     c.getCaseReport().setReportDescription(newReportDescription);
-                                    c.getCaseReport().setWitnesses(witnesses);
+                                    c.getCaseReport().setWitnesses(new Witness(witnessname,witnessnumber));
                                     c.getCaseReport().setSuspects(suspects);
                                     c.getCaseReport().setEvidence(evidence);
                                     System.out.println("Report updated to: " + c.getReport());

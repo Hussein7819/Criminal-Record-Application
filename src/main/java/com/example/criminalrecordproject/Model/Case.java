@@ -40,7 +40,7 @@ public class Case implements Serializable {
           this.assignedOfficers = new ArrayList<String>();
           this.assignedDept = dept.departmentID;       //Dept ID
           this.victims = new ArrayList<>();
-          this.caseReport = new Report("No Description yet", "no witnesses yet", "No suspects yet", "no evidence yet");
+          this.caseReport = new Report("No Description yet", new Witness(null,null), "No suspects yet", "no evidence yet");
       }
 
       public Case(String description, String startDate, String crimeType, Department dept, Report caseReport) //used only in main
@@ -70,7 +70,7 @@ public class Case implements Serializable {
         this.criminals = criminals != null ? criminals : new ArrayList<>();
         this.assignedDept = dept.departmentID;       // Dept ID
         this.victims = new ArrayList<>();
-        this.caseReport = new Report("No Description yet", "no witnesses yet", "No suspects yet", "no evidence yet");
+        this.caseReport = new Report("No Description yet", new Witness(null,null), "No suspects yet", "no evidence yet");
 
         // Assign officers to the case
         if (officers != null) {
