@@ -154,6 +154,7 @@ public class user {
         System.out.println("How many cases would you like to add?");
         int numCases = input.nextInt();
         input.nextLine(); // consume newline
+        ArrayList<String>crimes =new ArrayList<>();
 
         for (int i = 0; i < numCases; i++) {
             System.out.println("Enter details for case " + (i + 1));
@@ -161,8 +162,9 @@ public class user {
             System.out.println("Enter Case Date:");
             String startDate = input.nextLine();
 
-            System.out.println("Enter Crime Type:");
+            System.out.println("Enter Crime Type:(format crime type:describe the situation)");
             String crimeType = input.nextLine();
+            crimes.add(crimeType);
 
             // Collect report details for the new case
             System.out.println("Enter Case Report Description:");
@@ -181,30 +183,6 @@ public class user {
             Report caseReport = new Report(reportDescription, witnesses, suspects, evidence);
             Case newCase = new Case("New case for " + crimeType, startDate, crimeType, targetDepartment, caseReport);
 
-            // Prompt for Officer assignments
-            System.out.println("How many officers would you like to assign to this case?");
-            int numOfficers = input.nextInt();
-            input.nextLine(); // consume newline
-
-            for (int j = 0; j < numOfficers; j++) {
-                System.out.println("Enter Officer ID to assign to this case:");
-                String officerID = input.nextLine();
-
-                // Find officer by ID
-                Officer officer = null;
-                for (Officer tempOfficer : officers) {
-                    if (tempOfficer.getOfficerID().equals(officerID)) {
-                        officer = tempOfficer;
-                        break;
-                    }
-                }
-
-                if (officer != null) {
-                    newCase.addOfficer(officer); // Add officer to case
-                } else {
-                    System.out.println("Officer not found with ID: " + officerID);
-                }
-            }
 
             // Prompt for Criminal assignments
             System.out.println("How many criminals would you like to assign to this case?");
@@ -232,17 +210,26 @@ public class user {
                     String criminalName = input.nextLine();
 
                     System.out.println("Enter Criminal Address:(City, District, Street, Area description)");
-                    String criminalAddress = input.nextLine();
+                    System.out.println("City:");
+                    String city = input.nextLine();
+                    System.out.println("District:");
+                    String district=input.nextLine();
+                    System.out.println("Street:");
+                    String street=input.nextLine();
+                    System.out.println("Area description:");
+                    String area=input.nextLine();
+                    Location loc= new Location(city,district,street,area);
 
                     System.out.println("Enter Danger Level (e.g.,Low, Moderate, High, Very High):");
                     String dangerLevel = input.nextLine();
 
 
 
-                    criminal = new Criminal(criminalName, criminalAddress, dangerLevel);
+                    criminal = new Criminal(criminalName,loc, dangerLevel,crimes);
 
                     criminals.add(criminal); // Add the new criminal to the list
                     System.out.println("New criminal added: " + criminalName);
+                    crimes=new ArrayList<>();
                 }
 
                 newCase.addCriminal(criminal); // Add criminal to case

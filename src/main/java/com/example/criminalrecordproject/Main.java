@@ -131,35 +131,41 @@ public class Main { // Main class
 
 
 // Pre-existing Criminals
-        if (criminals.isEmpty()) {
-            Criminal c1 = new Criminal("Mahmoud Mohamed", new Location("Cairo", "Nasr City", "Main Street", "Near Mall"));
+        /* {
+           Criminal c1 = new Criminal("Mahmoud Mohamed", new Location("Cairo", "Nasr City", "Main Street", "Near Mall"));
             c1.getCrime().add("Robbery: Breaking and entering a warehouse");
             criminals.add(c1);
+            c1.updateDangerLevel();
 
             Criminal c2 = new Criminal("Ahmed Hussien", new Location("Giza", "Dokki", "Park Avenue", "Opposite Museum"));
             c2.getCrime().add("Homicide: Assault leading to death");
             c2.getCrime().add("Homicide: Suspicious death investigation in a park");
             criminals.add(c2);
+            c2.updateDangerLevel();
 
             Criminal c3 = new Criminal("Hassan Omar", new Location("Alexandria", "Montaza", "Corniche Road", "Near Beach"));
             c3.getCrime().add("Homicide: Murder in downtown");
             c3.getCrime().add("Homicide: Suspicious death in a park");
             criminals.add(c3);
+            c3.updateDangerLevel();
 
             Criminal c4 = new Criminal("Fatima Khaled", new Location("Cairo", "Heliopolis", "Airport Road", "Near Mall"));
             c4.getCrime().add("Forensics: Tampering with evidence");
             c4.getCrime().add("Forensics: Forgery of documents");
             criminals.add(c4);
+            c4.updateDangerLevel();
 
             Criminal c5 = new Criminal("Amira Saeed", new Location("Cairo", "Shobra", "Industrial Zone", "Opposite Factory"));
             c5.getCrime().add("Robbery: Jewelry store heist");
             criminals.add(c5);
+            c5.updateDangerLevel();
 
             Criminal c6 = new Criminal("Youssef Ali", new Location("Aswan", "City Center", "Market Street", "Near River"));
             c6.getCrime().add("Terrorism: Bomb threat in a subway");
             c6.getCrime().add("Terrorism: Investigation of a terror cell");
             c6.getCrime().add("Terrorism: Attempted sabotage of power plant");
             criminals.add(c6);
+            c6.updateDangerLevel();
 
             Criminal c7 = new Criminal("Omar Farouk", new Location("Cairo", "Nasr City", "Tech Park", "Next to IT Plaza"));
             c7.getCrime().add("Cybercrime: Ransomware attack on a company");
@@ -168,7 +174,8 @@ public class Main { // Main class
             c7.getCrime().add("Cybercrime: Unauthorized access to financial records");
             c7.getCrime().add("Cybercrime: Distributed denial-of-service attack");
             criminals.add(c7);
-        }
+            c7.updateDangerLevel();
+        }*/
 
 
         // Welcome message
