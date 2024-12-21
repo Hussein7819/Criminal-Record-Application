@@ -9,6 +9,7 @@ public class DirSetup {
         static String Departments = DIRECTORY + "Departments/";
         static String Cases = DIRECTORY + "Cases/";
         static String Criminals = DIRECTORY + "Criminals/";
+        static String OfficerAuthentication = DIRECTORY + "OffAuth/";
 
         public static void setupDirectory() {
             Create_folder(DIRECTORY);
@@ -17,6 +18,7 @@ public class DirSetup {
             Create_folder(Departments);
             Create_folder(Cases);
             Create_folder(Criminals);
+            Create_folder(OfficerAuthentication);
             System.out.println("Directories setup completed.");
         }
 

@@ -17,7 +17,7 @@ public class Main { // Main class
         Scanner input = new Scanner(System.in);
 
         // Read the existing data from the directories into the lists
-        FileReader.readAll(departments, officers, criminals);
+        FileReader.readAll(departments, officers, criminals, Authentication);
         Department.numofdepartments = departments.size();
         Criminal.numOfCriminals = criminals.size();
         Officer.officerNum = officers.size();
@@ -193,7 +193,7 @@ public class Main { // Main class
 
 
         // Save all data before exiting
-        FileSaver.saveAll(departments, officers, criminals);
+        FileSaver.saveAll(departments, officers, criminals, Authentication);
 
     }
 }

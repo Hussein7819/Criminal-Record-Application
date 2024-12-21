@@ -3,6 +3,7 @@ package com.example.criminalrecordproject;
 import com.example.criminalrecordproject.Model.Officer;
 import com.example.criminalrecordproject.Model.Criminal;
 import com.example.criminalrecordproject.Model.Case;
+import com.example.criminalrecordproject.Model.OfficerAuthentication;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class FileReader {
     }
 
     // Method to read all data (Departments, Officers, and Criminals) and return them in their respective lists
-    public static void readAll(List<Department> departments, List<Officer> officers, List<Criminal> criminals) {
+    public static void readAll(List<Department> departments, List<Officer> officers, List<Criminal> criminals, List<OfficerAuthentication> Authentication) {
+
         // Read Departments
         List<Object> departmentObjects = readObjectsFromDirectory(DirSetup.Departments);
         for (Object obj : departmentObjects) {
@@ -55,6 +57,14 @@ public class FileReader {
         for (Object obj : criminalObjects) {
             if (obj instanceof Criminal) {
                 criminals.add((Criminal) obj);
+            }
+        }
+
+        //Read off Auth
+        List<Object> OfficerAuthObjects = readObjectsFromDirectory(DirSetup.OfficerAuthentication);
+        for (Object obj : OfficerAuthObjects) {
+            if (obj instanceof OfficerAuthentication) {
+                Authentication.add((OfficerAuthentication) obj);
             }
         }
     }

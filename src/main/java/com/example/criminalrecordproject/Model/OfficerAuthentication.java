@@ -1,8 +1,12 @@
 package com.example.criminalrecordproject.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class OfficerAuthentication {
+public class OfficerAuthentication implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+
     protected ArrayList<String> officers_ID;
     protected String case_ID;
 

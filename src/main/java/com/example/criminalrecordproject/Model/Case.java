@@ -160,7 +160,7 @@ public class Case implements Serializable {
     {
        // return "No detailed report available for this case.";
         return "Report Description: " + caseReport.getReportDescription() +
-                "\nWitnesses: " + caseReport.getWitnesses() +
+                "\nWitnesses: " + caseReport.getwitnessData(caseReport) +
                 "\nSuspects: " + caseReport.getSuspects() +
                 "\nEvidence: " + caseReport.getEvidence();
     }
