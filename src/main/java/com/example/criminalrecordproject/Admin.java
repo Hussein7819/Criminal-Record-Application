@@ -92,105 +92,161 @@ public class Admin extends user
         }
     }
 
-    private static void addDepartment(Scanner input, ArrayList<Department> departments)
-    {
-
-        System.out.println("Enter Department Name:");
-        boolean x = true;
-        String deptName = "";
-        while (x)
-        {
-            boolean exist =false;
-            deptName = input.nextLine();
-            for (Department dept : departments) {
-                if (dept.getName().equals(deptName)) {
-                    System.out.println("A department with this name already exists! Please try again.");
-                    exist = true;
-                    break;
-
-                }
+    private static void addDepartment(Scanner input, ArrayList<Department> departments) {
+        try {
+            if (input == null) {
+                throw new IllegalArgumentException("Input scanner cannot be null.");
             }
 
-            if (!exist)
+            if (departments == null) {
+                throw new IllegalArgumentException("Department list cannot be null.");
+            }
+
+            System.out.println("Enter Department Name:");
+            boolean validInput = false;
+            String deptName = "";
+
+            while (!validInput)
             {
-                System.out.println("A Department is Added successfully.");
-                x= false;
+                deptName = input.nextLine().trim();
+                if (deptName.isEmpty())
+                {
+                    System.out.println("Department name cannot be empty! Please try again.");
+                    continue;
+                }
 
+                boolean exists = false;
+                for (Department dept : departments)
+                {
+                    if (dept.getName().equalsIgnoreCase(deptName))
+                    {
+                        System.out.println("A department with this name already exists! Please try again.");
+                        exists = true;
+                        break;
+                    }
+                }
 
+                if (!exists)
+                {
+                    validInput = true;
+                }
             }
 
-        }
-        System.out.println("Enter Date of Activation:");
-        String activationDate = input.nextLine();
+            System.out.println("Enter Date of Activation:");
+            String activationDate = input.nextLine().trim();
+            if (activationDate.isEmpty())
+            {
+                throw new IllegalArgumentException("Activation date cannot be empty.");
+            }
 
-        departments.add(new Department(deptName, activationDate));
-        System.out.println("Department added successfully!");
+            departments.add(new Department(deptName, activationDate));
+            System.out.println("Department added successfully!");
+        } catch (IllegalArgumentException e)
+        {
+            System.out.println("Input error: " + e.getMessage());
+        } catch (Exception e)
+        {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
+        }
     }
 
-    private static void addOfficers(ArrayList<Officer> officers, ArrayList<Department> departments) {
-        Scanner input = new Scanner(System.in);
+    private static void addOfficers(ArrayList<Officer> officers, ArrayList<Department> departments)
+    {
+        try {
+            if (officers == null) {
+                throw new IllegalArgumentException("Officer list cannot be null.");
+            }
 
-        System.out.println("Enter Officer Name:");
-        String officerName = input.nextLine();
+            if (departments == null || departments.isEmpty()) {
+                throw new IllegalArgumentException("No departments available. Cannot add officers.");
+            }
 
-        System.out.println("Enter Officer Age:");
-        int officerAge = input.nextInt();
-        input.nextLine();  // Consume newline left-over
+            Scanner input = new Scanner(System.in);
 
-        System.out.println("Enter Officer Salary:");
-        int officerSalary = input.nextInt();
-        input.nextLine();  // Consume newline left-over
+            System.out.println("Enter Officer Name:");
+            String officerName = input.nextLine().trim();
+            if (officerName.isEmpty()) {
+                throw new IllegalArgumentException("Officer name cannot be empty.");
+            }
 
-        System.out.println("Enter Officer Username:");
-        String officerUsername = input.nextLine();
+            System.out.println("Enter Officer Age:");
+            if (!input.hasNextInt()) {
+                throw new IllegalArgumentException("Officer age must be a valid number.");
+            }
+            int officerAge = input.nextInt();
+            input.nextLine();
 
-        // Check if the username already exists
-        boolean usernameExists = false;
-        do {
-            usernameExists = false;
-            for (Officer off : officers) {
-                if (off.getOfficerUsername().equals(officerUsername)) {
-                    System.out.println("Officer Username already exists! Please try again:");
-                    officerUsername = input.nextLine();
-                    usernameExists = true;
+            System.out.println("Enter Officer Salary:");
+            if (!input.hasNextInt()) {
+                throw new IllegalArgumentException("Officer salary must be a valid number.");
+            }
+            int officerSalary = input.nextInt();
+            input.nextLine();
+
+            System.out.println("Enter Officer Username:");
+            String officerUsername = input.nextLine().trim();
+            if (officerUsername.isEmpty()) {
+                throw new IllegalArgumentException("Officer username cannot be empty.");
+            }
+
+
+            boolean usernameExists = false;
+            do {
+                usernameExists = false;
+                for (Officer off : officers) {
+                    if (off.getOfficerUsername().equalsIgnoreCase(officerUsername)) {
+                        System.out.println("Officer username already exists! Please try again:");
+                        officerUsername = input.nextLine().trim();
+                        usernameExists = true;
+                        break;
+                    }
+                }
+            } while (usernameExists);
+
+            System.out.println("Enter Officer Password:");
+            String officerPassword = input.nextLine().trim();
+            if (officerPassword.isEmpty()) {
+                throw new IllegalArgumentException("Officer password cannot be empty.");
+            }
+
+            System.out.println("Enter Department ID to assign the Officer to:");
+            for (Department department : departments) {
+                System.out.println("Department ID: " + department.getDepartmentID());
+            }
+
+
+            String departmentID = input.nextLine().trim();
+            if (departmentID.isEmpty()) {
+                throw new IllegalArgumentException("Department ID cannot be empty.");
+            }
+
+
+            Department selectedDepartment = null;
+            for (Department department : departments) {
+                if (department.getDepartmentID().equalsIgnoreCase(departmentID)) {
+                    selectedDepartment = department;
                     break;
                 }
             }
-        } while (usernameExists);
 
-        System.out.println("Enter Officer Password:");
-        String officerPassword = input.nextLine();
-
-        // Prompt to assign Officer to a Department by ID
-        System.out.println("Enter Department ID to assign the Officer to:");
-        for (Department department : departments) {
-            System.out.println("Department ID: " + department.getDepartmentID());
-        }
-
-        // Get the department ID from the user
-        String departmentID = input.nextLine();
-
-        // Find the department by ID
-        Department selectedDepartment = null;
-        for (Department department : departments) {
-            if (department.getDepartmentID().equals(departmentID)) {
-                selectedDepartment = department;
-                break;
+            if (selectedDepartment == null) {
+                throw new IllegalArgumentException("Department ID not found.");
             }
+
+
+            Officer newOfficer = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword, departmentID);
+            officers.add(newOfficer);
+
+            System.out.println("Officer added successfully and assigned to the department.");
+        } catch (IllegalArgumentException e)
+        {
+            System.out.println("Input error: " + e.getMessage());
+        } catch (Exception e)
+        {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
-
-        // If the department is not found
-        if (selectedDepartment == null) {
-            System.out.println("Department ID not found. Officer not added.");
-            return;
-        }
-
-        // Create new officer and assign the department
-        Officer newOfficer = new Officer(officerName, officerAge, officerSalary, officerUsername, officerPassword, departmentID);
-        officers.add(newOfficer);
-
-        System.out.println("Officer added successfully and assigned to the department" );
     }
+
 
 
 

@@ -2,7 +2,8 @@ package com.example.criminalrecordproject.Model;
 
 import java.io.Serializable;
 
-public class Victim extends Case implements Serializable {
+public class Victim extends Case implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 

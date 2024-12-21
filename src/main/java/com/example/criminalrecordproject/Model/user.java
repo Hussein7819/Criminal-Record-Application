@@ -4,6 +4,7 @@ import com.example.criminalrecordproject.Admin;
 import com.example.criminalrecordproject.Department;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -132,129 +133,178 @@ public class user {
     }
 
     protected static void addCasesToDepartment(Scanner input, ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
-        Department targetDepartment = null;
-        System.out.println("Enter Department ID to assign cases: ");
-        String assignDeptID = input.nextLine();
+        try {
+            System.out.println("Enter Department ID to assign cases: ");
+            String assignDeptID = input.nextLine();
 
-        // Find the target department
-        for (Department dept : departments) {
-            if (dept.getDepartmentID().equals(assignDeptID)) {
-                targetDepartment = dept;
-                break;
+            Department targetDepartment = null;
+            for (Department dept : departments)
+            {
+                if (dept.getDepartmentID().equals(assignDeptID))
+                {
+                    targetDepartment = dept;
+                    break;
+                }
             }
-        }
 
-        // If department not found, exit
-        if (targetDepartment == null) {
-            System.out.println("Department not found!");
-            return;
-        }
+            if (targetDepartment == null)
+            {
+                throw new IllegalArgumentException("Department not found!");
+            }
 
-        System.out.println("How many cases would you like to add?");
-        int numCases = input.nextInt();
-        input.nextLine(); // consume newline
-        ArrayList<String>crimes =new ArrayList<>();
+            System.out.println("How many cases would you like to add?");
+            int numCases = input.nextInt();
+            input.nextLine();
 
-        for (int i = 0; i < numCases; i++) {
-            System.out.println("Enter details for case " + (i + 1));
+            if (numCases <= 0)
+            {
+                throw new IllegalArgumentException("Number of cases must be positive.");
+            }
 
-            System.out.println("Enter Case Date:");
-            String startDate = input.nextLine();
+            ArrayList<String> crimes = new ArrayList<>();
+            for (int i = 0; i < numCases; i++)
+            {
+                System.out.println("Enter details for case " + (i + 1));
 
-            System.out.println("Enter Crime Type:(format crime type:describe the situation)");
-            String crimeType = input.nextLine();
-            crimes.add(crimeType);
+                System.out.println("Enter Case Date:");
+                String startDate = input.nextLine();
 
-            // Collect report details for the new case
-            System.out.println("Enter Case Report Description:");
-            String reportDescription = input.nextLine();
+                if (startDate.isEmpty())
+                {
+                    throw new IllegalArgumentException("Start Date cannot be empty!");
+                }
 
-            System.out.println("Enter Witness data:");
-            System.out.println("Name");
-            String witnessname = input.nextLine();
-            System.out.println("Phone number :");
-            String witnessesnumber = input.nextLine();
+                System.out.println("Enter Crime Type:(format crime type:describe the situation)");
+                String crimeType = input.nextLine();
 
-            System.out.println("Enter Suspects:");
-            String suspects = input.nextLine();
+                if (crimeType.isEmpty())
+                {
+                    throw new IllegalArgumentException("Crime Type cannot be empty!");
+                }
 
-            System.out.println("Enter Evidence:");
-            String evidence = input.nextLine();
+                crimes.add(crimeType);
 
-            // Create the case with the details
-            Report caseReport = new Report(reportDescription, new Witness(witnessname,witnessesnumber), suspects, evidence);
-            Case newCase = new Case("New case for " + crimeType, startDate, crimeType, targetDepartment, caseReport);
+                System.out.println("Enter Case Report Description:");
+                String reportDescription = input.nextLine();
 
+                if (reportDescription.isEmpty())
+                {
+                    throw new IllegalArgumentException("Report Description cannot be empty!");
+                }
 
-            // Prompt for Criminal assignments
-            System.out.println("How many criminals would you like to assign to this case?");
-            int numCriminals = input.nextInt();
-            input.nextLine(); // consume newline
+                System.out.println("Enter Witness data:");
+                System.out.println("Name:");
+                String witnessName = input.nextLine();
+                if (witnessName.isEmpty()) {
+                    throw new IllegalArgumentException("Witness Name cannot be empty!");
+                }
 
-            for (int k = 0; k < numCriminals; k++) {
-                System.out.println("Enter Criminal ID to assign to this case:");
-                String criminalID = input.nextLine();
+                System.out.println("Phone number:");
+                String witnessNumber = input.nextLine();
 
-                // Find criminal by ID
-                Criminal criminal = null;
-                for (Criminal tempCriminal : criminals) {
-                    if (tempCriminal.getCriminalID().equals(criminalID)) {
-                        criminal = tempCriminal;
-                        break;
+                if (witnessNumber.isEmpty()) {
+                    throw new IllegalArgumentException("Witness Phone Number cannot be empty!");
+                }
+
+                System.out.println("Enter Suspects:");
+                String suspects = input.nextLine();
+
+                System.out.println("Enter Evidence:");
+                String evidence = input.nextLine();
+
+                Report caseReport = new Report(reportDescription, new Witness(witnessName, witnessNumber), suspects, evidence);
+                Case newCase = new Case("New case for " + crimeType, startDate, crimeType, targetDepartment, caseReport);
+
+                System.out.println("How many criminals would you like to assign to this case?");
+                int numCriminals = input.nextInt();
+                input.nextLine();
+
+                if (numCriminals < 0) {
+                    throw new IllegalArgumentException("The number of criminals cannot be negative.");
+                }
+
+                for (int k = 0; k < numCriminals; k++)
+                {
+                    System.out.println("Enter Criminal ID to assign to this case:");
+                    String criminalID = input.nextLine();
+                    Criminal criminal = null;
+
+                    for (Criminal tempCriminal : criminals)
+                    {
+                        if (tempCriminal.getCriminalID().equals(criminalID))
+                        {
+                            criminal = tempCriminal;
+                            break;
+                        }
                     }
+
+                    if (criminal == null)
+                    {
+                        System.out.println("Criminal not found. Creating a new one.");
+                        System.out.println("Enter Criminal Name:");
+                        String criminalName = input.nextLine();
+
+                        if (criminalName.isEmpty()) {
+                            throw new IllegalArgumentException("Criminal Name cannot be empty!");
+                        }
+
+                        System.out.println("Enter Criminal Address:");
+                        System.out.println("City:");
+                        String city = input.nextLine();
+
+                        if (city.isEmpty()) {
+                            throw new IllegalArgumentException("City cannot be empty!");
+                        }
+
+                        System.out.println("District:");
+                        String district = input.nextLine();
+                        System.out.println("Street:");
+                        String street = input.nextLine();
+                        System.out.println("Area description:");
+                        String area = input.nextLine();
+                        Location loc = new Location(city, district, street, area);
+
+                        System.out.println("Enter Danger Level (Low, Moderate, High, Very High):");
+                        String dangerLevel = input.nextLine();
+
+                        if (dangerLevel.isEmpty()) {
+                            throw new IllegalArgumentException("Danger Level cannot be empty!");
+                        }
+
+                        criminal = new Criminal(criminalName, loc, dangerLevel, crimes);
+                        criminals.add(criminal);
+                        crimes = new ArrayList<>();
+                    }
+                    newCase.addCriminal(criminal);
                 }
 
-                // If criminal is not found, create a new one and add it to the list
-                if (criminal == null) {
-                    System.out.println("Criminal not found with ID: " + criminalID + ". Creating new criminal.");
-
-                    System.out.println("Enter Criminal Name:");
-                    String criminalName = input.nextLine();
-
-                    System.out.println("Enter Criminal Address:(City, District, Street, Area description)");
-                    System.out.println("City:");
-                    String city = input.nextLine();
-                    System.out.println("District:");
-                    String district=input.nextLine();
-                    System.out.println("Street:");
-                    String street=input.nextLine();
-                    System.out.println("Area description:");
-                    String area=input.nextLine();
-                    Location loc= new Location(city,district,street,area);
-
-                    System.out.println("Enter Danger Level (e.g.,Low, Moderate, High, Very High):");
-                    String dangerLevel = input.nextLine();
-
-
-
-                    criminal = new Criminal(criminalName,loc, dangerLevel,crimes);
-
-                    criminals.add(criminal); // Add the new criminal to the list
-                    System.out.println("New criminal added: " + criminalName);
-                    crimes=new ArrayList<>();
-                }
-
-                newCase.addCriminal(criminal); // Add criminal to case
+                targetDepartment.addCase(newCase);
+                System.out.println("Case added successfully to department " + targetDepartment.getDepartmentID());
             }
-
-            // Add the case to the department
-            targetDepartment.addCase(newCase);
-
-            System.out.println("Case added to department " + targetDepartment.getDepartmentID());
+        } catch (InputMismatchException e)
+        {
+            System.out.println("Invalid input. Please enter the correct data type.");
+            input.nextLine();
+        } catch (IllegalArgumentException e)
+        {
+            System.out.println(e.getMessage());
+        } catch (Exception e)
+        {
+            System.out.println("An unexpected error occurred: " + e.getMessage());
         }
     }
 
-
     protected static void displayDepartments(ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications, ArrayList<Officer> officers) {
         try {
-            if (departments == null || departments.isEmpty()) {
-                System.out.println("No departments to display.");
-                return;
+            if (departments == null || departments.isEmpty())
+            {
+                throw new IllegalArgumentException("No departments to display.");
             }
 
             int departmentIndex = 1;
-            // Loop through each department
-            for (Department dept : departments) {
+
+            for (Department dept : departments)
+            {
                 System.out.println("_______________________________________________________________________________________");
                 System.out.println("Department " + departmentIndex + ":");
                 System.out.println("\tID: " + dept.getDepartmentID());
@@ -262,15 +312,16 @@ public class user {
                 System.out.println("\tDate of Activation: " + dept.getDateOfActivation());
                 System.out.println("\tCases assigned to this department:");
 
-                // Loop through each case in the department
-                for (Case c : dept.getCases()) {
-                    // Display case details
+
+                for (Case c : dept.getCases())
+                {
+
                     System.out.println("\tCase ID: " + c.getCaseID() +
                             ", Description: " + c.getDescription() +
                             ", Start Date: " + c.getStartDate() +
                             ", Crime Type: " + c.getCrimeType());
 
-                    // Display case report details
+
                     Report caseReport = c.getCaseReport();
                     System.out.println("\t\tReport Details:");
                     System.out.println("\t\t\tDescription: " + caseReport.getReportDescription());
@@ -278,9 +329,10 @@ public class user {
                     System.out.println("\t\t\tSuspects: " + caseReport.getSuspects());
                     System.out.println("\t\t\tEvidence: " + caseReport.getEvidence());
 
-                    // Display criminals assigned to the case
+
                     System.out.println("\t\tCriminals assigned to this case:");
-                    for (Criminal criminal : c.criminals) {
+                    for (Criminal criminal : c.criminals)
+                    {
                         System.out.println("\t\t\t" + criminal.getName() + " (" + criminal.getCriminalID() + ")");
                     }
 
@@ -315,8 +367,8 @@ public class user {
         try {
             if (officers == null || officers.isEmpty())
             {
-                System.out.println("No officers to display.");
-                return;
+                throw new IllegalArgumentException("No officers to display.");
+
             }
             int officerIndex = 1;
             for (Officer officer : officers)
@@ -341,24 +393,33 @@ public class user {
     }
 
     protected static void displayCase(ArrayList<Department> departments, ArrayList<Officer> officers, ArrayList<OfficerAuthentication> Authentications, String Off_ID) {
-        try {
+        try
+        {
             boolean officerFound = false;
             boolean caseFound = false;
 
-            // Check if the officer exists
-            for (Officer officer : officers) {
-                if (officer.getOfficerID().equals(Off_ID)) {
+            if (Off_ID == null || Off_ID.trim().isEmpty()) {
+                throw new IllegalArgumentException("Officer ID cannot be null or empty.");
+            }
+
+            for (Officer officer : officers)
+            {
+                if (officer.getOfficerID().equals(Off_ID))
+                {
                     officerFound = true;
 
-                    // Loop through officer authentications to find cases assigned to the officer
-                    for (OfficerAuthentication auth : Authentications) {
-                        if (auth.getOfficers_ID().contains(Off_ID)) {
+                    for (OfficerAuthentication auth : Authentications)
+                    {
+                        if (auth.getOfficers_ID().contains(Off_ID))
+                        {
                             caseFound = true;
 
-                            // Find the case in the relevant department
-                            for (Department department : departments) {
-                                for (Case c : department.getCases()) {
-                                    if (c.getCaseID().equals(auth.getCase_ID())) {
+                            for (Department department : departments)
+                            {
+                                for (Case c : department.getCases())
+                                {
+                                    if (c.getCaseID().equals(auth.getCase_ID()))
+                                    {
                                         System.out.println("\tCase ID: " + c.getCaseID() +
                                                 ", Description: " + c.getDescription() +
                                                 ", Crime Type: " + c.getCrimeType());
@@ -372,31 +433,42 @@ public class user {
                 }
             }
 
-            if (!officerFound) {
-                System.out.println("Officer ID not found.");
-            } else if (!caseFound) {
-                System.out.println("No cases assigned to this officer.");
+            if (!officerFound)
+            {
+                throw new IllegalArgumentException("Officer ID not found.");
+            } else if (!caseFound)
+            {
+                throw new IllegalArgumentException("No cases assigned to this officer.");
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("An error occurred while displaying cases: " + e.getMessage());
         }
     }
 
-    protected static void DeleteDepartments(ArrayList<Department> departments) {
-        if (departments.isEmpty()) {
-            System.out.println("No departments available to delete.");
-            return;
-        }
+    protected static void DeleteDepartments(ArrayList<Department> departments)
+    {
+        try
+        {
+            if (departments == null || departments.isEmpty())
+            {
+                throw new IllegalArgumentException("No departments available to delete.");
+            }
 
-        Scanner d1 = new Scanner(System.in);
-        System.out.println("Please enter the Department ID you want to delete:");
-
-        try {
+            Scanner d1 = new Scanner(System.in);
+            System.out.println("Please enter the Department ID you want to delete:");
             String deleteID = d1.nextLine();
-            boolean departmentFound = false;
 
-            for (int i = 0; i < departments.size(); i++) {
-                if (departments.get(i).getDepartmentID().equals(deleteID)) {
+            if (deleteID == null || deleteID.trim().isEmpty())
+            {
+                throw new IllegalArgumentException("Department ID cannot be null or empty.");
+            }
+
+            boolean departmentFound = false;
+            for (int i = 0; i < departments.size(); i++)
+            {
+                if (departments.get(i).getDepartmentID().equals(deleteID))
+                {
                     departments.remove(i);
                     departmentFound = true;
                     System.out.println("Department with ID '" + deleteID + "' has been deleted.");
@@ -404,44 +476,57 @@ public class user {
                 }
             }
 
-            if (!departmentFound) {
-                System.out.println("Department with ID '" + deleteID + "' not found.");
+            if (!departmentFound)
+            {
+                throw new IllegalArgumentException("Department with ID '" + deleteID + "' not found.");
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("An error occurred while attempting to delete the department: " + e.getMessage());
         }
     }
-
 
     public static void Deleteofficers(ArrayList<Officer> officers, ArrayList<Department> departments,ArrayList<OfficerAuthentication> Authentications) {
         Scanner d1 = new Scanner(System.in);
         boolean exist = false;
         do {
-            try {
+            try
+            {
                 System.out.println("Please Enter the Officer ID you want to remove:");
                 String deleteID = d1.nextLine();
+
+                if (deleteID == null || deleteID.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Officer ID cannot be null or empty.");
+                }
+
                 Officer officerToRemove = null;
 
-                // Find the officer by ID
-                for (Officer officer : officers) {
-                    if (deleteID.equals(officer.getOfficerID())) {
+
+                for (Officer officer : officers)
+                {
+                    if (deleteID.equals(officer.getOfficerID()))
+                    {
                         officerToRemove = officer;
                         break;
                     }
                 }
-                for (OfficerAuthentication authentication : Authentications) {
-                    if(authentication.getOfficers_ID().contains(deleteID)){
+                for (OfficerAuthentication authentication : Authentications)
+                {
+                    if(authentication.getOfficers_ID().contains(deleteID))
+                    {
                         authentication.getOfficers_ID().remove(deleteID);
                     }
                 }
 
-                if (officerToRemove != null) {
-                    // Remove the officer from all assigned cases
-                    for (Department department : departments) {
-                        for (Case c : department.getCases()) {
-                            // Check if the officer is assigned to this case
-                            if (c.getOfficer().contains(officerToRemove.getOfficerID())) {
-                                c.getOfficer().remove(officerToRemove.getOfficerID()); // Remove officer from the case
+                if (officerToRemove != null)
+                {
+                    for (Department department : departments)
+                    {
+                        for (Case c : department.getCases())
+                        {
+                            if (c.getOfficer().contains(officerToRemove.getOfficerID()))
+                            {
+                                c.getOfficer().remove(officerToRemove.getOfficerID());
                                 System.out.println("Officer removed from Case ID: " + c.getCaseID());
                             }
                         }
@@ -450,11 +535,13 @@ public class user {
                     System.out.println("Officer removed from all assigned cases successfully.");
                     exist = true;
                     break;
-                } else {
-                    throw new Exception("Officer ID not found.");
+                } else
+                {
+                    throw new IllegalArgumentException("Officer ID not found.");
                 }
 
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.out.println("Error: " + e.getMessage() + " Please try again.");
             }
         } while (!exist);
@@ -466,11 +553,18 @@ public class user {
     {
         Scanner d1 = new Scanner(System.in);
         boolean caseFound = false;
-        do {
+        do
+        {
 
-            try {
+            try
+            {
                 System.out.println("Please Enter the Case ID you want to delete");
                String deleteID = d1.nextLine();
+
+                if (deleteID == null || deleteID.trim().isEmpty()) {
+                    throw new IllegalArgumentException("Case ID cannot be null or empty.");
+                }
+
                 for (Department department : departments)
                 {
                     for (int i = 0; i < department.getCases().size(); i++)
@@ -484,69 +578,102 @@ public class user {
                         }
                     }
                 }
-                if (!caseFound) {
-
-                    throw new Exception("Case not found.");
+                if (!caseFound)
+                {
+                    throw new IllegalArgumentException("Case not found.");
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 System.out.println("The Case Does not exist Please Try again. ");
             }
 
         } while (!caseFound);
     }
 
-    protected void AssignOfficers(
-            ArrayList<Officer> officers,
-            ArrayList<Department> departments,
-            ArrayList<OfficerAuthentication> Authentications
-    ) {
+    protected void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications)
+    {
         try {
+
+            if (officers == null || officers.isEmpty()) {
+                throw new IllegalArgumentException("Officer list cannot be null or empty.");
+            }
+
+            if (departments == null || departments.isEmpty()) {
+                throw new IllegalArgumentException("Department list cannot be null or empty.");
+            }
+
+            if (Authentications == null) {
+                throw new IllegalArgumentException("Authentication list cannot be null.");
+            }
+
+
+
             Scanner d1 = new Scanner(System.in);
             System.out.println("Please Enter the Officer ID you want to assign:");
             String assign_Officer = d1.nextLine().trim();
 
+            if (assign_Officer.isEmpty()) {
+                throw new IllegalArgumentException("Officer ID cannot be empty.");
+            }
+
             System.out.println("Please Enter the Case ID you want to assign:");
             String assign_Case = d1.nextLine().trim();
+
+            if (assign_Case.isEmpty()) {
+                throw new IllegalArgumentException("Case ID cannot be empty.");
+            }
 
             boolean officerFound = false;
             boolean caseFound = false;
 
-            // Logging officer IDs
             System.out.println("Logging officer IDs:");
-            for (Officer officer : officers) {
+            for (Officer officer : officers)
+            {
                 System.out.println("Officer ID: " + officer.getOfficerID());
             }
 
             Officer officer = OfficerAuthentication.findOfficerByID(assign_Officer, officers);
-            if (officer == null) {
-                System.out.println("Officer ID not found.");
-                return;
+            if (officer == null)
+            {
+                throw new IllegalArgumentException("Officer ID not found.");
+
             }
 
-            // Retrieve the officer's assigned department
             String assignedDepartmentID = officer.getAssignedDepartment();
+
+            if (assignedDepartmentID == null || assignedDepartmentID.trim().isEmpty()) {
+                throw new IllegalStateException("Officer does not have an assigned department.");
+            }
+
             System.out.println("Officer's Assigned Department: " + assignedDepartmentID);
 
-            // Loop through all departments to find the officer's assigned department
-            for (Department department : departments) {
-                if (department.getDepartmentID().equals(assignedDepartmentID)) {
+
+            for (Department department : departments)
+            {
+                if (department.getDepartmentID().equals(assignedDepartmentID))
+                {
                     System.out.println("Found the officer's department: " + department.getDepartmentID());
 
-                    // Check if the entered Case ID exists in the department's cases
-                    for (Case c : department.getCases()) {
+                    for (Case c : department.getCases())
+                    {
                         System.out.println("Checking case: " + c.getCaseID());
-                        if (assign_Case.equals(c.getCaseID())) {
+                        if (assign_Case.equals(c.getCaseID()))
+                        {
                             caseFound = true;
                             System.out.println("Case found: " + c.getCaseID());
 
-                            // Check if the officer is already assigned to this case
                             boolean alreadyAssigned = false;
-                            for (OfficerAuthentication auth : Authentications) {
-                                if (auth.getCase_ID().equals(assign_Case)) {
-                                    if (!auth.getOfficers_ID().contains(assign_Officer)) {
+                            for (OfficerAuthentication auth : Authentications)
+                            {
+                                if (auth.getCase_ID().equals(assign_Case))
+                                {
+                                    if (!auth.getOfficers_ID().contains(assign_Officer))
+                                    {
                                         System.out.println("Assigning officer " + assign_Officer + " to case " + assign_Case);
-                                        auth.getOfficers_ID().add(assign_Officer);  // Add the officer to the case
-                                    } else {
+                                        auth.getOfficers_ID().add(assign_Officer);
+                                    }
+                                    else
+                                    {
                                         alreadyAssigned = true;
                                         System.out.println("Officer is already assigned to this case.");
                                     }
@@ -554,15 +681,16 @@ public class user {
                                 }
                             }
 
-                            // If no authentication exists for the case, create a new one
-                            if (!alreadyAssigned) {
+
+                            if (!alreadyAssigned)
+                            {
                                 System.out.println("Creating new OfficerAuthentication for case " + assign_Case);
                                 OfficerAuthentication assign = new OfficerAuthentication(assign_Case, new ArrayList<>());
-                                assign.getOfficers_ID().add(assign_Officer);  // Add officer to case
+                                assign.getOfficers_ID().add(assign_Officer);
                                 Authentications.add(assign);
                             }
 
-                            // Success message
+
                             System.out.println("Officer assigned successfully to case " + assign_Case + "!");
                             return;
                         }
@@ -570,10 +698,12 @@ public class user {
                 }
             }
 
-            if (!caseFound) {
-                System.out.println("Case ID not found or does not match the officer's assigned department.");
+            if (!caseFound)
+            {
+                throw new IllegalArgumentException("Case ID not found or does not match the officer's assigned department.");
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("An error occurred while assigning officers: " + e.getMessage());
         }
     }
@@ -581,30 +711,36 @@ public class user {
 
     protected static void DisplayCriminals(ArrayList<Criminal> criminals) {
         try {
-            if (criminals == null || criminals.isEmpty()) {
-                System.out.println("No criminals to display.");
-                return;
+            if (criminals == null || criminals.isEmpty())
+            {
+                throw new IllegalArgumentException("No criminals to display.");
             }
             int i = 1;
-            for (Criminal c : criminals) {
+            for (Criminal c : criminals)
+            {
                 System.out.println("Criminal #" + i++ + ":");
                 System.out.println("  ID: " + c.getCriminalID());
                 System.out.println("  Name: " + c.getName());
                 System.out.println("  Address: " + c.getAddress());
                 System.out.println("  Danger Level: " + c.getDangerLevel());
 
-                // Display associated crimes
-                if (c.getCrime() == null || c.getCrime().isEmpty()) {
+
+                if (c.getCrime() == null || c.getCrime().isEmpty())
+                {
                     System.out.println("  Crimes: None");
-                } else {
+                }
+                else
+                {
                     System.out.println("  Crimes:");
-                    for (int x = 0; x < c.getCrime().size(); x++) {
+                    for (int x = 0; x < c.getCrime().size(); x++)
+                    {
                         System.out.println("    " + (x + 1) + ". " + c.getCrime().get(x));
                     }
                 }
                 System.out.println("---------------------------------------------------");
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             System.out.println("An error occurred while displaying criminals: " + e.getMessage());
         }
     }
