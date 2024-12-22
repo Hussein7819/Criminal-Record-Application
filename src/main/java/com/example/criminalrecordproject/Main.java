@@ -28,7 +28,7 @@ public class Main { // Main class
         // Pre-existing departments and cases (only if no existing data is found)
         if (departments.isEmpty()) {
             // Homicide Department
-            Department homicide = new Department("Homicide", "20/11/2024");
+            Department homicide = new Department("Homicide", "20/11");
             departments.add(homicide);
 
             Officer homicideOfficer = new Officer("Ali Ahmed", 27, 10000, "Ali_Officer1", "Ali1", "D0");
@@ -38,14 +38,14 @@ public class Main { // Main class
             homicideCriminal.getCrime().add("Robbery: Breaking and entering a warehouse");
             criminals.add(homicideCriminal);
 
-            Case homicideCase = new Case("Murder investigation in downtown", "20/12/2024", "Murder", homicide,
+            Case homicideCase = new Case("Murder investigation in downtown", "20/12", "Murder", homicide,
                     new Report("Murder investigation in downtown", new Witness("John Doe", "01131526985"), "None", "\"Bloody knife, fingerprints\""));
             homicideCase.addOfficer(homicideOfficer);
             homicideCase.addCriminal(homicideCriminal);
             homicide.addCase(homicideCase);
 
             // Cybercrime Department
-            Department cybercrime = new Department("Cybercrime", "21/11/2024");
+            Department cybercrime = new Department("Cybercrime", "21/11");
             departments.add(cybercrime);
 
             Officer cybercrimeOfficer = new Officer("Hassan Khalid", 30, 15000, "Hassan_Officer3", "Hassan3", "D2");
@@ -55,14 +55,14 @@ public class Main { // Main class
             cybercrimeCriminal.getCrime().add("Cybercrime: Ransomware attack on a company");
             criminals.add(cybercrimeCriminal);
 
-            Case cybercrimeCase = new Case("Ransomware attack on a company", "30/11/2024", "Cybercrime", cybercrime,
+            Case cybercrimeCase = new Case("Ransomware attack on a company", "30/11", "Cybercrime", cybercrime,
                     new Report("Ransomware attack on a company", new Witness("Jane Smith","01112535654"), "Anonymous", "Encrypted files, ransom note"));
             cybercrimeCase.addOfficer(cybercrimeOfficer);
             cybercrimeCase.addCriminal(cybercrimeCriminal);
             cybercrime.addCase(cybercrimeCase);
 
             // Forensics Department
-            Department forensics = new Department("Forensics", "22/11/2024");
+            Department forensics = new Department("Forensics", "22/11");
             departments.add(forensics);
 
             Officer forensicsOfficer = new Officer("Youssef Ehab", 33, 18000, "Youssef_Officer5", "Youssef5", "D4");
@@ -72,14 +72,14 @@ public class Main { // Main class
             forensicsCriminal.getCrime().add("Forensics: Tampering with evidence");
             criminals.add(forensicsCriminal);
 
-            Case forensicsCase = new Case("DNA matching for suspects", "25/11/2024", "Forensics", forensics,
+            Case forensicsCase = new Case("DNA matching for suspects", "25/11", "Forensics", forensics,
                     new Report("DNA matching for suspects", new Witness("Detective X","01185426648"), "Suspect Z", "DNA samples, evidence logs"));
             forensicsCase.addOfficer(forensicsOfficer);
             forensicsCase.addCriminal(forensicsCriminal);
             forensics.addCase(forensicsCase);
 
             // Terrorism Department
-            Department terrorism = new Department("Terrorism", "23/11/2024");
+            Department terrorism = new Department("Terrorism", "23/11");
             departments.add(terrorism);
 
             Officer terrorismOfficer = new Officer("Omar Hassan", 45, 25000, "Omar_Officer4", "Omar4", "D3");
@@ -89,14 +89,14 @@ public class Main { // Main class
             terrorismCriminal.getCrime().add("Terrorism: Bomb threat in a subway");
             criminals.add(terrorismCriminal);
 
-            Case terrorismCase = new Case("Bomb threat in a subway", "26/11/2024", "Terrorism", terrorism,
+            Case terrorismCase = new Case("Bomb threat in a subway", "26/11", "Terrorism", terrorism,
                     new Report("Bomb threat in a subway", new Witness("Ali sayed","01115476459"), "Terrorist Group X", "Explosives residue, CCTV footage"));
             terrorismCase.addOfficer(terrorismOfficer);
             terrorismCase.addCriminal(terrorismCriminal);
             terrorism.addCase(terrorismCase);
 
             // Robbery Department
-            Department robbery = new Department("Robbery", "24/11/2024");
+            Department robbery = new Department("Robbery", "24/11");
             departments.add(robbery);
 
             Officer robberyOfficer = new Officer("Ahmed Mohamed", 38, 20000, "Ahmed_Officer2", "Ahmed2", "D1");
@@ -106,7 +106,7 @@ public class Main { // Main class
             robberyCriminal.getCrime().add("Robbery: Jewelry store heist");
             criminals.add(robberyCriminal);
 
-            Case robberyCase = new Case("Bank heist in downtown", "27/11/2024", "Robbery", robbery,
+            Case robberyCase = new Case("Bank heist in downtown", "27/11", "Robbery", robbery,
                     new Report("Bank heist in downtown", new Witness("Security Guard", "01115426455"), "Masked Robbers", "CCTV footage, dropped wallet"));
             robberyCase.addOfficer(robberyOfficer);
             robberyCase.addCriminal(robberyCriminal);

@@ -12,13 +12,14 @@ public class Location implements Serializable
     private String DiscriptionOfArea;
 
 
-    public Location(String city, String district, String Street, String DiscriptionOfArea)
-    {
+    public Location(String city, String district, String street, String descriptionOfArea) {
+        if (city == null || district == null || street == null || descriptionOfArea == null) {
+            throw new IllegalArgumentException("All fields must be provided.");
+        }
         this.city = city;
         this.district = district;
-        this.street = Street;
-        this.DiscriptionOfArea = DiscriptionOfArea;
-
+        this.street = street;
+        this.DiscriptionOfArea = descriptionOfArea;
     }
 
     public String getFullLocation()

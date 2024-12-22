@@ -15,7 +15,6 @@ public class Case implements Serializable {
     private int caseId;
     private String description;
     private String startDate;
-    private String lastUpdateDate;
     private String crimeType;
     private ArrayList<String> assignedOfficers;
     protected ArrayList<Criminal> criminals;
@@ -32,18 +31,8 @@ public class Case implements Serializable {
 
     protected ArrayList<Victim> victims;
 
-      public Case(String description, String startDate, String crimeType, Department dept) {
-          this.caseId = (dept.deptNo * 100) + dept.numofcasesAssigned++;
-          this.description = description;
-          this.startDate = startDate;
-          this.crimeType = crimeType;
-          this.assignedOfficers = new ArrayList<String>();
-          this.assignedDept = dept.departmentID;       //Dept ID
-          this.victims = new ArrayList<>();
-          this.caseReport = new Report("No Description yet", new Witness(null,null), "No suspects yet", "no evidence yet");
-      }
 
-      public Case(String description, String startDate, String crimeType, Department dept, Report caseReport) //used only in main
+      public Case(String description, String startDate, String crimeType, Department dept, Report caseReport)
      {
         this.caseId = (dept.deptNo*100)+ dept.numofcasesAssigned++;
         this.description = description;
@@ -52,32 +41,10 @@ public class Case implements Serializable {
         this.assignedOfficers = new ArrayList<String>();
         this.criminals = new ArrayList<>();
         this.assignedDept=dept.departmentID;       //Dept ID
-        this.victims = new ArrayList<>();
         this.caseReport= new Report(caseReport.getReportDescription(),caseReport.getWitnesses(), caseReport.getSuspects(), caseReport.getEvidence());
 
         numoftotalcases++;
         this.caseIndex= numoftotalcases;
-    }
-
-    // New constructor that also accepts officers and criminals
-    public Case(String description, String startDate, String crimeType, Department dept,
-                ArrayList<Officer> officers, ArrayList<Criminal> criminals) {
-        this.caseId = (dept.deptNo * 100) + dept.numofcasesAssigned++;
-        this.description = description;
-        this.startDate = startDate;
-        this.crimeType = crimeType;
-        this.assignedOfficers = new ArrayList<String>();
-        this.criminals = criminals != null ? criminals : new ArrayList<>();
-        this.assignedDept = dept.departmentID;       // Dept ID
-        this.victims = new ArrayList<>();
-        this.caseReport = new Report("No Description yet", new Witness(null,null), "No suspects yet", "no evidence yet");
-
-        // Assign officers to the case
-        if (officers != null) {
-            for (Officer officer : officers) {
-                this.assignedOfficers.add(officer.getOfficerUsername());
-            }
-        }
     }
 
 
@@ -115,15 +82,6 @@ public class Case implements Serializable {
         return startDate;
     }
 
-    public String getLastUpdateDate()
-    {
-        return lastUpdateDate;
-    }
-
-    public void setLastUpdateDate(String lastUpdateDate)
-    {
-        this.lastUpdateDate = lastUpdateDate;
-    }
 
     public ArrayList<String> getOfficer()
     {
@@ -138,12 +96,7 @@ public class Case implements Serializable {
             System.out.println("Criminal already added or invalid.");
         }
     }
-    public ArrayList<Victim> getVictim(){
-        return victims;
-    }
-    public void AddVictim(Victim victim){
-        victims.add(victim);
-    }
+
     public void setAssignedOfficers(String off){
         this.assignedOfficers.add(off);
     }

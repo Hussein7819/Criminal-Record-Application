@@ -38,10 +38,6 @@ public class Department implements Serializable {
         return dateOfActivation;
     }
 
-    public String getDetails() {
-        return "ID: " + departmentID + ", Name: " + name + ", Active since: " + dateOfActivation;
-    }
-
 
     public void addCase(Case newCase) {
         cases.add(newCase);
@@ -53,10 +49,6 @@ public class Department implements Serializable {
 
     public ArrayList<Case> getCases() {
         return cases;
-    }
-
-    public void addOfficer(Officer officer) {
-        officers.add(officer);
     }
 
     public ArrayList<Officer> getOfficer() {

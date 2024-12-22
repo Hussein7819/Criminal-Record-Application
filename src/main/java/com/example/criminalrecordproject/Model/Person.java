@@ -31,8 +31,5 @@ abstract public class Person implements Serializable {
     }
 
 
-    protected void changename(String name) //admin modifying names function
-    {
-        this.name = name;
-    }
+
 }
