@@ -5,11 +5,12 @@ import com.example.criminalrecordproject.Department;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Report implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    public String Date;
     public static int reportID=0;
     private String reportDescription;
     private String suspects;
@@ -19,6 +20,7 @@ public class Report implements Serializable {
     // Constructor for Report with Case ID
     public Report(/*int caseId,*/ String reportDescription, Witness passed_witness, String suspects, String evidence  /*String crimeType-- already in case*/) {
         // super(caseId); // Calls the partial Case constructor
+        this.Date = String.valueOf(new Date());
         this.reportID = ++reportID;
         this.reportDescription = reportDescription;
         this.witnesses = passed_witness;
@@ -77,6 +79,10 @@ public class Report implements Serializable {
     public void setEvidence(String evidence)
     {
         this.evidence = evidence;
+    }
+
+    public String getDate() {
+        return Date;
     }
 
     public String getReport()

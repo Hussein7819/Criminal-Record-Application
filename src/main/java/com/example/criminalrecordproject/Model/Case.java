@@ -115,7 +115,8 @@ public class Case implements Serializable {
         return "Report Description: " + caseReport.getReportDescription() +
                 "\nWitnesses: " + caseReport.getwitnessData(caseReport) +
                 "\nSuspects: " + caseReport.getSuspects() +
-                "\nEvidence: " + caseReport.getEvidence();
+                "\nEvidence: " + caseReport.getEvidence()+
+                "\nDate of last update: "+ caseReport.Date;
     }
 
 

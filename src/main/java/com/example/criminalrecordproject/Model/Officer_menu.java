@@ -3,6 +3,7 @@ package com.example.criminalrecordproject.Model;
 import com.example.criminalrecordproject.Department;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -169,7 +170,10 @@ public class Officer_menu extends user {
                         c.getCaseReport().setSuspects(suspects);
                         c.getCaseReport().setEvidence(evidence);
 
+                        c.getCaseReport().Date = String.valueOf(new Date());
+
                         System.out.println("Report updated successfully.");
+                        System.out.println("Date of update: " + c.getCaseReport().Date);
                         return; // Exit after updating
                     }
                 }

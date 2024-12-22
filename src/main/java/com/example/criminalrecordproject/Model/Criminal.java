@@ -56,6 +56,10 @@ public class Criminal extends Person implements Serializable {
         return address != null ? address.toString() : "Address not available";
     }
 
+    public void setAddress(Location address) {
+        this.address = address;
+    }
+
     // Getter for name
     public String getName() {
         return name;

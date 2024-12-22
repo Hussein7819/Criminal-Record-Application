@@ -34,7 +34,8 @@ public class Admin extends user
                 System.out.println("8- display officers");
                 System.out.println("9-Display Criminals");
                 System.out.println("10-Delete departments");
-                System.out.println("11- Exit");
+                System.out.println("11- Update criminals");
+                System.out.println("12- Exit");
 
 
                 int choice = input.nextInt();
@@ -75,7 +76,10 @@ public class Admin extends user
                                     case 10:
                                         DeleteDepartments(departments);
                                         break;
-                    case 11:
+
+                       case 11:
+
+                           case 12:
                         System.out.println("Exiting...");
                         user u;
                         return;
