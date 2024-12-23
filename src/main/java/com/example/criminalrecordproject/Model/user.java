@@ -525,30 +525,6 @@ public class user {
 
     }
 
-    public void UpdateCriminal(ArrayList<Criminal> criminals){
-        char X = 'N';
-        Scanner hisID = new Scanner(System.in);
-
-        System.out.println("Which criminal do you want to update: ");
-        String ID = hisID.nextLine();
-        for(Criminal c: criminals)
-        {
-            if(c.getCriminalID().equals(ID))
-            {
-                System.out.println("Enter Criminal Address you want to update : ");
-                System.out.println("Enter city: ");
-                String City = hisID.nextLine();
-                System.out.println("Enter District: ");
-                String District = hisID.nextLine();
-                System.out.println("Enter Street");
-                String Street = hisID.nextLine();
-                System.out.println("Enter description of area");
-                String AreaDescription = hisID.nextLine();
-                Location NewAddress = new Location(City,District,Street,AreaDescription);
-                c.setAddress(NewAddress);
-            }
-        }
-    }
 
 
     protected void AssignOfficers(ArrayList<Officer> officers, ArrayList<Department> departments, ArrayList<OfficerAuthentication> Authentications) {
