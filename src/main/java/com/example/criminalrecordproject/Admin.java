@@ -61,7 +61,7 @@ public class Admin extends user
                         case 6:
                         DeleteCase(departments);
                         break;
-                    case 7:
+                       case 7:
                         addOfficers(officers,departments);
                         break;
                         case 8:
@@ -74,7 +74,9 @@ public class Admin extends user
                                         DeleteDepartments(departments);
                                         break;
 
-                       case 11:
+                               case 11:
+                            UpdateCriminal(criminals);
+                            break;
 
                            case 12:
                         System.out.println("Exiting...");
@@ -252,6 +254,12 @@ public class Admin extends user
         char X = 'N';
         Scanner hisID = new Scanner(System.in);
 
+        System.out.println("Criminals list: ");
+        System.out.println("-------------------------------");
+        for(Criminal c :criminals)
+        {
+            System.out.println("ID: "+ c.ID);
+        }
         System.out.println("Which criminal do you want to update: ");
         String ID = hisID.nextLine();
         for(Criminal c: criminals)
@@ -269,8 +277,12 @@ public class Admin extends user
                 String AreaDescription = hisID.nextLine();
                 Location NewAddress = new Location(City,District,Street,AreaDescription);
                 c.setAddress(NewAddress);
+                System.out.println("Criminal address Updated successfully!");
+                return;
             }
+
         }
+        System.out.println("Officer not found");
     }
 
 
